@@ -1,0 +1,76 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-image: linear-gradient(to bottom right, darkblue, red);
+}
+
+nav {
+    background-color: white; /* Dark background for the nav bar */
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Ensures nav is above other content */
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    display: inline-block;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: #5e1898;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+nav ul li a:hover {
+    color: #fc4424;
+}
+
+section {
+    padding: 20px;
+    margin-top: 60px; /* Adds space for the fixed navbar */
+    background-color: #fff; /* White background for content */
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 900px; /* Optional: max-width for better readability */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+footer {
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 20px;
+    background-color: white;
+    color: white;
+    clear: both; /* Clears floated elements */
+    width: 100%;
+}
+
+footer p {
+    color: #5e1898;
+}
+button {
+    padding: 5px 10px;
+    background-color: #5e1898; /* Consistent with login/signup */
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #fc4424; /* Hover effect */
+}

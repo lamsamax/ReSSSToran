@@ -1,0 +1,83 @@
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+.background {
+    background-image: linear-gradient(to bottom right, darkblue, red);
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 450px;
+    max-width: 90%;
+}
+
+form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Creates two columns */
+    gap: 10px;
+    width: 100%;
+}
+
+.input-container, .password-wrapper {
+    grid-column: 1 / -1; /* Makes each container span all columns */
+    display: flex;
+    align-items: center;
+}
+
+.input-container label, .password-wrapper label {
+    flex: 1;
+    font-size: 16px;
+    color: #5e1898;
+}
+
+.input-container input, .password-wrapper input {
+    flex: 3; /* Gives more space to the input than the label */
+    height: 40px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Ensures padding and border are included in the width */
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper i {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+}
+
+.button-container {
+    grid-column: 1 / -1; /* Ensures the button spans all columns */
+    display: flex;
+    justify-content: center; /* Centers the button */
+    margin-top: 10px; /* Adds space above the button */
+}
+
+button {
+    width: 100%; /* Full width */
+    height: 40px;
+    padding: 10px;
+    border: none;
+    background-color: #5e1898;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #fc4424;
+    color: white;
+}
