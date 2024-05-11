@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -11,7 +11,7 @@
 <body>
 <nav>
     <ul>
-        <li><a href="index.html">Home</a></li>
+        <li><a href="home.html">Home</a></li>
         <li><a href="menu.html">Menu</a></li>
         <li><a href="checkout.html">Checkout</a></li>
     </ul>
@@ -19,9 +19,28 @@
 
 <section class="order-status">
     <h1>Your Current Order</h1>
-    <p>Order is being processed...</p>
-    <p>Delivery Option: <span id="delivery-type"></span></p>
-    <p>Payment Method: <span id="payment-method-display"></span></p>
+    <form id="orderStatusForm">
+        <div>
+            <input type="checkbox" id="accepted" name="order_status" value="accepted">
+            <label for="accepted"><b><strong>ACCEPTED</strong></b></label>
+        </div>
+        <div>
+            <input type="checkbox" id="inMaking" name="order_status" value="inMaking">
+            <label for="inMaking"><b><strong>IN MAKING</strong></b></label>
+        </div>
+        <div>
+            <input type="checkbox" id="done" name="order_status" value="done">
+            <label for="done"><b><strong>DONE</strong></b></label>
+        </div>
+        <div>
+            <input type="checkbox" id="inDelivery" name="order_status" value="inDelivery">
+            <label for="inDelivery"><b><strong>IN DELIVERY</strong></b></label>
+        </div>
+        <div>
+            <input type="checkbox" id="delivered" name="order_status" value="delivered">
+            <label for="delivered"><b><strong>DELIVERED</strong></b></label>
+        </div>
+    </form>
 </section>
 
 <footer>

@@ -41,7 +41,7 @@ nav ul li a:hover {
 
 section {
     padding: 20px;
-    margin-top: 60px; /* Ensures space from fixed nav */
+    margin-top: 60px;
     background-color: #fff;
     border: none;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -52,7 +52,7 @@ section {
 
 .order-summary {
     width: 20%;
-    min-height: 100px; /* Start with a reasonable minimum height */
+    min-height: 250px;
     position: fixed;
     top: 60px;
     right: 60px;
@@ -88,9 +88,9 @@ footer p {
 }
 
 .item-image {
-    width: 100px; /* Size as needed */
-    height: 100px; /* Maintain aspect ratio */
-    object-fit: cover; /* Ensures the image covers the specified area */
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
     margin-right: 20px;
 }
 
