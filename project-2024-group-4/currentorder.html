@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="currentorderstyle.css">
+    <title>Current Order</title>
+</head>
+<body>
+<nav>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="checkout.html">Checkout</a></li>
+    </ul>
+</nav>
+
+<section class="order-status">
+    <h1>Your Current Order</h1>
+    <p>Order is being processed...</p>
+    <p>Delivery Option: <span id="delivery-type"></span></p>
+    <p>Payment Method: <span id="payment-method-display"></span></p>
+</section>
+
+<footer>
+    <p>© 2024 ReSSSTaurant. All rights reserved.</p>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('delivery-type').textContent = localStorage.getItem('deliveryOption');
+        document.getElementById('payment-method-display').textContent = localStorage.getItem('paymentMethod');
+    });
+</script>
+
+</body>
+</html>

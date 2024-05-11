@@ -350,17 +350,53 @@
 
 <div class="order-summary">
     <h1>YOUR ORDER</h1>
-    <p>Margherita - 6KM</p>
-    <p>Hamburger - 4.5KM</p>
-    <p><strong>TOTAL - 10.5KM</strong></p>
+    <p class="total"><strong>TOTAL - 0KM</strong></p>
     <button onclick="location.href='checkout.html'">Go to Checkout</button>
 </div>
+
 
 <footer>
     <p>© 2024 ReSSSTaurant. All rights reserved.</p>
 </footer>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        updateTotal();
+    });
+
+    function addToBag(itemElement) {
+        var itemName = itemElement.querySelector('p').textContent.split(' - ')[0];
+        var itemPrice = parseFloat(itemElement.querySelector('p').textContent.split(' - ')[1].replace('KM', ''));
+
+        var orderItem = document.createElement('p');
+        orderItem.textContent = itemName + ' - ' + itemPrice + 'KM';
+        document.querySelector('.order-summary').insertBefore(orderItem, document.querySelector('.total'));
+
+        updateTotal();
+    }
+
+    function updateTotal() {
+        var total = 0;
+        document.querySelectorAll('.order-summary p:not(.total)').forEach(function(item) {
+            var price = parseFloat(item.textContent.split(' - ')[1].replace('KM', ''));
+            total += price;
+        });
+
+        var totalElement = document.querySelector('.total');
+        totalElement.textContent = 'TOTAL - ' + total.toFixed(2) + 'KM';
+        localStorage.setItem('orderDetails', document.querySelector('.order-summary').innerHTML);
+    }
+
+    document.querySelectorAll('.item button').forEach(function(button) {
+        button.addEventListener('click', function() {
+            addToBag(button.parentElement);
+        });
+    });
+</script>
 </body>
 </html>
+
+
+
 
 
 
