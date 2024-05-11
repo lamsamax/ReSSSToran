@@ -6,22 +6,21 @@ body, html {
 }
 
 .home-button {
-    position: fixed;  /* Fixed position */
-    top: 5px;        /* 10px from the top */
-    left: 10px;       /* 10px from the left */
+    position: fixed;
+    top: 5px;
+    left: 10px;
     padding: 5px 10px;
-    background-color: #5e1898; /* Primary color */
+    background-color: #5e1898;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    z-index: 1500;    /* High z-index to ensure it's on top */
+    z-index: 1500;
 }
 
 .home-button:hover {
-    background-color: #fc4424; /* Color change on hover */
+    background-color: #fc4424;
 }
-
 
 nav {
     background-color: white;
@@ -80,6 +79,7 @@ section {
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+    max-height: calc(100vh - 120px);
 }
 
 
@@ -114,7 +114,39 @@ footer p {
 
 .item-details {
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    position: relative;
 }
+
+.item-name, .item-description {
+    margin: 5px 0;
+}
+
+.item-description {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.item-details p {
+    margin-bottom: 10px;
+}
+
+.delete-btn {
+    padding: 3px 6px;
+    margin-left: 10px;
+    background-color: #cc0000;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    background-color: #ff1a1a;
+}
+
 
 button {
     padding: 5px 10px;
@@ -122,6 +154,19 @@ button {
     color: white;
     border: none;
     cursor: pointer;
+    align-self: flex-end;
+}
+
+.item-details button:not(.checkout) {
+    position: absolute;
+    right: 15px;
+    bottom: 25px;
+    margin: 0;
+}
+
+
+.checkout {
+    align-self: center;
 }
 
 button:hover {
@@ -142,5 +187,10 @@ button:hover {
     section {
         padding: 20px 10px;
         max-width: 70%;
+    }
+}
+@media screen and (max-width: 600px) {
+    body{
+        font-size: 70%;
     }
 }
