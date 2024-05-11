@@ -1,0 +1,21 @@
+* {box-sizing:border-box}
+
+/* Slideshow container */
+.slideshow-container {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+    left: 62%;
+    transform: translateX(-50%);
+    top: 60%;
+}
+
+/* Hide the images by default */
+.mySlides {
+    display: none;
+}
+
+@keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+}

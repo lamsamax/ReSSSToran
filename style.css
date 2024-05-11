@@ -1,0 +1,240 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #734A65;
+}
+
+#grad {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-image: linear-gradient(to bottom right, darkblue, red);
+    margin: 0;
+    padding: 0;
+    z-index: -1;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 27%;
+    transform: translateX(-50%);
+    height: 100vh;
+    width: 200px;
+    background-color: rgba(115, 74, 101, 0.8);
+    padding: 20px;
+}
+
+.header h1 {
+    font-family: 'Amatic SC', cursive;
+    font-size: 65px;
+    font-weight: bold;
+    margin-top: 30px;
+    color: whitesmoke;
+    text-align: center;
+}
+.header h2 {
+    font-family: "Rage Italic", cursive;
+    margin-top: 50px;
+    color: whitesmoke;
+    text-align: center;
+}
+.sidebar-content {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+}
+
+.sidebar-content p {
+    color: white;
+    padding: 10px;
+    text-align: center;
+    max-width: 80%;
+}
+
+.main-content {
+    margin-left: 200px;
+    padding: 20px;
+}
+
+.buttons {
+    left: 20%;
+    transform: translateX(17%);
+    text-align: center;
+    margin-top: 10px;
+}
+
+.buttons button {
+    background-color: #734A65;
+    color: white;
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.buttons button:hover {
+    background-color: indianred;
+}
+
+.image {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.image img {
+    max-width: 100%;
+}
+
+body {
+    background-color: #734A65;
+}
+
+#title-Tag-Line {
+    font-size: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 10px;
+}
+
+.form {
+    background: #734A65;
+    border-radius: 20px;
+    max-width: 1300px;
+    margin: 20px auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    position: absolute;
+    top: 20%;
+    left: 62%;
+    transform: translateX(-50%);
+    border-top: 10px solid #734A65;
+    width: calc(100% - 800px);
+
+}
+
+.formEntry {
+    background-color: #ffffff;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+    color: #333;
+    width: calc(100% - 50px);
+    display: block;
+}
+
+.pageTitle {
+    color: white;
+    font-size: 2em;
+    font-weight: bold;
+    margin: 0 auto 5px 20px;
+}
+
+.secondaryTitle {
+    color: papayawhip;
+    margin: 0 auto 5px 20px;
+}
+
+.submit {
+    background-color: #5e1898;
+    color: white;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+    width: calc(100% - 50px);
+    display: block;
+
+}
+
+.submit:hover {
+    background-color: #fc4424;
+}
+
+.slideshow-container {
+    max-width: 1000px;
+    width: 90%;
+    position: absolute;
+    top: 60%;
+    left: 78%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    height: auto;
+    z-index: 2;
+}
+
+.mySlides {
+    display: none;
+    width: 100%;
+    height: auto;
+}
+/* Next & previous buttons */
+.prev, .next {
+    cursor: pointer;
+    position: fixed;
+    top: 50%; /* Centers vertically */
+    transform: translateY(-50%); /* Aligns the button precisely at the middle */
+    width: auto;
+    padding: 10px; /* Reduced padding size */
+    color: white;
+    font-weight: bold;
+    font-size: 16px; /* Slightly smaller font size */
+    transition: 0.6s ease;
+    user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+    right: 30%;
+    border-radius: 3px 0 0 3px;
+}
+
+/* Position the "previous button" to the left */
+.prev {
+    left: 0;
+    border-radius: 0 3px 3px 0;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
+}
+
+/* Caption text */
+.text {
+    color: #f2f2f2;
+    font-size: 15px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+/* Fading animation */
+.fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+}
