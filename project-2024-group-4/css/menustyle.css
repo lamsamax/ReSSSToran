@@ -5,6 +5,24 @@ body, html {
     background-image: linear-gradient(to bottom right, darkblue, red);
 }
 
+.home-button {
+    position: fixed;  /* Fixed position */
+    top: 5px;        /* 10px from the top */
+    left: 10px;       /* 10px from the left */
+    padding: 5px 10px;
+    background-color: #5e1898; /* Primary color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1500;    /* High z-index to ensure it's on top */
+}
+
+.home-button:hover {
+    background-color: #fc4424; /* Color change on hover */
+}
+
+
 nav {
     background-color: white;
     color: white;
@@ -108,4 +126,21 @@ button {
 
 button:hover {
     background-color: #fc4424;
+}
+ @media screen and (max-width: 768px) {
+    .order-summary {
+        position: static;
+        width: auto;
+        margin-top: 20px;
+        right: 0;
+        left: 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 15px;
+        justify-content: center;
+    }
+
+    section {
+        padding: 20px 10px;
+        max-width: 70%;
+    }
 }

@@ -19,6 +19,44 @@ body, html {
     margin-top: 10px;
 }
 
+nav {
+    background-color: white;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+nav ul {
+    list-style: none;
+    padding: 10px;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+nav ul li a {
+    background-color: #734A65;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+nav ul li a:hover {
+    background-color: indianred;
+}
+
 label {
     margin-right: 10px;
 }
@@ -61,3 +99,26 @@ button:hover {
     background-color: #fc4424;
 }
 
+@media screen and (max-width: 480px) {
+    body {
+        font-size: 70%;
+    }
+}
+
+@media (max-width: 768px) {
+    nav ul {
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: space-around;
+    }
+
+    nav ul li {
+        margin: 5px 10px;
+        flex: 1 0 21%;
+    }
+
+    nav ul li a {
+        padding: 10px 10px;
+        text-align: center;
+    }
+}
