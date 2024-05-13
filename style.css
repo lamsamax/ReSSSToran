@@ -19,12 +19,12 @@ body {
 .sidebar {
     position: fixed;
     top: 0;
-    left: 27%;
-    transform: translateX(-50%);
+    left: 19%;
     height: 100vh;
-    width: 200px;
+    width: 300px;
     background-color: rgba(115, 74, 101, 0.8);
     padding: 20px;
+    box-sizing: border-box;
 }
 
 .header h1 {
@@ -46,26 +46,23 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 70vh;
+    height: 50vh;
 }
 
 .sidebar-content p {
     color: white;
     padding: 10px;
     text-align: center;
-    max-width: 80%;
-}
-
-.main-content {
-    margin-left: 200px;
-    padding: 20px;
+    max-width: 90%;
 }
 
 .buttons {
-    left: 20%;
-    transform: translateX(17%);
-    text-align: center;
-    margin-top: 10px;
+    background-color: white;
+    position: fixed;
+    top: 10px;
+    right: 0;
+    text-align: right;
+    width: 100%;
 }
 
 .buttons button {
@@ -88,11 +85,55 @@ body {
 }
 
 .image img {
-    max-width: 100%;
+    max-width: 80%;
 }
 
-body {
-    background-color: #734A65;
+@media only screen and (max-width: 600px) {
+    .image img {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: -2;
+    }
+
+    .header h1, .header h2 {
+        font-size: 30px;
+    }
+
+    .sidebar {
+        left: 0;
+        width: 100vw;
+        background-color: rgba(115, 74, 101, 0.9);
+    }
+
+    .sidebar-content {
+        flex-direction: column;
+        height: auto;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+    }
+
+    .sidebar-content p {
+        max-width: 100%;
+        text-align: center;
+        padding: 5px;
+    }
+
+    .buttons {
+        top: auto;
+    bottom: 10px;
+    left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+    }
+
+    .buttons button {
+        width: 100%;
+    margin: 5px 0;
+    }
 }
 
 #title-Tag-Line {
@@ -111,8 +152,7 @@ body {
     padding-bottom: 20px;
     position: absolute;
     top: 20%;
-    left: 62%;
-    transform: translateX(-50%);
+    left: 42%;
     border-top: 10px solid #734A65;
     width: calc(100% - 800px);
 
@@ -125,7 +165,7 @@ body {
     margin-left: auto;
     margin-right: auto;
     border-radius: 5px;
-    color: #333;
+    color: white;
     width: calc(100% - 50px);
     display: block;
 }
@@ -138,7 +178,7 @@ body {
 }
 
 .secondaryTitle {
-    color: papayawhip;
+    color: white;
     margin: 0 auto 5px 20px;
 }
 
@@ -160,11 +200,11 @@ body {
 }
 
 .slideshow-container {
-    max-width: 1000px;
+    max-width: 880px;
     width: 90%;
     position: absolute;
     top: 60%;
-    left: 78%;
+    left: 71%;
     transform: translate(-50%, -50%);
     margin: 0;
     height: auto;
@@ -176,50 +216,35 @@ body {
     width: 100%;
     height: auto;
 }
-/* Next & previous buttons */
+
 .prev, .next {
     cursor: pointer;
     position: fixed;
-    top: 50%; /* Centers vertically */
-    transform: translateY(-50%); /* Aligns the button precisely at the middle */
+    top: 50%;
+    transform: translateY(-50%);
     width: auto;
-    padding: 10px; /* Reduced padding size */
+    padding: 10px;
     color: white;
     font-weight: bold;
-    font-size: 16px; /* Slightly smaller font size */
+    font-size: 16px;
     transition: 0.6s ease;
     user-select: none;
 }
 
-/* Position the "next button" to the right */
 .next {
     right: 30%;
     border-radius: 3px 0 0 3px;
 }
 
-/* Position the "previous button" to the left */
 .prev {
     left: 0;
     border-radius: 0 3px 3px 0;
 }
 
-/* On hover, add a black background color with a little bit see-through */
 .prev:hover, .next:hover {
     background-color: rgba(0,0,0,0.8);
 }
 
-/* Caption text */
-.text {
-    color: #f2f2f2;
-    font-size: 15px;
-    padding: 8px 12px;
-    position: absolute;
-    bottom: 8px;
-    width: 100%;
-    text-align: center;
-}
-
-/* Number text (1/3 etc) */
 .numbertext {
     color: #f2f2f2;
     font-size: 12px;
@@ -228,13 +253,98 @@ body {
     top: 0;
 }
 
-/* Fading animation */
-.fade {
-    animation-name: fade;
-    animation-duration: 1.5s;
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-@keyframes fade {
-    from {opacity: .4}
-    to {opacity: 1}
+.form-field {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+input[type="text"], input[type="tel"] {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+}
+
+.edit-btn {
+    background-color: rebeccapurple;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rebeccapurple;
+    margin: 5% auto;
+    padding: 20px;
+    width: 50%;
+}
+
+.close {
+    align-self: flex-end;
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover, .close:focus {
+    color: rebeccapurple;
+    text-decoration: none;
+}
+
+.form-field {
+    width: 100%;
+    margin-top: 10px;
+}
+
+label {
+    text-align: left;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+input[type="text"], input[type="tel"] {
+    width: 95%;
+    padding: 8px;
+    font-size: 16px;
+    border: 2px solid white;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.edit-btn {
+    width: auto;
+    padding: 10px 20px;
+    margin-top: 20px;
 }
