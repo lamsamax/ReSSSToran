@@ -96,3 +96,23 @@ button:hover {
         max-width: 70%;
     }
 }
+
+@media screen and (max-width: 360px){
+    .container {
+        max-width: 95%;
+        padding: 10px;
+    }
+
+    .input-container input, .password-wrapper input {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    .input-container label, .password-wrapper label {
+        font-size: 12px;
+    }
+
+    .button-container button {
+        padding: 8px;
+    }
+}
