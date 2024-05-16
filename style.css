@@ -124,15 +124,15 @@ body {
 
     .buttons {
         top: auto;
-    bottom: 10px;
-    left: 50%;
+        bottom: 10px;
+        left: 50%;
         transform: translateX(-50%);
         width: 100%;
     }
 
     .buttons button {
         width: 100%;
-    margin: 5px 0;
+        margin: 5px 0;
     }
 }
 
