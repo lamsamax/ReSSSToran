@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="grad">
+    <div class="sidebar">
+        <div class="header">
+            <h1>ReSSSToran</h1>
+            <h2>Edit Profile</h2>
+        </div>
+        <form class="profile-form">
+            <div class="form-field">
+                <label for="username">Username</label>
+                <input type="text" id="username">
+            </div>
+            <div class="form-field">
+                <label for="telephone">Telephone</label>
+                <input type="tel" id="telephone">
+            </div>
+            <div class="form-field">
+                <label for="location">Location</label>
+                <input type="text" id="location">
+            </div>
+            <button type="button" id="editProfileBtn" class="edit-btn">Edit Profile</button>
+        </form>
+    </div>
+    <div class="buttons">
+        <button onclick="window.location.href='index.html'">Home</button>
+        <button onclick="window.location.href='menu.html'">Menu</button>
+        <button onclick="window.location.href='gallery.html'">Gallery</button>
+        <button onclick="window.location.href='contact.html'">Contact</button>
+        <button onclick="window.location.href='profile.html'">Profile</button>
+    </div>
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form>
+                <label for="location">Location:</label>
+                <input type="text" id="newlocation" name="location">
+                <button type="submit">Save Changes</button>
+            </form>
+        </div>
+    </div>
+    <div class="wrapper">
+        <div class="form">
+            <button type="button" class="submit formEntry" onclick="location.href='history1.php';">Active orders</button>
+            <button type="button" class="submit formEntry" onclick="location.href='history2.php';">Previous orders</button>
+            <button type="button" class="submit formEntry" onclick="location.href='history3.php';">My reviews</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Get the modal
+    var modal = document.getElementById("editModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("editProfileBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+</body>
+</html>
