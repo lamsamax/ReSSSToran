@@ -23,12 +23,12 @@
         <li><a href="#soups">Soups</a></li>
         <li><a href="#pizzas">Pizzas</a></li>
         <li><a href="#daily-offers">Daily offers</a></li>
-        <li><a href="#beverages">Beverages</a></li>
-        <li><a href="#coffees">Coffees</a></li>
+        <li><a href="#cold-beverages">Beverages</a></li>
+        <li><a href="#hot-beverages">Coffees</a></li>
     </ul>
 </nav>
 
-<section>
+<section id="breakfast">
     <h1>Breakfast</h1>
     <div class="item">
         <img src="../images/toast.jpg" alt="Toast" class="item-image">

@@ -47,3 +47,7 @@
 </script>
 </body>
 </html>
+
+<?php
+phpinfo();
+?>
