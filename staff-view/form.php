@@ -10,9 +10,9 @@ $dob = '';
 $role = '';
 $isAdmin = '';
 
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-    $sql = "SELECT * FROM CUSTOMER WHERE userID = ?";
+if (isset($_GET['customerID'])) {
+    $id = $_GET['customerID'];
+    $sql = "SELECT * FROM CUSTOMER WHERE customerID = ?";
     $stmt = $dbc->prepare($sql);
     $stmt->bind_param("i", $id);
     $stmt->execute();
@@ -58,9 +58,9 @@ if (isset($_GET['id'])) {
     <br>
     <label for="role">Role:</label>
     <select name="role" id="role" required>
-        <option value="staff" <?php echo ($role == 'staff') ? 'selected' : ''; ?>>Staff</option>
+        <option value="professor" <?php echo ($role == 'professor') ? 'selected' : ''; ?>>Professor</option>
         <option value="admin" <?php echo ($role == 'admin') ? 'selected' : ''; ?>>Admin</option>
-        <option value="customer" <?php echo ($role == 'customer') ? 'selected' : ''; ?>>Customer</option>
+        <option value="student" <?php echo ($role == 'student') ? 'selected' : ''; ?>>Student</option>
     </select>
     <br>
     <label for="isAdmin">Is Admin:</label>

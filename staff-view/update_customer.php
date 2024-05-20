@@ -8,12 +8,12 @@ $name = $_POST['name'];
 $surname = $_POST['surname'];
 $dob = $_POST['dob'];
 $email = $_POST['email'];
-// ENCRYPTED PASSWORD
+//ENCRYPTED PASSWORD
 //$password = isset($_POST['password']) && !empty($_POST['password']) ? password_hash($_POST['password'], PASSWORD_BCRYPT) : '';
 //UNENCRYPTED
 $password = isset($_POST['password']) && !empty($_POST['password']) ? $_POST['password'] : '';
 $role = $_POST['role'];
-$isAdmin = isset($_POST['isAdmin']) ? 1 : 0;
+$isAdmin = isset($_POST['isAdmin']) ? 1 : 0; // Default to 0 if not set
 
 // Debugging output
 echo '<pre>';
@@ -37,26 +37,20 @@ if ($id) {
         }
         $stmt->bind_param("ssssssi", $name, $surname, $dob, $email, $role, $isAdmin, $id);
     }
-} else {
-    // Create user
-    $sql = "INSERT INTO CUSTOMER (name, surname, dob, mail, password, role, isAdmin) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    $stmt = $dbc->prepare($sql);
-    if (!$stmt) {
-        die("Error preparing statement: " . $dbc->error);
+
+    // Execute the statement and check for errors
+    if ($stmt->execute() === TRUE) {
+        echo "Record updated successfully";
+    } else {
+        echo "Error: " . $stmt->error;
     }
-    $stmt->bind_param("ssssssi", $name, $surname, $dob, $email, $password, $role, $isAdmin);
-}
 
-// Execute the statement and check for errors
-if ($stmt->execute() === TRUE) {
-    echo "Record updated/created successfully";
+    // Close the statement and connection
+    $stmt->close();
+    $dbc->close();
+    header("Location: users_list.php");
+    exit();
 } else {
-    echo "Error: " . $stmt->error;
+    echo "Customer ID is missing.";
 }
-
-// Close the statement and connection
-$stmt->close();
-$dbc->close();
-header("Location: users_list.php");
-exit();
 ?>
