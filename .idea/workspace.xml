@@ -5,20 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="13562ab8-d122-4ac9-8c46-c811cb4560f5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/project-2024-group-4/php/login.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project-2024-group-4/php/menu.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project-2024-group-4/css/menustyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/project-2024-group-4/css/menustyle.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project-2024-group-4/css/signupstyle.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/project-2024-group-4/html and php/checkout.php" beforeDir="false" afterPath="$PROJECT_DIR$/project-2024-group-4/php/checkout.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project-2024-group-4/html and php/currentorder.php" beforeDir="false" afterPath="$PROJECT_DIR$/project-2024-group-4/php/currentorder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project-2024-group-4/html and php/login.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/project-2024-group-4/html and php/menu.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/project-2024-group-4/html and php/review.php" beforeDir="false" afterPath="$PROJECT_DIR$/project-2024-group-4/php/review.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project-2024-group-4/html and php/signup.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/project-2024-group-4/mysqli_connect.php" beforeDir="false" afterPath="$PROJECT_DIR$/project-2024-group-4/mysqli_connect.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staff-view/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/staff-view/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project-2024-group-4/php/processorder.php" beforeDir="false" afterPath="$PROJECT_DIR$/project-2024-group-4/php/processorder.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,7 +125,7 @@
       <workItem from="1716203265842" duration="7465000" />
       <workItem from="1716220034303" duration="8476000" />
       <workItem from="1716250159100" duration="305000" />
-      <workItem from="1716284752633" duration="1748000" />
+      <workItem from="1716284752633" duration="5556000" />
     </task>
     <servers />
   </component>

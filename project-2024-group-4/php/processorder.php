@@ -28,8 +28,8 @@ try {
     $stmt = $dbc->prepare("INSERT INTO ORDERS (status, orderDate, grade, review, customer, sdeliverID, stakeID, price, paymentMethod, deliveryOption) VALUES (?, NOW(), ?, ?, ?, ?, ?, ?, ?, ?)");
     $status = 0; // Default status
     $grade = 0; // Default grade
-    $review = ''; // Default review
-    $stmt->bind_param("isisiidi", $status, $grade, $review, $customerID, $staffID, $staffID, $totalPrice, $paymentMethod, $deliveryOption);
+    $review = 'placeholder'; // Default review
+    $stmt->bind_param("iisisiiidi", $status, $grade, $review, $customerID, $staffID, $staffID, $totalPrice, $paymentMethod, $deliveryOption);
     $stmt->execute();
     $orderID = $stmt->insert_id;
     $stmt->close();
@@ -64,4 +64,4 @@ try {
 }
 
 mysqli_close($dbc);
-?>
+

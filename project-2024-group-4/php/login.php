@@ -11,12 +11,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Check in CUSTOMER table
     global $dbc;
-    $customerQuery = "SELECT * FROM CUSTOMER WHERE mail='$email' AND password='$password'";
-    $customerResult = mysqli_query($dbc, $customerQuery);
 
-    if (mysqli_num_rows($customerResult) == 1) {
-        $customer = mysqli_fetch_assoc($customerResult);
-        $_SESSION['user_id'] = $customer['userID'];
+    // Prepared statement for CUSTOMER table
+    $customerStmt = $dbc->prepare("SELECT * FROM CUSTOMER WHERE mail=? AND password=?");
+    $customerStmt->bind_param("ss", $email, $password);
+    $customerStmt->execute();
+    $customerResult = $customerStmt->get_result();
+
+    if ($customerResult->num_rows == 1) {
+        $customer = $customerResult->fetch_assoc();
+        $_SESSION['user_id'] = $customer['customerID'];
         $_SESSION['user_role'] = ($customer['isAdmin'] == 1) ? 'admin' : 'customer';
 
         if ($customer['isAdmin'] == 1) {
@@ -26,12 +30,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         exit();
     } else {
-        // Check in STAFF table
-        $staffQuery = "SELECT * FROM STAFF WHERE mail='$email' AND password='$password'";
-        $staffResult = mysqli_query($dbc, $staffQuery);
+        // Prepared statement for STAFF table
+        $staffStmt = $dbc->prepare("SELECT * FROM STAFF WHERE mail=? AND password=?");
+        $staffStmt->bind_param("ss", $email, $password);
+        $staffStmt->execute();
+        $staffResult = $staffStmt->get_result();
 
-        if (mysqli_num_rows($staffResult) == 1) {
-            $staff = mysqli_fetch_assoc($staffResult);
+        if ($staffResult->num_rows == 1) {
+            $staff = $staffResult->fetch_assoc();
             $_SESSION['user_id'] = $staff['staffID'];
             $_SESSION['user_role'] = 'staff';
 
@@ -41,6 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $error_message = "Invalid email or password";
         }
     }
+    $customerStmt->close();
+    $staffStmt->close();
     mysqli_close($dbc);
 }
 ?>
