@@ -44,7 +44,7 @@ if ($id) {
     if (!$stmt) {
         die("Error preparing statement: " . $dbc->error);
     }
-    $stmt->bind_param("ssssssi", $name, $surname, $dob, $email, $password, $role, $isAdmin);
+    $stmt->bind_param("ssssss", $name, $surname, $dob, $email, $password, $role, $isAdmin);
 }
 
 // Execute the statement and check for errors

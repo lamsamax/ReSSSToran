@@ -10,9 +10,7 @@ $result = $dbc->query($sql);
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Staff List</title>
 </head>
 <body>
@@ -43,7 +41,7 @@ $result = $dbc->query($sql);
                     <td>{$row['mail']}</td>
                     <td>{$row['password']}</td>
                     <td>
-                    <a href='edit_staff.php?staffID={$row['staffID']}'>Edit</a>
+                    <a href='staff_form.php?staffID={$row['staffID']}'>Edit</a>
                     <a href='delete_staff.php?staffID={$row['staffID']}'>Delete</a>
                     </td>
                    </tr>";
