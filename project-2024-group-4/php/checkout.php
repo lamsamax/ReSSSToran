@@ -7,22 +7,6 @@ if (!isset($_SESSION['order']) || empty($_SESSION['order'])) {
     exit;
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['place_order'])) {
-    $deliveryOption = $_POST['delivery_option'] == 'delivery' ? 1 : 0;
-    $roomID = $_POST['delivery_option'] == 'delivery' ? $_POST['room_id'] : 400;
-    $paymentMethod = $_POST['payment_method'] == 'card' ? 1 : 0;
-
-    $_SESSION['checkout'] = [
-        'deliveryOption' => $deliveryOption,
-        'roomID' => $roomID,
-        'paymentMethod' => $paymentMethod,
-        'orderDetails' => $_SESSION['order'],
-        'totalPrice' => calculateTotal()
-    ];
-    header('Location: processorder.php');
-    exit;
-}
-
 function calculateTotal() {
     $total = 0;
     foreach ($_SESSION['order'] as $item) {
@@ -66,7 +50,7 @@ function calculateTotal() {
         }
         ?>
         <p class="total"><strong>TOTAL - <?php echo calculateTotal(); ?>KM</strong></p>
-        <form method="POST">
+        <form method="POST" action="processorder.php">
             <div>
                 <label for="delivery-option">Choose delivery or takeout:</label>
                 <select id="delivery-option" name="delivery_option">
@@ -93,6 +77,7 @@ function calculateTotal() {
                     <option value="card">Card</option>
                 </select>
             </div>
+            <input type="hidden" name="total_price" value="<?php echo calculateTotal(); ?>">
             <button type="submit" name="place_order">Place Order</button>
         </form>
     </div>

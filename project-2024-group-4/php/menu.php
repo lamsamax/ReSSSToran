@@ -11,10 +11,12 @@ if (!isset($_SESSION['order'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_to_bag'])) {
+    $itemID = $_POST['item_id'];
     $itemName = $_POST['item_name'];
     $itemPrice = $_POST['item_price'];
 
     $_SESSION['order'][] = [
+        'itemID' => $itemID,
         'name' => $itemName,
         'price' => $itemPrice,
     ];
@@ -88,6 +90,7 @@ while ($category = mysqli_fetch_assoc($categories_result)) {
         echo "<p>" . $item['name'] . " - " . $item['price'] . "KM</p>";
         echo "<p class='item-description'>" . $item['description'] . "</p>";
         echo "<form method='POST'>";
+        echo "<input type='hidden' name='item_id' value='" . $item['itemID'] . "'>";
         echo "<input type='hidden' name='item_name' value='" . $item['name'] . "'>";
         echo "<input type='hidden' name='item_price' value='" . $item['price'] . "'>";
         echo "<button type='submit' name='add_to_bag'>Add to bag</button>";
