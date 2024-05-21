@@ -5,14 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="13562ab8-d122-4ac9-8c46-c811cb4560f5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/project-2024-group-4/php/login.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project-2024-group-4/php/menu.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project-2024-group-4/css/menustyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/project-2024-group-4/css/menustyle.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project-2024-group-4/css/signupstyle.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project-2024-group-4/html and php/checkout.php" beforeDir="false" afterPath="$PROJECT_DIR$/project-2024-group-4/php/checkout.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project-2024-group-4/html and php/currentorder.php" beforeDir="false" afterPath="$PROJECT_DIR$/project-2024-group-4/php/currentorder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project-2024-group-4/html and php/login.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project-2024-group-4/html and php/menu.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project-2024-group-4/html and php/review.php" beforeDir="false" afterPath="$PROJECT_DIR$/project-2024-group-4/php/review.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project-2024-group-4/html and php/signup.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project-2024-group-4/mysqli_connect.php" beforeDir="false" afterPath="$PROJECT_DIR$/project-2024-group-4/mysqli_connect.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/staff-view/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/staff-view/composer.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings">
+  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/staff-view/composer.json</pharConfigPath>
     <execution />
   </component>
   <component name="FileTemplateManagerImpl">
@@ -31,6 +45,9 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP" />
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -54,9 +71,10 @@
     &quot;JavaScript Debug.review.html.executor&quot;: &quot;Run&quot;,
     &quot;JavaScript Debug.signup.html.executor&quot;: &quot;Run&quot;,
     &quot;PHP Script.login.php.executor&quot;: &quot;Run&quot;,
+    &quot;PHP Script.menu.php.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/login-and-menu&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -67,14 +85,16 @@
   },
   &quot;keyToStringList&quot;: {
     &quot;DatabaseDriversLRU&quot;: [
-      &quot;oracle&quot;
+      &quot;oracle&quot;,
+      &quot;mysql&quot;
     ]
   }
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\HP Laptop\PhpstormProjects\project\project-2024-group-4\css" />
+      <recent name="C:\Users\HP Laptop\PhpstormProjects\project\project-2024-group-4\html and php" />
       <recent name="C:\Users\HP Laptop\PhpstormProjects\project\project-2024-group-4" />
+      <recent name="C:\Users\HP Laptop\PhpstormProjects\project\project-2024-group-4\css" />
       <recent name="C:\Users\HP Laptop\PhpstormProjects\project\project-2024-group-4\html" />
       <recent name="C:\Users\HP Laptop\PhpstormProjects\project\project-2024-group-4\images" />
     </key>
@@ -109,6 +129,15 @@
       <workItem from="1715798409007" duration="3000" />
       <workItem from="1715798433598" duration="3818000" />
       <workItem from="1715879746552" duration="1198000" />
+      <workItem from="1715929947376" duration="237000" />
+      <workItem from="1715939858898" duration="215000" />
+      <workItem from="1716050045041" duration="5467000" />
+      <workItem from="1716058718077" duration="4410000" />
+      <workItem from="1716117093314" duration="10872000" />
+      <workItem from="1716203265842" duration="7465000" />
+      <workItem from="1716220034303" duration="8476000" />
+      <workItem from="1716250159100" duration="305000" />
+      <workItem from="1716284752633" duration="1748000" />
     </task>
     <servers />
   </component>

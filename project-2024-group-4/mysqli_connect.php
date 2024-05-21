@@ -7,3 +7,7 @@ $dbc = mysqli_connect(
     "Password123/",
     "project"
 );
+
+if (!$dbc) {
+    die("Connection failed: " . mysqli_connect_error());
+}
