@@ -1,5 +1,4 @@
 <?php
-
 $dbc = mysqli_connect(
     "152.67.94.35:3306",
     "root",
@@ -7,36 +6,7 @@ $dbc = mysqli_connect(
     "project"
 );
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+if (!$dbc) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+?>

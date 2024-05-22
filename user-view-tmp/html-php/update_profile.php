@@ -1,34 +1,39 @@
 <?php
 
-// update_profile.php
-global $conn;
+global $dbc;
 session_start();
-include 'proba.php';
+include 'proba.php'; // Adjust this path as needed
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $user_id = $_SESSION['user_id'];
-    $email = filter_var($_POST["email"], FILTER_SANITIZE_EMAIL);
-    $location = htmlspecialchars($_POST["location"]);
-
-    // Validate email
-    if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        // Update user data
-        $sql = "UPDATE customer SET email = ?, location = ? WHERE id = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssi", $email, $location, $user_id);
-        if ($stmt->execute()) {
-            $msg = "Profile updated successfully!";
-        } else {
-            $msg = "Error updating profile.";
-        }
-    } else {
-        $msg = "Invalid email format.";
-    }
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../../project-2024-group-4/php/login.php");
+    exit();
 }
 
-// Redirect back to edit profile page with message
-$_SESSION['msg'] = $msg;
-header("Location: edit_profile.php");
-exit();
+$user_id = $_SESSION['user_id'];
 
-?>
+// Check if the form was submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Sanitize and validate the input
+    $dob = htmlspecialchars($_POST['dob']);
+
+    // Prepare the SQL update statement
+    $sql = "UPDATE CUSTOMER SET dob = ? WHERE customerID = ?";
+    $stmt = $dbc->prepare($sql);
+    if ($stmt) {
+        $stmt->bind_param("si", $dob, $user_id);
+        if ($stmt->execute()) {
+            // Update successful, redirect back to profile page
+            header("Location: profile.php");
+            exit();
+        } else {
+            echo "Error updating record: " . $stmt->error;
+        }
+        $stmt->close();
+    } else {
+        echo "Error preparing statement: " . $dbc->error;
+    }
+} else {
+    echo "Invalid request method.";
+}
+

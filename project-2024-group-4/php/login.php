@@ -24,9 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['user_role'] = ($customer['isAdmin'] == 1) ? 'admin' : 'customer';
 
         if ($customer['isAdmin'] == 1) {
-            header('Location: adminhome.php');
+            header('Location: ../../user-view-tmp/html-php/homeadmin.php');
         } else {
-            header('Location: customerhome.php');
+            header('Location: ../../user-view-tmp/html-php/index.html');
         }
         exit();
     } else {
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['user_id'] = $staff['staffID'];
             $_SESSION['user_role'] = 'staff';
 
-            header('Location: staffhome.php');
+            header('Location: Location: ../../user-view-tmp/html-php/hometruba.php');
             exit();
         } else {
             $error_message = "Invalid email or password";

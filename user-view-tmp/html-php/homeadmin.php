@@ -21,9 +21,12 @@
     </div>
     // ovdje implement connection to database, trubin username, password, da može promijeniti tj edit profile button
     <div class="buttons">
-        <button onclick="window.location.href=''">Check available</button>
-        <button onclick="window.location.href=''">Order history</button>
-        <button onclick="window.location.href=''">Current orders</button>
+        <button onclick="window.location.href=''">Customers</button>
+        <button onclick="window.location.href=''">Staff</button>
+        <button onclick="window.location.href=''">Categories</button>
+        <button onclick="window.location.href=''">Items</button>
+        <button onclick="window.location.href=''">Statistics</button>
+        <button onclick="window.location.href=''">Reviews</button>
     </div>
     <div class="image">
         <img src="../pics/16558127774-ssst-kampus.jpg" alt="Image Description">
