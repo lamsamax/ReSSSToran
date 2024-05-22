@@ -55,12 +55,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['place_order'])) {
         unset($_SESSION['order']);
 
         echo "Order placed successfully!";
+        header('location: currentorder.php');
+        exit();
+
     } catch (Exception $e) {
         // Rollback transaction
         mysqli_rollback($dbc);
         die("Error placing order: " . $e->getMessage());
     }
 
-    mysqli_close($dbc);
+    //mysqli_close($dbc);
 }
 ?>
