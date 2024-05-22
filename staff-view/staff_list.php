@@ -42,7 +42,7 @@ $result = $dbc->query($sql);
                     <td>{$row['password']}</td>
                     <td>
                     <a href='staff_form.php?staffID={$row['staffID']}'>Edit</a>
-                    <a href='delete_staff.php?staffID={$row['staffID']}'>Delete</a>
+                    <a href='staff_delete.php?staffID={$row['staffID']}'>Delete</a>
                     </td>
                    </tr>";
         }

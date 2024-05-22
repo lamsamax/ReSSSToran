@@ -41,6 +41,15 @@ if ($id) {
         echo "SQL: $sql<br>";
         echo "Params: $name, $surname, $dob, $email, $id<br>";
     }
+    } else {
+    // Create user
+    $sql = "INSERT INTO STAFF (name, surname, dob, mail, password) VALUES (?, ?, ?, ?, ?)";
+    $stmt = $dbc->prepare($sql);
+    if (!$stmt) {
+        die("Error preparing statement: " . $dbc->error);
+    }
+    $stmt->bind_param("sssss", $name, $surname, $dob, $email, $password);
+}
 
     // Execute the statement and check for errors
     if ($stmt->execute() === TRUE) {
@@ -55,7 +64,4 @@ if ($id) {
     // Redirect after processing
     header("Location: staff_list.php");
     exit();
-} else {
-    echo "Staff ID is missing.";
-}
 ?>
