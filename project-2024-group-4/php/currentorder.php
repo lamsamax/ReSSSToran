@@ -1,15 +1,16 @@
 <?php
-include('auth.php');
-checkUserRole('customer');
+session_start();
+include '../mysqli_connect.php';
 
 global $dbc;
 $user_id = $_SESSION['user_id'];
-$orderQuery = "SELECT * FROM ORDERS WHERE customerID='$user_id' ORDER BY orderID DESC LIMIT 1"; // gets the latest user order, may need modifications
+$orderQuery = "SELECT * FROM ORDERS WHERE customer='$user_id' ORDER BY orderID DESC LIMIT 1"; // gets the latest user order, may need modifications
 $orderResult = mysqli_query($dbc, $orderQuery);
 $order = mysqli_fetch_assoc($orderResult);
 $orderStatus = $order['status'];
 
 $statusLabels = [
+    0 => 'sent',
     1 => 'accepted',
     2 => 'inMaking',
     3 => 'done',

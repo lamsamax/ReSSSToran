@@ -23,6 +23,22 @@ function calculateTotal() {
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Checkout</title>
     <link rel="stylesheet" type="text/css" href="../css/checkoutstyle.css">
+    <script>
+        function toggleRoomSelection() {
+            const deliveryOption = document.getElementById('delivery-option').value;
+            const roomSelection = document.getElementById('room-selection');
+            if (deliveryOption === 'delivery') {
+                roomSelection.style.display = 'block';
+            } else {
+                roomSelection.style.display = 'none';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            toggleRoomSelection(); // Initial call to set the correct state
+            document.getElementById('delivery-option').addEventListener('change', toggleRoomSelection);
+        });
+    </script>
 </head>
 <body>
 <nav>
