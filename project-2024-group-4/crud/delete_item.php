@@ -2,9 +2,9 @@
 include '../mysqli_connect.php';
 global $dbc;
 
-$id = $_GET['categoryID'] ?? '';
+$id = $_GET['itemID'] ?? '';
 if ($id) {
-    $sql = "DELETE FROM CATEGORY WHERE categoryID = ?";
+    $sql = "DELETE FROM ITEM WHERE itemID = ?";
     $stmt = $dbc->prepare($sql);
     if (!$stmt) {
         die("Error preparing statement: " . $dbc->error);
@@ -12,19 +12,15 @@ if ($id) {
     $stmt->bind_param("i", $id);
 
     if ($stmt->execute() === TRUE) {
-        echo "Category deleted successfully";
+        echo "Item deleted successfully.";
     }
-    else {
-        echo "Error: " . $stmt->error;
-    }
-
+    else echo "Error: " . $stmt->error;
     $stmt->close();
     $dbc->close();
 
-    header("Location: category_list.php");
+    header("Location: item_list.php");
     exit();
 }
-
 else {
-    echo "Category ID is missing.";
+    echo "Item ID is missing.";
 }
