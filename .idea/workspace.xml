@@ -5,10 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="13562ab8-d122-4ac9-8c46-c811cb4560f5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/project-2024-group-4/crud/category_list.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project-2024-group-4/crud/create_category_action.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project-2024-group-4/crud/create_category_form.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project-2024-group-4/crud/delete_category.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project-2024-group-4/crud/update_category_action.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project-2024-group-4/crud/update_category_form.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project-2024-group-4/php/checkout.php" beforeDir="false" afterPath="$PROJECT_DIR$/project-2024-group-4/php/checkout.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project-2024-group-4/php/currentorder.php" beforeDir="false" afterPath="$PROJECT_DIR$/project-2024-group-4/php/currentorder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project-2024-group-4/php/processorder.php" beforeDir="false" afterPath="$PROJECT_DIR$/project-2024-group-4/php/processorder.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,11 +85,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\HP Laptop\PhpstormProjects\project\project-2024-group-4\html and php" />
-      <recent name="C:\Users\HP Laptop\PhpstormProjects\project\project-2024-group-4" />
+      <recent name="C:\Users\HP Laptop\PhpstormProjects\project\project-2024-group-4\crud" />
+      <recent name="C:\Users\HP Laptop\PhpstormProjects\project\project-2024-group-4\crud\category_crud" />
       <recent name="C:\Users\HP Laptop\PhpstormProjects\project\project-2024-group-4\css" />
-      <recent name="C:\Users\HP Laptop\PhpstormProjects\project\project-2024-group-4\html" />
-      <recent name="C:\Users\HP Laptop\PhpstormProjects\project\project-2024-group-4\images" />
+      <recent name="C:\Users\HP Laptop\PhpstormProjects\project\project-2024-group-4" />
+      <recent name="C:\Users\HP Laptop\PhpstormProjects\project\project-2024-group-4\html and php" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -130,7 +133,7 @@
       <workItem from="1716284752633" duration="14920000" />
       <workItem from="1716325016248" duration="2486000" />
       <workItem from="1716370007310" duration="2595000" />
-      <workItem from="1716383889797" duration="603000" />
+      <workItem from="1716383889797" duration="11791000" />
     </task>
     <servers />
   </component>
