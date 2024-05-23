@@ -1,22 +1,38 @@
 <?php
-session_start();
-
 include '../mysqli_connect.php';
-
-
-
+session_start();
 global $dbc;
 
-$user_id = $_SESSION['user_id'];
+if (!isset($_SESSION['current_order_id'])) {
+    die("Error: No current order ID set in session.");
+}
 
-$orderQuery = "SELECT status FROM ORDERS WHERE customer='$user_id' ORDER BY orderID DESC LIMIT 1";
+$orderID = $_SESSION['current_order_id'];
+$sql = "SELECT status FROM ORDERS WHERE orderID = ?";
+$stmt = $dbc->prepare($sql);
 
-$orderResult = mysqli_query($dbc, $orderQuery);
+if (!$stmt) {
+    die("Error preparing statement: " . $dbc->error);
+}
 
-$order = mysqli_fetch_assoc($orderResult);
+$stmt->bind_param("i", $orderID);
+$stmt->execute();
+$stmt->bind_result($status);
+$stmt->fetch();
+$stmt->close();
 
-$orderStatus = $order['status'];
+function getStatusText($status) {
+    switch ($status) {
+        case 0: return 'Sent';
+        case 1: return 'Accepted';
+        case 2: return 'In the Making';
+        case 3: return 'Made';
+        case 4: return 'Delivering';
+        case 5: return 'Delivered';
+        case 6: return 'Declined';
+        default: return 'Unknown';
+    }
+}
 
-
-
-echo json_encode(['status' => $orderStatus]);
+$statusText = getStatusText($status);
+echo json_encode(['statusText' => $statusText]);
