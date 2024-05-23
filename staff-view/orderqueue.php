@@ -1,61 +1,134 @@
 <?php
 session_start();
+include 'db.php';
+global $dbc;
 
-// Initialize orders in session if not already set
-if (!isset($_SESSION['orders'])) {
-    $_SESSION['orders'] = [
-        ['order_id' => 1, 'customer_name' => 'John Doe', 'order_items' => [['item' => 'Burger', 'quantity' => 2, 'price' => 5.00]], 'total_price' => 15.00, 'status' => 'Pending', 'queue' => 'new'],
-        ['order_id' => 2, 'customer_name' => 'Jane Smith', 'order_items' => [['item' => 'Pizza', 'quantity' => 1, 'price' => 18.50]], 'total_price' => 18.50, 'status' => 'Pending', 'queue' => 'new']
-    ];
+function getOrders($status) {
+    global $dbc;
+    $sql = "SELECT o.orderID, o.customer, o.price, o.status, o.deliveryOption, c.name AS customerName, c.surname AS customerSurname, r.roomNumber
+    FROM ORDERS o
+    JOIN CUSTOMER c ON o.customer = c.customerID
+    JOIN DELIVERY_ROOM dr ON o.orderID = dr.orderID
+    JOIN ROOM r ON dr.roomID = r.roomID
+    WHERE o.status = ?";
+    $stmt = $dbc->prepare($sql);
+    $stmt->bind_param("i", $status);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $orders = [];
+    while ($row = $result->fetch_assoc()) {
+        $row['items'] = getOrderItems($row['orderID']); // Fetch order items
+        $orders[] = $row;
+    }
+    $stmt->close();
+    return $orders;
 }
 
-function updateOrderStatus($orderId, $newStatus, $newQueue) {
-    foreach ($_SESSION['orders'] as &$order) {
-        if ($order['order_id'] == $orderId) {
-            $order['status'] = $newStatus;
-            $order['queue'] = $newQueue;
-            break;
-        }
+function getOrderItems($orderId) {
+    global $dbc;
+    $sql = "SELECT oi.quantity, oi.price, i.name as itemName
+            FROM ORDER_ITEM oi
+            JOIN ITEM i ON oi.itemID = i.itemID
+            WHERE oi.orderID = ?";
+    $stmt = $dbc->prepare($sql);
+    $stmt->bind_param("i", $orderId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $items = [];
+    while ($row = $result->fetch_assoc()) {
+        $items[] = $row;
     }
-    // Make sure to re-save the updated array back to the session
-    $_SESSION['orders'] = $_SESSION['orders'];
+    $stmt->close();
+    return $items;
+}
+
+function updateOrderStatus($orderId, $newStatus) {
+    global $dbc;
+    $sql = "UPDATE ORDERS SET status = ? WHERE orderID = ?";
+    $stmt = $dbc->prepare($sql);
+    $stmt->bind_param("ii", $newStatus, $orderId);
+    $stmt->execute();
+    $stmt->close();
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    updateOrderStatus($_POST['order_id'], $_POST['status'], $_POST['queue']);
+    updateOrderStatus($_POST['order_id'], $_POST['status']);
     header('Location: ' . $_SERVER['PHP_SELF']);
     exit;
 }
 
-function displayOrders($orders, $queue) {
-    $html = "<h2>" . ($queue === 'new' ? 'New Orders' : 'Orders Being Processed') . "</h2>";
+function displayOrders($orders, $status) {
+    $html = "<h2>" . getStatusTitle($status) . "</h2>";
     $html .= '<table>';
-    $html .= '<tr><th>Order ID</th><th>Customer Name</th><th>Items Ordered</th><th>Total Price</th><th>Status</th><th>Actions</th></tr>';
+    $html .= '<tr><th>Order ID</th><th>Customer Name</th><th>Room Number</th><th>Items Ordered</th><th>Total Price</th><th>Status</th><th>Actions</th></tr>';
     foreach ($orders as $order) {
-        if ($order['queue'] === $queue) {
-            $html .= '<tr>';
-            $html .= '<td>' . htmlspecialchars($order['order_id']) . '</td>';
-            $html .= '<td>' . htmlspecialchars($order['customer_name']) . '</td>';
-            $items = array_map(function($item) {
-                return htmlspecialchars($item['item']) . ' x' . $item['quantity'];
-            }, $order['order_items']);
-            $html .= '<td>' . implode(", ", $items) . '</td>';
-            $html .= '<td>$' . htmlspecialchars(number_format($order['total_price'], 2)) . '</td>';
-            $html .= '<td>' . htmlspecialchars($order['status']) . '</td>';
-            $html .= '<td>';
-            if ($queue === 'new') {
-                $html .= '<form method="post"><input type="hidden" name="order_id" value="' . $order['order_id'] . '"><input type="hidden" name="status" value="Accepted"><input type="hidden" name="queue" value="processing"><button type="submit" class="accept">Accept</button></form>';
-                $html .= '<form method="post"><input type="hidden" name="order_id" value="' . $order['order_id'] . '"><input type="hidden" name="status" value="Declined"><input type="hidden" name="queue" value="declined"><button type="submit" class="decline">Decline</button></form>';
-            } else if ($queue === 'processing') {
-                $html .= '<form method="post"><input type="hidden" name="order_id" value="' . $order['order_id'] . '"><input type="hidden" name="status" value="Delivered"><input type="hidden" name="queue" value="completed"><button type="submit" class="mark-done">Mark as Done</button></form>';
-            }
-            $html .= '</td>';
-            $html .= '</tr>';
+        $html .= '<tr>';
+        $html .= '<td>' . htmlspecialchars($order['orderID']) . '</td>';
+        $html .= '<td>' . htmlspecialchars($order['customerName']) . ' ' . htmlspecialchars($order['customerSurname']) . '</td>';
+        $html .= '<td>' . htmlspecialchars($order['roomNumber']) . '</td>'; // Display room number
+        $html .= '<td>';
+        foreach ($order['items'] as $item) {
+            $html .= htmlspecialchars($item['itemName']) . ' x' . $item['quantity'] . ' ($' . number_format($item['price'], 2) . ')<br>';
         }
+        $html .= '</td>';
+        $html .= '<td>$' . htmlspecialchars(number_format($order['price'], 2)) . '</td>';
+        $html .= '<td>' . htmlspecialchars(getStatusText($order['status'])) . '</td>';
+        $html .= '<td>';
+        if ($status == 0) {
+            $html .= '<form method="post"><input type="hidden" name="order_id" value="' . $order['orderID'] . '"><input type="hidden" name="status" value="1"><button type="submit" class="accept">Accept</button></form>';
+            $html .= '<form method="post"><input type="hidden" name="order_id" value="' . $order['orderID'] . '"><input type="hidden" name="status" value="6"><button type="submit" class="decline">Decline</button></form>';
+        } elseif ($status == 1) {
+            $html .= '<form method="post"><input type="hidden" name="order_id" value="' . $order['orderID'] . '"><input type="hidden" name="status" value="2"><button type="submit" class="in-making">In the Making</button></form>';
+        } elseif ($status == 2) {
+            $html .= '<form method="post"><input type="hidden" name="order_id" value="' . $order['orderID'] . '"><input type="hidden" name="status" value="3"><button type="submit" class="made">Made</button></form>';
+        } elseif ($status == 3) {
+            if ($order['deliveryOption'] == 1) { // 0 for takeout 1 for delivery
+                $html .= '<form method="post"><input type="hidden" name="order_id" value="' . $order['orderID'] . '"><input type="hidden" name="status" value="4"><button type="submit" class="delivery">Delivering</button></form>';
+            } else {
+                $html .= '<form method="post"><input type="hidden" name="order_id" value="' . $order['orderID'] . '"><input type="hidden" name="status" value="5"><button type="submit" class="ready-takeout">Ready for Takeout</button></form>';
+            }
+        } elseif ($status == 4) {
+            $html .= '<form method="post"><input type="hidden" name="order_id" value="' . $order['orderID'] . '"><input type="hidden" name="status" value="5"><button type="submit" class="delivered">Delivered</button></form>';
+        }
+        $html .= '</td>';
+        $html .= '</tr>';
     }
     $html .= '</table>';
     return $html;
 }
+
+function getStatusText($status) {
+    switch ($status) {
+        case 0: return 'Sent';
+        case 1: return 'Accepted';
+        case 2: return 'In the Making';
+        case 3: return 'Made';
+        case 4: return 'Delivering';
+        case 5: return 'Delivered';
+        case 6: return 'Declined';
+    }
+}
+
+function getStatusTitle($status) {
+    switch ($status) {
+        case 0: return 'New Orders';
+        case 1: return 'Accepted Orders';
+        case 2: return 'Orders in the Making';
+        case 3: return 'Made Orders';
+        case 4: return 'Orders Being Delivered';
+        case 5: return 'Done Orders';
+        case 6: return 'Declined Orders';
+        default: return 'Orders';
+    }
+}
+
+$newOrders = getOrders(0);
+$acceptedOrders = getOrders(1);
+$inMakingOrders = getOrders(2);
+$madeOrders = getOrders(3);
+$deliveringOrders = getOrders(4);
+$doneOrders = getOrders(5);
+$declinedOrders = getOrders(6);
 ?>
 
 <!DOCTYPE html>
@@ -69,8 +142,14 @@ function displayOrders($orders, $queue) {
 <body>
 <div class="background-gradient"></div>
 <div class="content">
-<?php echo displayOrders($_SESSION['orders'], 'new'); ?>
-<?php echo displayOrders($_SESSION['orders'], 'processing'); ?>
+    <?php echo displayOrders($newOrders, 0); ?>
+    <?php echo displayOrders($acceptedOrders, 1); ?>
+    <?php echo displayOrders($inMakingOrders, 2); ?>
+    <?php echo displayOrders($madeOrders, 3); ?>
+    <?php echo displayOrders($deliveringOrders, 4); ?>
+    <?php echo displayOrders($doneOrders, 5); ?>
+    <?php echo displayOrders($declinedOrders, 6); ?>
+
 </div>
 </body>
 </html>

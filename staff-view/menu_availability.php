@@ -27,7 +27,7 @@
 </head>
 <body>
 <h1>Staff Menu Management</h1>
-<form action="update_availability.php" method="post">
+<form action="process_availability.php" method="post">
     <table>
         <thead>
         <tr>
@@ -37,20 +37,12 @@
         </thead>
         <tbody>
         <?php
-        // Connect to the database
-        $conn = new mysqli(  "152.67.94.35:3306",
-            "root",
-            "Password123/",
-            "project");
-
-        // Check the connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
+        include ('db.php');
+        global $dbc;
 
         // Fetch the menu items
-        $sql = "SELECT itemid, name, available FROM ITEM";
-        $result = $conn->query($sql);
+        $sql = "SELECT itemID, name, available FROM ITEM";
+        $result = $dbc->query($sql);
 
         if ($result->num_rows > 0) {
             // Output data of each row
@@ -59,7 +51,7 @@
                 echo "<tr>
                                 <td>{$row['name']}</td>
                                 <td>
-                                    <input type='checkbox' name='availability[{$row['itemid']}]' value='1' {$available}>
+                                    <input type='checkbox' name='availability[{$row['itemID']}]' value='1' $available>
                                 </td>
                               </tr>";
             }
@@ -67,7 +59,7 @@
             echo "<tr><td colspan='2'>No menu items found.</td></tr>";
         }
 
-        $conn->close();
+        $dbc->close();
         ?>
         </tbody>
     </table>
