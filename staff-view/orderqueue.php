@@ -53,6 +53,7 @@ function updateOrderStatus($orderId, $newStatus) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     updateOrderStatus($_POST['order_id'], $_POST['status']);
+    $_SESSION['current_order_id'] = $_POST['order_id']; // Set the current order ID in session
     header('Location: ' . $_SERVER['PHP_SELF']);
     exit;
 }
