@@ -6,11 +6,28 @@ global $dbc;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['place_order'])) {
     $deliveryOption = $_POST['delivery_option'] == 'delivery' ? 1 : 0;
-    $roomID = $_POST['delivery_option'] == 'delivery' ? $_POST['room_id'] : 400;
+
+    // Fetch the roomID for room number 400 if takeout is selected
+    if ($deliveryOption == 0) {
+        $stmt = $dbc->prepare("SELECT roomID FROM ROOM WHERE roomNumber = ?");
+        $roomNumber = 400;
+        $stmt->bind_param("i", $roomNumber);
+        $stmt->execute();
+        $stmt->bind_result($roomID);
+        $stmt->fetch();
+        $stmt->close();
+
+        if (!$roomID) {
+            die("Error: Room number 400 does not exist in the ROOM table.");
+        }
+    } else {
+        $roomID = $_POST['room_id'];
+    }
+
     $paymentMethod = $_POST['payment_method'] == 'card' ? 1 : 0;
     $totalPrice = $_POST['total_price'];
 
-    $orderDetails = isset($_SESSION['order']) ? $_SESSION['order'] : [];
+    $orderDetails = $_SESSION['order'] ?? [];
     if (empty($orderDetails)) {
         die("Error: No items in your cart.");
     }
@@ -19,7 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['place_order'])) {
     $staffID = 1;
     $orderDate = date('Y-m-d H:i:s');
 
-
     mysqli_begin_transaction($dbc);
 
     try {
@@ -27,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['place_order'])) {
         $status = 0;
         $grade = 0;
         $review = '';
-        $stmt->bind_param("isisiiidii", $status,$orderDate, $grade, $review, $customerID, $staffID, $staffID, $totalPrice, $paymentMethod, $deliveryOption);
+        $stmt->bind_param("isisiiidii", $status, $orderDate, $grade, $review, $customerID, $staffID, $staffID, $totalPrice, $paymentMethod, $deliveryOption);
         $stmt->execute();
         $orderID = $stmt->insert_id;
         $stmt->close();
@@ -66,4 +82,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['place_order'])) {
 
     //mysqli_close($dbc);
 }
-?>
+
