@@ -1,7 +1,8 @@
 <?php
 global $dbc;
-session_start();
-include 'proba.php';
+
+include '../../authorization.php';
+checkUserRole('admin');
 
 // Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
