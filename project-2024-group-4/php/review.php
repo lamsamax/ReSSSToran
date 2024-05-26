@@ -1,3 +1,32 @@
+<?php
+include ('../../authorization.php');
+checkUserRole('customer');
+
+global $dbc;
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $grade = $_POST['grade'];
+    $description = $_POST['description'];
+    $customerID = $_SESSION['user_id'];
+
+    // Update the grade and review for the latest order of the user
+    $sql = "UPDATE ORDERS SET grade = ?, review = ? WHERE customer = ? AND orderID = ?";
+    $stmt = $dbc->prepare($sql);
+    if (!$stmt) {
+        die("Error preparing statement: " . $dbc->error);
+    }
+
+    $stmt->bind_param("isii", $grade, $description, $customerID, $_SESSION['current_order_id']);
+    $stmt->execute();
+    $stmt->close();
+
+    echo "Review submitted successfully!";
+    // Optionally, redirect to another page
+    header('Location: ../../user-view-tmp/html-php/index.php');
+    exit();
+}
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
