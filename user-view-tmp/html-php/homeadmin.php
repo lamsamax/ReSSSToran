@@ -76,6 +76,7 @@ exit();
         <button onclick="window.location.href='../../project-2024-group-4/crud/category_list.php'">Categories</button>
         <button onclick="window.location.href='../../project-2024-group-4/crud/item_list.php'">Items</button>
         <button onclick="window.location.href=''">Statistics</button>
+        <button onclick="window.location.href='../../staff-view/admin_order_history.php'">Order history</button>
         <button onclick="window.location.href=''">Reviews</button>
     </div>
 </div>
