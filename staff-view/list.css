@@ -7,7 +7,7 @@ body {
     padding: 0;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     height: 100vh;
 }
 
@@ -39,6 +39,9 @@ a:hover{
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     text-align: center;
+    height: 100%;
+    flex-grow: 1; /* Ensures the container grows to take up available space */
+    overflow: auto;
 }
 
 .header {
@@ -105,3 +108,9 @@ tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 
+.actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* Adds space between buttons */
+}

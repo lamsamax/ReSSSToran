@@ -11,14 +11,18 @@ $result = $dbc->query($sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+          content="width=device-width, user-sc alable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Category List</title>
+    <link rel="stylesheet" href="../../staff-view/list.css"
 </head>
 <body>
-<h1>Categories</h1>
-<a href="create_category_form.php">Create New Category</a>
-<table border="1">
+<div class="container">
+    <div class="header">
+        <h1>Categories</h1>
+        <a href="create_category_form.php">Create New Category</a>
+    </div>
+<table>
     <thead>
     <tr>
         <th>ID</th>
@@ -36,8 +40,8 @@ $result = $dbc->query($sql);
                 <td>{$row['name']}</td>
                 <td>{$row['description']}</td>
                 <td>
-                    <a href='update_category_form.php?categoryID={$row['categoryID']}'>Update</a>
-                    <a href='delete_category.php?categoryID={$row['categoryID']}'>Delete</a>
+                    <a class='button edit-btn' href='update_category_form.php?categoryID={$row['categoryID']}'>Update</a>
+                    <a class='button delete-btn'href='delete_category.php?categoryID={$row['categoryID']}'>Delete</a>
                 </td>
             </tr>";
         }
@@ -48,6 +52,7 @@ $result = $dbc->query($sql);
     ?>
     </tbody>
 </table>
+</div>
 </body>
 </html>
 

@@ -14,11 +14,15 @@ $result = $dbc->query($sql);
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Item List</title>
+    <link rel="stylesheet" href="../../staff-view/list.css"
 </head>
 <body>
-<h1>Items</h1>
-<a href="create_item_form.php">Create New Item</a>
-<table border="1">
+<div class="container">
+    <div class="header">
+        <h1>Items</h1>
+        <a class="create-form" href="create_item_form.php">Create New Item</a>
+    </div>
+<table>
     <thead>
     <tr>
         <th>ID</th>
@@ -43,9 +47,9 @@ $result = $dbc->query($sql);
                 <td>{$row['imageUrl']}</td>
                 <td>{$row['categoryID']}</td>
                 <td>" . ($row['available'] ? 'Available' : 'Unavailable') . "</td>
-                <td>
-                    <a href='update_item_form.php?itemID={$row['itemID']}'>Update</a>
-                    <a href='delete_item.php?itemID={$row['itemID']}'>Delete</a>
+                <td class='actions'>
+                    <a class='button edit-btn' href='update_item_form.php?itemID={$row['itemID']}'>Update</a>
+                    <a class='button delete-btn' href='delete_item.php?itemID={$row['itemID']}'>Delete</a>
                 </td>
             </tr>";
         }
@@ -56,6 +60,7 @@ $result = $dbc->query($sql);
     ?>
     </tbody>
 </table>
+</div>
 </body>
 </html>
 
