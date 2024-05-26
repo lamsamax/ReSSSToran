@@ -25,6 +25,18 @@ function getOrders($status) {
     return $orders;
 }
 
+function getStaffMembers() {
+    global $dbc;
+    $sql = "SELECT staffID, name FROM STAFF";
+    $result = $dbc->query($sql);
+    $staffMembers = [];
+    while ($row = $result->fetch_assoc()) {
+        $staffMembers[] = $row;
+    }
+    return $staffMembers;
+}
+
+
 function getOrderItems($orderId) {
     global $dbc;
     $sql = "SELECT oi.quantity, oi.price, i.name as itemName
@@ -43,31 +55,49 @@ function getOrderItems($orderId) {
     return $items;
 }
 
-function updateOrderStatus($orderId, $newStatus) {
+function updateOrderStatus($orderId, $newStatus, $staffID = null) {
     global $dbc;
-    $sql = "UPDATE ORDERS SET status = ? WHERE orderID = ?";
-    $stmt = $dbc->prepare($sql);
-    $stmt->bind_param("ii", $newStatus, $orderId);
+    if ($newStatus == 1 && $staffID) { // Update stakeID when order is accepted
+        $sql = "UPDATE ORDERS SET status = ?, stakeID = ? WHERE orderID = ?";
+        $stmt = $dbc->prepare($sql);
+        $stmt->bind_param("iii", $newStatus, $staffID, $orderId);
+    } elseif ($newStatus == 4 && $staffID) { // Update sdeliverID when order is being delivered
+        $sql = "UPDATE ORDERS SET status = ?, sdeliverID = ? WHERE orderID = ?";
+        $stmt = $dbc->prepare($sql);
+        $stmt->bind_param("iii", $newStatus, $staffID, $orderId);
+    } else {
+        $sql = "UPDATE ORDERS SET status = ? WHERE orderID = ?";
+        $stmt = $dbc->prepare($sql);
+        $stmt->bind_param("ii", $newStatus, $orderId);
+    }
     $stmt->execute();
     $stmt->close();
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    updateOrderStatus($_POST['order_id'], $_POST['status']);
+    $staffID = null;
+    if (isset($_POST['stakeID'])) {
+        $staffID = $_POST['stakeID'];
+    } elseif (isset($_POST['sdeliverID'])) {
+        $staffID = $_POST['sdeliverID'];
+    }
+    updateOrderStatus($_POST['order_id'], $_POST['status'], $staffID);
     $_SESSION['current_order_id'] = $_POST['order_id']; // Set the current order ID in session
     header('Location: ' . $_SERVER['PHP_SELF']);
     exit;
 }
 
+
 function displayOrders($orders, $status) {
     $html = "<h2>" . getStatusTitle($status) . "</h2>";
     $html .= '<table>';
     $html .= '<tr><th>Order ID</th><th>Customer Name</th><th>Room Number</th><th>Items Ordered</th><th>Total Price</th><th>Status</th><th>Actions</th></tr>';
+    $staffMembers = getStaffMembers();
     foreach ($orders as $order) {
         $html .= '<tr>';
         $html .= '<td>' . htmlspecialchars($order['orderID']) . '</td>';
         $html .= '<td>' . htmlspecialchars($order['customerName']) . ' ' . htmlspecialchars($order['customerSurname']) . '</td>';
-        $html .= '<td>' . htmlspecialchars($order['roomNumber']) . '</td>'; // Display room number
+        $html .= '<td>' . htmlspecialchars($order['roomNumber']) . '</td>';
         $html .= '<td>';
         foreach ($order['items'] as $item) {
             $html .= htmlspecialchars($item['itemName']) . ' x' . $item['quantity'] . ' ($' . number_format($item['price'], 2) . ')<br>';
@@ -77,7 +107,13 @@ function displayOrders($orders, $status) {
         $html .= '<td>' . htmlspecialchars(getStatusText($order['status'])) . '</td>';
         $html .= '<td>';
         if ($status == 0) {
-            $html .= '<form method="post"><input type="hidden" name="order_id" value="' . $order['orderID'] . '"><input type="hidden" name="status" value="1"><button type="submit" class="accept">Accept</button></form>';
+            $html .= '<form method="post"><input type="hidden" name="order_id" value="' . $order['orderID'] . '"><input type="hidden" name="status" value="1">';
+            $html .= '<select name="stakeID">';
+            foreach ($staffMembers as $staff) {
+                $html .= '<option value="' . $staff['staffID'] . '">' . $staff['name'] . '</option>';
+            }
+            $html .= '</select>';
+            $html .= '<button type="submit" class="accept">Accept</button></form>';
             $html .= '<form method="post"><input type="hidden" name="order_id" value="' . $order['orderID'] . '"><input type="hidden" name="status" value="6"><button type="submit" class="decline">Decline</button></form>';
         } elseif ($status == 1) {
             $html .= '<form method="post"><input type="hidden" name="order_id" value="' . $order['orderID'] . '"><input type="hidden" name="status" value="2"><button type="submit" class="in-making">In the Making</button></form>';
@@ -85,7 +121,13 @@ function displayOrders($orders, $status) {
             $html .= '<form method="post"><input type="hidden" name="order_id" value="' . $order['orderID'] . '"><input type="hidden" name="status" value="3"><button type="submit" class="made">Made</button></form>';
         } elseif ($status == 3) {
             if ($order['deliveryOption'] == 1) { // 0 for takeout 1 for delivery
-                $html .= '<form method="post"><input type="hidden" name="order_id" value="' . $order['orderID'] . '"><input type="hidden" name="status" value="4"><button type="submit" class="delivery">Delivering</button></form>';
+                $html .= '<form method="post"><input type="hidden" name="order_id" value="' . $order['orderID'] . '"><input type="hidden" name="status" value="4">';
+                $html .= '<select name="sdeliverID">';
+                foreach ($staffMembers as $staff) {
+                    $html .= '<option value="' . $staff['staffID'] . '">' . $staff['name'] . '</option>';
+                }
+                $html .= '</select>';
+                $html .= '<button type="submit" class="delivery">Delivering</button></form>';
             } else {
                 $html .= '<form method="post"><input type="hidden" name="order_id" value="' . $order['orderID'] . '"><input type="hidden" name="status" value="5"><button type="submit" class="ready-takeout">Ready for Takeout</button></form>';
             }
@@ -98,6 +140,7 @@ function displayOrders($orders, $status) {
     $html .= '</table>';
     return $html;
 }
+
 
 function getStatusText($status) {
     switch ($status) {
