@@ -1,7 +1,7 @@
 <?php
-include('db.php');
+include "../authorization.php" ;
 global $dbc;
-
+checkUserRole('admin');
 $id = '';
 $name = '';
 $surname = '';

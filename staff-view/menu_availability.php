@@ -1,3 +1,8 @@
+<?php
+include "../authorization.php" ;
+checkUserRole('staff');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

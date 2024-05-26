@@ -1,7 +1,9 @@
 <?php
-include('db.php');
+include "../authorization.php" ;
 global $dbc;
 
+
+checkUserRole('admin');
 // Capture customer ID from the query parameter
 $id = isset($_GET['staffID']) ? $_GET['staffID'] : '';
 

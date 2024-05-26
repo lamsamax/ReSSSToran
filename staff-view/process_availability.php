@@ -1,6 +1,8 @@
 <?php
-include 'db.php';
+include "../authorization.php" ;
 global $dbc;
+
+checkUserRole('staff');
 // Debugging: Check if form data is being received
 echo '<pre>';
 print_r($_POST);

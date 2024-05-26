@@ -1,6 +1,7 @@
 <?php
-include('db.php');
+include "../authorization.php" ;
 global $dbc;
+checkUserRole('admin');
 
 if (isset($_GET['staffID'])) {
     $id = $_GET['staffID'];
