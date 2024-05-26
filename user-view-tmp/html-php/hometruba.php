@@ -1,8 +1,9 @@
 <?php
 // Start session
 global $dbc;
-session_start();
-include 'proba.php'; // Adjust this path as needed
+
+include '../../authorization.php';
+checkUserRole('staff');// Adjust this path as needed
 
 // Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
