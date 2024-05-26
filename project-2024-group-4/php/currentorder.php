@@ -1,72 +1,57 @@
 <?php
-session_start();
 include '../mysqli_connect.php';
-
+session_start();
 global $dbc;
 
-$customerID = 3; // Hardcoded customer ID for now
-$orderQuery = "SELECT * FROM ORDERS WHERE customer = ? ORDER BY orderID DESC LIMIT 1"; // gets the latest user order
-$stmt = $dbc->prepare($orderQuery);
-$stmt->bind_param("i", $customerID);
-$stmt->execute();
-$orderResult = $stmt->get_result();
-$order = $orderResult->fetch_assoc();
 
-if (!$order) {
-    echo "No orders found for this user.";
-    exit;
+if (!isset($_SESSION['current_order_id'])) {
+    die("Error: No current order ID set in session1.");
 }
 
-$orderStatus = $order['status'];
+$orderID = $_SESSION['current_order_id'];
 
-$statusLabels = [
-    0 => 'sent',
-    1 => 'accepted',
-    2 => 'inMaking',
-    3 => 'done',
-    4 => 'inDelivery',
-    5 => 'delivered'
-];
-
-$stmt->close();
-$dbc->close();
+function getStatusText($status) {
+    switch ($status) {
+        case 0: return 'Sent';
+        case 1: return 'Accepted';
+        case 2: return 'In the Making';
+        case 3: return 'Made';
+        case 4: return 'Delivering';
+        case 5: return 'Delivered';
+        case 6: return 'Declined';
+        default: return 'Unknown';
+    }
+}
 ?>
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Current Order Status</title>
     <link rel="stylesheet" type="text/css" href="../css/currentorderstyle.css">
-    <title>Current Order</title>
+    <script src=https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js></script>
+    <script>
+        function fetchOrderStatus() {
+            $.ajax({
+                url: 'fetchstatus.php',
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    $('#order-status').text(data.statusText);
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            setInterval(fetchOrderStatus, 5000);
+        });
+
+    </script>
 </head>
 <body>
-<nav>
-    <ul>
-        <li><a href="customerhome.php">Home</a></li>
-        <li><a href="menu.php">Menu</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="profile.html">Profile</a></li>
-    </ul>
-</nav>
-
-<section class="order-status">
-    <h1>Your Current Order</h1>
-    <form id="orderStatusForm">
-        <?php foreach ($statusLabels as $statusCode => $statusLabel): ?>
-            <div>
-                <input type="checkbox" id="<?php echo $statusLabel; ?>" name="order_status" value="<?php echo $statusLabel; ?>" <?php echo ($orderStatus == $statusCode) ? 'checked' : ''; ?> disabled>
-                <label for="<?php echo $statusLabel; ?>"><b><strong><?php echo strtoupper($statusLabel); ?></strong></b></label>
-            </div>
-        <?php endforeach; ?>
-    </form>
-</section>
-
-<footer>
-    <p>© 2024 ReSSSTaurant. All rights reserved.</p>
-</footer>
-
+<h1>Current Order Status</h1>
+<p id="order-status">Loading...</p>
 </body>
 </html>

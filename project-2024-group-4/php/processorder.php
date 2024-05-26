@@ -48,6 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['place_order'])) {
         $orderID = $stmt->insert_id;
         $stmt->close();
 
+        $_SESSION['current_order_id'] = $orderID;
+
         // Insert into ORDER_ITEM table
         foreach ($orderDetails as $item) {
             $quantity = 1; // Assuming quantity is always 1
@@ -79,6 +81,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['place_order'])) {
         mysqli_rollback($dbc);
         die("Error placing order: " . $e->getMessage());
     }
-
-    //mysqli_close($dbc);
 }
