@@ -1,6 +1,8 @@
 <?php
-include 'db.php';
+include "../authorization.php" ;
 global $dbc;
+
+checkUserRole('admin');
 
 // Capture form data
 $id = isset($_POST['customerID']) ? $_POST['customerID'] : '';

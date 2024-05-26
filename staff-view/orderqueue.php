@@ -1,6 +1,7 @@
 <?php
 session_start();
-include 'db.php';
+include "../authorization.php" ;
+checkUserRole('staff');
 global $dbc;
 
 function getOrders($status) {

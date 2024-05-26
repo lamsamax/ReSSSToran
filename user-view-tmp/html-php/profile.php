@@ -73,10 +73,10 @@ if ($stmt) {
         </form>
     </div>
     <div class="buttons">
-        <button onclick="window.location.href='../../project-2024-group-4/index.html'">Home</button>
-        <button onclick="window.location.href='../../project-2024-group-4/php/login.php'">Menu</button>
-        <button onclick="window.location.href='../../project-2024-group-4/gallery.html'">Gallery</button>
-        <button onclick="window.location.href='../../project-2024-group-4/contact.html'">Contact</button>
+        <button onclick="window.location.href='index.php'">Home</button>
+        <button onclick="window.location.href='../../project-2024-group-4/php/menu.php'">Menu</button>
+        <button onclick="window.location.href='gallery.php'">Gallery</button>
+        <button onclick="window.location.href='contact.php'">Contact</button>
         <button onclick="window.location.href='profile.php'">Profile</button>
     </div>
     <div class="action-buttons">

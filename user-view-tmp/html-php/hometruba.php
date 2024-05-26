@@ -88,9 +88,9 @@ exit();
         </div>
     </div>
     <div class="buttons">
-        <button onclick="window.location.href=''">Check available</button>
+        <button onclick="window.location.href='../../staff-view/menu_availability.php'">Check available</button>
         <button onclick="window.location.href=''">Order history</button>
-        <button onclick="window.location.href=''">Current orders</button>
+        <button onclick="window.location.href='../../staff-view/orderqueue.php'">Current orders</button>
     </div>
     <div class="image">
         <img src="../pics/16558127774-ssst-kampus.jpg" alt="Image Description">
