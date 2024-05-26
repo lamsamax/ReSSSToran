@@ -9,10 +9,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Check in CUSTOMER table
     global $dbc;
 
-    // Prepared statement for CUSTOMER table
     $customerStmt = $dbc->prepare("SELECT * FROM CUSTOMER WHERE mail=? AND password=?");
     $customerStmt->bind_param("ss", $email, $password);
     $customerStmt->execute();
