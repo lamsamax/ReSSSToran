@@ -1,5 +1,6 @@
 <?php
-include '../mysqli_connect.php';
+include ('../../authorization.php');
+checkUserRole('admin');
 global $dbc;
 
 $sql = "SELECT itemID, name, price, description, imageUrl, categoryID, available FROM ITEM";

@@ -54,7 +54,9 @@ function getStatusText($status) {
     </script>
 </head>
 <body>
-<h1>Current Order Status</h1>
-<p id="order-status">Loading...</p>
+<div class="container">
+    <h1>Current Order Status</h1>
+    <p id="order-status">Loading...</p>
+</div>
 </body>
 </html>

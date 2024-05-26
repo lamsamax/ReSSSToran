@@ -1,5 +1,6 @@
 <?php
-include '../mysqli_connect.php';
+include ('../../authorization.php');
+checkUserRole('admin');
 global $dbc;
 
 $sql = "SELECT categoryID, name, description FROM CATEGORY";
