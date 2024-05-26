@@ -41,38 +41,41 @@ $dbc->close();
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/formstyle.css">
     <title>Update Item</title>
 </head>
 <body>
-<h2>Update Item</h2>
-<form action="update_item_action.php" method="POST">
-    <input type="hidden" name="itemID" value="<?php echo htmlspecialchars($id); ?>">
-    <label for="name">Name:</label>
-    <input type="text" name="name" id="name" required value="<?php echo htmlspecialchars($item['name']); ?>">
-    <br>
-    <label for="description">Description:</label>
-    <input type="text" name="description" id="description" required value="<?php echo htmlspecialchars($item['description']); ?>">
-    <br>
-    <label for="price">Price:</label>
-    <input type="number" step="0.01" name="price" id="price" required value="<?php echo htmlspecialchars($item['price']); ?>">
-    <br>
-    <label for="imageUrl">Image URL:</label>
-    <input type="text" name="imageUrl" id="imageUrl" value="<?php echo htmlspecialchars($item['imageUrl']); ?>">
-    <br>
-    <label for="categoryID">Category:</label>
-    <select name="categoryID" id="categoryID" required>
-        <?php foreach ($categories as $category): ?>
-            <option value="<?php echo htmlspecialchars($category['categoryID']); ?>" <?php echo $category['categoryID'] == $item['categoryID'] ? 'selected' : ''; ?>>
-                <?php echo htmlspecialchars($category['name']); ?>
-            </option>
-        <?php endforeach; ?>
-    </select>
-    <br>
-    <label for="available">Available:</label>
-    <input type="checkbox" name="available" id="available" <?php echo $item['available'] ? 'checked' : ''; ?>>
-    <br>
-    <input type="submit" value="Update">
-</form>
+<div class="container">
+    <h2>Update Item</h2>
+    <form action="update_item_action.php" method="POST">
+        <input type="hidden" name="itemID" value="<?php echo htmlspecialchars($id); ?>">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" required value="<?php echo htmlspecialchars($item['name']); ?>">
+        <br>
+        <label for="description">Description:</label>
+        <input type="text" name="description" id="description" required value="<?php echo htmlspecialchars($item['description']); ?>">
+        <br>
+        <label for="price">Price:</label>
+        <input type="number" step="0.01" name="price" id="price" required value="<?php echo htmlspecialchars($item['price']); ?>">
+        <br>
+        <label for="imageUrl">Image URL:</label>
+        <input type="text" name="imageUrl" id="imageUrl" value="<?php echo htmlspecialchars($item['imageUrl']); ?>">
+        <br>
+        <label for="categoryID">Category:</label>
+        <select name="categoryID" id="categoryID" required>
+            <?php foreach ($categories as $category): ?>
+                <option value="<?php echo htmlspecialchars($category['categoryID']); ?>" <?php echo $category['categoryID'] == $item['categoryID'] ? 'selected' : ''; ?>>
+                    <?php echo htmlspecialchars($category['name']); ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+        <br>
+        <label for="available">Available:</label>
+        <input type="checkbox" name="available" id="available" <?php echo $item['available'] ? 'checked' : ''; ?>>
+        <br>
+        <input type="submit" value="Update">
+    </form>
+</div>
 </body>
 </html>
 

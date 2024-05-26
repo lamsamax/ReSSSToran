@@ -26,22 +26,25 @@ if (isset($_GET['categoryID'])) {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../../staff-view/form.css">
         <title><?php echo $id ? 'Edit Category' : 'Create New Category'; ?></title>
     </head>
     <body>
-    <h1><?php echo $id ? 'Edit Category' : 'Create New Category'; ?></h1>
-    <form action="create_category_action.php" method="post">
-        <input type="hidden" name="id" value="<?php echo $id; ?>">
-        <label for="name">Name:</label>
-        <input type="text" name="name" id="name" required value="<?php echo $name; ?>">
-        <br>
-        <label for="description">Description:</label>
-        <input type="text" name="description" id="description" required value="<?php echo $description; ?>">
-        <br>
-        <input type="submit" value="Submit">
-    </form>
+    <div class="container">
+        <h1><?php echo $id ? 'Edit Category' : 'Create New Category'; ?></h1>
+        <form action="create_category_action.php" method="post">
+            <input type="hidden" name="id" value="<?php echo $id; ?>">
+            <label for="name">Name:</label>
+            <input type="text" name="name" id="name" required value="<?php echo $name; ?>">
+            <br>
+            <label for="description">Description:</label>
+            <input type="text" name="description" id="description" required value="<?php echo $description; ?>">
+            <br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
     </body>
-    </html>
+</html>
 
 <?php
 $dbc->close();

@@ -32,18 +32,21 @@ $dbc->close();
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/formstyle.css">
     <title>Update Category</title>
 </head>
 <body>
-<h2>Update Category</h2>
-<form action="update_category_action.php" method="POST">
-    <input type="hidden" name="categoryID" value="<?php echo htmlspecialchars($id); ?>">
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($category['name']); ?>" required><br>
-    <label for="description">Description:</label>
-    <input type="text" id="description" name="description" value="<?php echo htmlspecialchars($category['description']); ?>" required><br>
-    <input type="submit" value="Update Category">
-</form>
+<div class="container">
+    <h2>Update Category</h2>
+    <form action="update_category_action.php" method="POST">
+        <input type="hidden" name="categoryID" value="<?php echo htmlspecialchars($id); ?>">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($category['name']); ?>" required><br>
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="description" value="<?php echo htmlspecialchars($category['description']); ?>" required><br>
+        <input type="submit" value="Update Category">
+    </form>
+</div>
 </body>
 </html>
 
