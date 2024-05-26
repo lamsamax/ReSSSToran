@@ -1,5 +1,5 @@
 <?php
-include 'proba.php';
+include '../../user-view-tmp/html-php/proba.php';
 global $dbc;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

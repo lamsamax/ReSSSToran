@@ -20,8 +20,9 @@ body {
     position: fixed;
     top: 0;
     left: 19%;
-    height: 100vh;
-    width: 300px;
+    height: auto;
+    min-height: 100vh;
+    width: 320px;
     background-color: rgba(115, 74, 101, 0.8);
     padding: 20px;
     box-sizing: border-box;
@@ -35,12 +36,14 @@ body {
     color: whitesmoke;
     text-align: center;
 }
+
 .header h2 {
     font-family: "Rage Italic", cursive;
     margin-top: 50px;
     color: whitesmoke;
     text-align: center;
 }
+
 .sidebar-content {
     margin-top: 20px;
     color: white;
@@ -79,6 +82,161 @@ body {
     background-color: indianred;
 }
 
+.main-content {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -20%);
+    width: 60%;
+    text-align: center;
+}
+
+.profile-info {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    color: #fff;
+    word-wrap: break-word;
+}
+
+.profile-info p {
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-size: 18px;
+    margin-bottom: 5px;
+    color: #fff;
+}
+
+input[type="date"] {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+}
+
+.edit-btn {
+    background-color: rebeccapurple;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: absolute;
+    top: 50%;
+    left: 60%;
+    transform: translate(-50%, -50%);
+}
+
+.action-btn {
+    background-color: #734A65;
+    color: white;
+    padding: 15px 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 400px;
+}
+
+.action-btn:hover {
+    background-color: indianred;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+.modal-content {
+    display: flex;
+    flex-direction: column; /* Changed to column layout */
+    align-items: center;
+    justify-content: center;
+    background-color: #734A65;
+    margin: 5% auto;
+    padding: 20px;
+    width: 50%;
+    border-radius: 10px; /* Added for better appearance */
+}
+
+.close {
+    align-self: flex-end;
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+
+.modal-content form label {
+    align-self: flex-start;
+    color: white;
+    margin-top: 10px;
+}
+
+.modal-content form input {
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    width: 100%;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+}
+
+.modal-content form button {
+    align-self: center;
+    background-color: rebeccapurple;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.modal-content form button:hover {
+    background-color: indianred;
+}
+
+.close:hover, .close:focus {
+    color: rebeccapurple;
+    text-decoration: none;
+}
 .image {
     margin-top: 60px;
     text-align: center;
@@ -89,15 +247,6 @@ body {
 }
 
 @media only screen and (max-width: 600px) {
-    .image img {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        z-index: -2;
-    }
-
     .header h1, .header h2 {
         font-size: 30px;
     }
@@ -134,161 +283,21 @@ body {
         width: 100%;
         margin: 5px 0;
     }
-    .image {
-        margin-top: 0;
+
+    .main-content {
+        top: 30%;
+        left: 50%;
+        transform: translate(-50%, -30%);
+        width: 90%;
     }
 
-    .image img {
-        max-width: 100%;
+    .profile-info {
+        margin-bottom: 20px;
+        font-size: 20px;
     }
 
-}
-.slideshow-container {
-    max-width: 880px;
-    width: 90%;
-    position: absolute;
-    top: 60%;
-    left: 71%;
-    transform: translate(-50%, -50%);
-    margin: 0;
-    height: auto;
-    z-index: 2;
-}
-
-.mySlides {
-    display: none;
-    width: 100%;
-    height: auto;
-}
-
-.prev, .next {
-    cursor: pointer;
-    position: fixed;
-    top: 50%;
-    transform: translateY(-50%);
-    width: auto;
-    padding: 10px;
-    color: white;
-    font-weight: bold;
-    font-size: 16px;
-    transition: 0.6s ease;
-    user-select: none;
-}
-
-.next {
-    right: 30%;
-    border-radius: 3px 0 0 3px;
-}
-
-.prev {
-    left: 0;
-    border-radius: 0 3px 3px 0;
-}
-
-.prev:hover, .next:hover {
-    background-color: rgba(0,0,0,0.8);
-}
-
-.numbertext {
-    color: #f2f2f2;
-    font-size: 12px;
-    padding: 8px 12px;
-    position: absolute;
-    top: 0;
-}
-
-.profile-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.form-field {
-    display: flex;
-    flex-direction: column;
-}
-
-label {
-    font-size: 18px;
-    margin-bottom: 5px;
-}
-
-input[type="text"], input[type="tel"] {
-    padding: 10px;
-    font-size: 16px;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-}
-
-.edit-btn {
-    background-color: rebeccapurple;
-    color: white;
-    border: none;
-    padding: 10px;
-    font-size: 18px;
-    cursor: pointer;
-    border-radius: 4px;
-    margin-top: 10px;
-}
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
-}
-
-.modal-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: rebeccapurple;
-    margin: 5% auto;
-    padding: 20px;
-    width: 50%;
-}
-
-.close {
-    align-self: flex-end;
-    color: white;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.close:hover, .close:focus {
-    color: rebeccapurple;
-    text-decoration: none;
-}
-
-.form-field {
-    width: 100%;
-    margin-top: 10px;
-}
-
-label {
-    text-align: left;
-    width: 100%;
-    margin-bottom: 5px;
-}
-
-input[type="text"], input[type="tel"] {
-    width: 95%;
-    padding: 8px;
-    font-size: 16px;
-    border: 2px solid white;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-.edit-btn {
-    width: auto;
-    padding: 10px 20px;
-    margin-top: 20px;
+    .action-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
 }

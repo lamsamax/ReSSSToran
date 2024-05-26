@@ -2,6 +2,7 @@
 include 'db.php';
 global $dbc;
 
+
 $sql = "SELECT customerID, name, surname, dob, mail, role, isAdmin FROM CUSTOMER";
 $result = $dbc->query($sql);
 ?>

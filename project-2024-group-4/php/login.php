@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['user_id'] = $staff['staffID'];
             $_SESSION['user_role'] = 'staff';
 
-            header('Location: Location: ../../user-view-tmp/html-php/hometruba.php');
+            header('Location: ../../user-view-tmp/html-php/hometruba.php');
             exit();
         } else {
             $error_message = "Invalid email or password";

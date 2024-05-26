@@ -1,8 +1,8 @@
 <?php
-include 'proba.php';
+include '../../user-view-tmp/html-php/proba.php';
 global $dbc;
 
-$roomID = $_GET['roomID'] ?? '';
+$roomID = isset($_GET['roomID']) ? $_GET['roomID'] : '';
 if ($roomID) {
     $sql = "DELETE FROM ROOM WHERE roomID = ?";
     $stmt = $dbc->prepare($sql);
