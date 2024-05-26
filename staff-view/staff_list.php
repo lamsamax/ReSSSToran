@@ -32,7 +32,6 @@ $result = $dbc->query($sql);
             <th>Action</th>
         </tr>
         </thead>
-
         <tbody>
         <?php
         if($result->num_rows > 0){
