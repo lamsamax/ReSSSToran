@@ -1,5 +1,4 @@
 <?php
-session_start();
 include "../authorization.php";
 include "statsfunctions.php"; // Include the functions file
 checkUserRole('admin');
