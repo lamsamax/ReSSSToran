@@ -70,10 +70,10 @@ exit();
             </form>
     </div>
     <div class="buttons">
-        <button onclick="window.location.href=''">Customers</button>
-        <button onclick="window.location.href=''">Staff</button>
-        <button onclick="window.location.href=''">Categories</button>
-        <button onclick="window.location.href=''">Items</button>
+        <button onclick="window.location.href='../../staff-view/users_list.php'">Customers</button>
+        <button onclick="window.location.href='../../staff-view/staff_list.php'">Staff</button>
+        <button onclick="window.location.href='../../project-2024-group-4/crud/category_list.php'">Categories</button>
+        <button onclick="window.location.href='../../project-2024-group-4/crud/item_list.php'">Items</button>
         <button onclick="window.location.href=''">Statistics</button>
         <button onclick="window.location.href=''">Reviews</button>
     </div>
