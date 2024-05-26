@@ -1,6 +1,9 @@
 <?php
-include 'db.php';
+include "db.php";
+include ("../project-2024-group-4/auth.php");
 global $dbc;
+
+checkUserRole("admin");
 
 $sql = "SELECT customerID, name, surname, dob, mail, role, isAdmin FROM CUSTOMER";
 $result = $dbc->query($sql);
