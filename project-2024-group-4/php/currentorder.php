@@ -1,11 +1,11 @@
 <?php
-include '../mysqli_connect.php';
-session_start();
+include ('../../authorization.php');
+checkUserRole('customer');
 global $dbc;
 
 
 if (!isset($_SESSION['current_order_id'])) {
-    die("Error: No current order ID set in session1.");
+    die("Error: No current order ID set in session.");
 }
 
 $orderID = $_SESSION['current_order_id'];
