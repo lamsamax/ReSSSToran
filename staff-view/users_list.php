@@ -12,13 +12,13 @@ $result = $dbc->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User List</title>
-    <link rel="stylesheet" href="userlist.css">
+    <link rel="stylesheet" href="list.css">
 </head>
 <body>
 <div class="container">
     <div class="header">
         <h1>User List</h1>
-        <a href="form.php" class="button">Create New User</a>
+        <a href="customerform.php" class="button">Create New User</a>
     </div>
     <table>
         <thead>
@@ -46,7 +46,7 @@ $result = $dbc->query($sql);
                         <td>{$row['role']}</td>
                         <td>" . ($row['isAdmin'] ? 'Yes' : 'No') . "</td>
                         <td class='table-buttons'>
-                            <a href='edit_customer_form.php?customerID={$row['customerID']}' class='button edit-btn'>Edit</a>
+                            <a href='customerform.php?customerID={$row['customerID']}' class='button edit-btn'>Edit</a>
                             <a href='delete_customer.php?customerID={$row['customerID']}' class='button delete-btn'>Delete</a>
                         </td>
                       </tr>";
