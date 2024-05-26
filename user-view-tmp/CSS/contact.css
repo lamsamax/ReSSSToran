@@ -49,6 +49,9 @@ body {
     justify-content: center;
     align-items: center;
     height: 50vh;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 20px;
 }
 
 .sidebar-content p {
@@ -56,6 +59,8 @@ body {
     padding: 10px;
     text-align: center;
     max-width: 90%;
+    font-size: 1.2em;
+    line-height: 1.5;
 }
 
 .buttons {
@@ -94,6 +99,7 @@ body {
     border-top: 10px solid #734A65;
     width: calc(100% - 40px);
     box-sizing: border-box;
+    z-index: 1; /* Ensure the form is above other content */
 }
 
 .formEntry {
@@ -119,6 +125,7 @@ body {
     color: #FFFFFF;
     margin: 0 auto 5px 20px;
 }
+
 .submit {
     background-color: #5e1898;
     color: #FFFFFF;
@@ -135,21 +142,67 @@ body {
     background-color: #fc4424;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
+/* Media Queries */
+
+/* Mobile devices (max-width: 600px) */
+@media only screen and (max-width: 600px) {
+    .header h1, .header h2 {
+        font-size: 30px;
+    }
+
     .sidebar {
-        width: 100%;
         left: 0;
-        top: auto;
-        bottom: 0;
+        width: 100vw;
+        background-color: rgba(115, 74, 101, 0.9);
+    }
+
+    .sidebar-content {
+        flex-direction: column;
         height: auto;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+    }
+
+    .sidebar-content p {
+        max-width: 100%;
+        text-align: center;
+        padding: 5px;
+    }
+
+    .buttons {
+        top: auto;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+    }
+
+    .buttons button {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    .wrapper {
+        display: none; /* Hide the form by default on small screens */
     }
 
     .form {
         position: relative;
-        top: 10px;
+        top: 0;
         left: auto;
         right: auto;
-        width: calc(100% - 40px);
+        max-width: 90%;
+        margin: 20px auto;
+        padding: 10px;
+        z-index: 1; /* Ensure the form is above other content */
+    }
+
+    .formEntry {
+        width: calc(100% - 30px);
+    }
+
+    .submit {
+        width: calc(100% - 30px);
     }
 }

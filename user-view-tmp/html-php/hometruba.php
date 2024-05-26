@@ -13,7 +13,7 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 
 // Fetch user data
-$sql = "SELECT * FROM CUSTOMER WHERE customerID = ?";
+$sql = "SELECT * FROM STAFF WHERE staffID = ?";
 $stmt = $dbc->prepare($sql);
 if ($stmt) {
 $stmt->bind_param("i", $user_id);
@@ -24,7 +24,6 @@ $user = $result->fetch_assoc();
 $name = htmlspecialchars($user['name']);
 $surname = htmlspecialchars($user['surname']);
 $dob = htmlspecialchars($user['dob']);
-$role = htmlspecialchars($user['role']);
 $mail = htmlspecialchars($user['mail']);
 } else {
 echo "No user found with this ID.";
@@ -49,33 +48,44 @@ exit();
 <body>
 <div id="grad">
     <div class="sidebar">
-        <div class="header">
-            <h1>ReSSSToran</h1>
-        </div>
-        <div class="sidebar-content">
-            <p>
-                Welcome Truba
-            </p>
-        </div>
-        <div id="profile-info">
-            <p><strong>Name:</strong> <?php echo $name; ?></p>
-            <p><strong>Surname:</strong> <?php echo $surname; ?></p>
-            <p><strong>Date of Birth:</strong> <?php echo $dob; ?></p>
-            <p><strong>Role:</strong> <?php echo $role; ?></p>
-            <p><strong>Email:</strong> <?php echo $mail; ?></p>
-            <button type="button" id="editProfileBtn" class="edit-btn">Edit Profile</button>
-        </div>
-        <form id="profile-form" class="profile-form" action="update_profile.php" method="post" style="display:none;">
-            <div class="form-field">
-                <label for="dob">Date of Birth</label>
-                <input type="date" id="dob" name="dob" value="<?php echo $dob; ?>" required>
+            <div class="header">
+                <h1>ReSSSToran</h1>
+                <div id="profile-info" class="profile-info">
+                    <p><strong>Name:</strong> <?php echo $name; ?></p>
+                    <p><strong>Surname:</strong> <?php echo $surname; ?></p>
+                    <p><strong>Date of Birth:</strong> <?php echo $dob; ?></p>
+                    <p><strong>Email:</strong> <?php echo $mail; ?></p>
+                    <button type="button" id="editProfileBtn" class="edit-btn">Edit Profile</button>
+                    <button type="button" id="changePasswordBtn" class="edit-btn">Change Password</button>
+                    <button onclick="window.location.href='logout.php'" class="edit-btn">Logout</button>
+                </div>
+                <form id="profile-form" class="profile-form" action="update_staffprofile.php" method="post" style="display:none;">
+                    <div class="form-field">
+                        <label for="dob">Date of Birth</label>
+                        <input type="date" id="dob" name="dob" value="<?php echo $dob; ?>" required>
+                    </div>
+                    <button type="submit" class="edit-btn">Save Changes</button>
+                    <button type="button" id="cancelEditBtn" class="edit-btn">Cancel</button>
+                </form>
             </div>
-            <button type="submit" class="edit-btn">Save Changes</button>
-            <button type="button" id="cancelEditBtn" class="edit-btn">Cancel</button>
-        </form>
-        <button type="button" id="changePasswordBtn" class="edit-btn">Change Password</button>
     </div>
-/* ovdje implement connection to database, trubin username, password, da može promijeniti tj edit profile button
+    <div id="changePasswordModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form action="change_staffpassword.php" method="post">
+                <label for="current_password">Current Password:</label>
+                <input type="password" id="current_password" name="current_password" required>
+
+                <label for="new_password">New Password:</label>
+                <input type="password" id="new_password" name="new_password" required>
+
+                <label for="confirm_password">Confirm Password:</label>
+                <input type="password" id="confirm_password" name="confirm_password" required>
+
+                <button type="submit">Save Changes</button>
+            </form>
+        </div>
+    </div>
     <div class="buttons">
         <button onclick="window.location.href=''">Check available</button>
         <button onclick="window.location.href=''">Order history</button>
@@ -85,5 +95,44 @@ exit();
         <img src="../pics/16558127774-ssst-kampus.jpg" alt="Image Description">
     </div>
 </div>
+<script>
+    const profileInfo = document.getElementById("profile-info");
+    const profileForm = document.getElementById("profile-form");
+    const editProfileBtn = document.getElementById("editProfileBtn");
+    const cancelEditBtn = document.getElementById("cancelEditBtn");
+    const modal = document.getElementById("changePasswordModal");
+    const btn = document.getElementById("changePasswordBtn");
+    const span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the edit profile button, show the form and hide the info
+    editProfileBtn.onclick = function() {
+        profileInfo.style.display = "none";
+        profileForm.style.display = "block";
+    }
+
+    // When the user clicks the cancel button, hide the form and show the info
+    cancelEditBtn.onclick = function() {
+        profileForm.style.display = "none";
+        profileInfo.style.display = "block";
+    }
+
+    // When the user clicks the change password button, open the modal
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
 </body>
 </html>
+

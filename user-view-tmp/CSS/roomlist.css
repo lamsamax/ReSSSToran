@@ -1,17 +1,22 @@
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #6B0AC9, #FF003E);
+/* list.css */
+
+html, body {
+    height: 100%;
     margin: 0;
     padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #6B0AC9, #FF003E);
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
 }
 
 h1 {
     color: #333;
-    margin-top: 20px;
+    margin-top: 0;
 }
 
 a {
@@ -23,12 +28,13 @@ a {
     transition: background-color 0.3s;
 }
 
-a:hover{
+a:hover {
     background-color: #3c4cb0;
     color: whitesmoke;
 }
 
 .container {
+    height: 90%;
     width: 90%;
     max-width: 1200px;
     margin: 20px auto;
@@ -37,7 +43,8 @@ a:hover{
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     text-align: center;
-    overflow: scroll;
+    display: flex;
+    flex-direction: column;
 }
 
 .header {
@@ -45,6 +52,12 @@ a:hover{
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+}
+
+.table-container {
+    max-height: 70vh;
+    overflow-y: auto;
+    margin-top: 20px;
 }
 
 .table-buttons {
@@ -82,7 +95,6 @@ a:hover{
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
 }
 
 thead {
@@ -102,11 +114,4 @@ th {
 
 tr:nth-child(even) {
     background-color: #f2f2f2;
-}
-
-.actions {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px; /* Adds space between buttons */
 }

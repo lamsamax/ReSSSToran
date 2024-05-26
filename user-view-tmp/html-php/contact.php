@@ -1,27 +1,4 @@
-<?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = htmlspecialchars($_POST["name"]);
-    $email = filter_var($_POST["email"], FILTER_SANITIZE_EMAIL);
-    $message = htmlspecialchars($_POST["message"]);
 
-    if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $to = 'imamoviceva@gmail.com';
-        $subject = "Message from $name";
-        $body = "Name: $name\nEmail: $email\n\nMessage:\n$message";
-        $headers = "From: $email\r\n";
-        $headers .= "Reply-To: $email\r\n";
-        $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
-
-        if (mail($to, $subject, $body, $headers)) {
-            $msg = "Message sent successfully!";
-        } else {
-            $msg = "Failed to send message.";
-        }
-    } else {
-        $msg = "Invalid email format.";
-    }
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,19 +17,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         <div class="sidebar-content">
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam suscipit, mauris at suscipit fermentum, urna quam fermentum purus, a tempus urna lacus sed nibh. Nullam mattis, arcu sed interdum dictum, felis nunc auctor dolor, sit amet pharetra enim magna a purus. Ut consequat id neque vel posuere. Cras efficitur tristique ipsum, sit amet posuere ipsum posuere sit amet. Nulla ut massa sed...
+                Feel free to reach out to us via telephone or email:<br>
+                <strong>Tel:</strong> +387 33 975 002<br>
+                <strong>Fax:</strong> +387 33 975 030<br>
+                <strong>Email:</strong> resturant@ssst.edu.ba
             </p>
         </div>
     </div>
 
     <div class="buttons">
         <button onclick="window.location.href='index.html'">Home</button>
-        <button onclick="window.location.href='menu.html'">Menu</button>
+        <button onclick="window.location.href='../../project-2024-group-4/php/menu.php'">Menu</button>
         <button onclick="window.location.href='gallery.html'">Gallery</button>
-        <button onclick="window.location.href='contact.html'">Contact</button>
-        <button onclick="window.location.href='profile.html'">Profile</button>
+        <button onclick="window.location.href='contact.php'">Contact</button>
+        <button onclick="window.location.href='profile.php'">Profile</button>
     </div>
-    <div class="wrapper">
+
+
+    <div class="wrapper" id="contactFormWrapper">
         <form class="form" action="contact.php" method="post">
             <div class="pageTitle title">Contact us</div>
             <div class="secondaryTitle title">Please fill in all data in order to get a response.</div>
@@ -66,5 +48,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <?php endif; ?>
     </div>
 </div>
+
+<script>
+    function toggleContactForm() {
+        var formWrapper = document.getElementById('contactFormWrapper');
+        if (formWrapper.style.display === "none" || formWrapper.style.display === "") {
+            formWrapper.style.display = "block";
+        } else {
+            formWrapper.style.display = "none";
+        }
+    }
+</script>
 </body>
 </html>
