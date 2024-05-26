@@ -1,3 +1,9 @@
+<?php
+global $dbc;
+
+include '../../authorization.php';
+checkUserRole('customer');
+?>
 
 <!DOCTYPE html>
 <html lang="en">

@@ -1,7 +1,8 @@
 <?php
 global $dbc;
-session_start();
-include 'proba.php';
+
+include '../../authorization.php';
+checkUserRole('staff');
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../../project-2024-group-4/php/login.php");

@@ -3,7 +3,7 @@
 global $dbc;
 
 include '../../authorization.php';
-checkUserRole('customer');
+checkUserRole('admin');
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../../project-2024-group-4/php/login.php");
