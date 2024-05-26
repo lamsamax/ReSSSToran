@@ -1,6 +1,8 @@
 <?php
-include('db.php');
+include "../authorization.php" ;
 global $dbc;
+
+checkUserRole('admin');
 
 $sql = "SELECT staffID, name, surname, dob, mail, password FROM STAFF";
 $result = $dbc->query($sql);
