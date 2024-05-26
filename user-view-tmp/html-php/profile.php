@@ -81,7 +81,7 @@ if ($stmt) {
     </div>
     <div class="action-buttons">
         <button type="button" class="action-btn" onclick="location.href='history1.php';">Active Orders</button>
-        <button type="button" class="action-btn" onclick="location.href='history2.php';">Previous Orders</button>
+        <button type="button" class="action-btn" onclick="location.href='../../staff-view/order_history.php';">Previous Orders</button>
         <button type="button" class="action-btn" onclick="location.href='history3.php';">My Reviews</button>
     </div>
     <div id="changePasswordModal" class="modal">

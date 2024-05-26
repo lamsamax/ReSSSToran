@@ -66,4 +66,39 @@ function displayOrderHistory($orderHistory) {
     }
     return $html;
 }
+
+function getAllOrders() {
+    global $dbc;
+    $sql = "SELECT o.orderID, o.orderDate, o.price, o.status, o.deliveryOption, c.name as customerName, c.surname as customerSurname, oi.quantity, oi.price as itemPrice, i.name as itemName
+            FROM ORDERS o
+            JOIN CUSTOMER c ON o.customer = c.customerID
+            JOIN ORDER_ITEM oi ON o.orderID = oi.orderID
+            JOIN ITEM i ON oi.itemID = i.itemID
+            ORDER BY o.orderDate DESC";
+    $result = $dbc->query($sql);
+    $allOrders = [];
+    while ($row = $result->fetch_assoc()) {
+        $orderID = $row['orderID'];
+        if (!isset($allOrders[$orderID])) {
+            $allOrders[$orderID] = [
+                'orderID' => $row['orderID'],
+                'orderDate' => $row['orderDate'],
+                'price' => $row['price'],
+                'status' => $row['status'],
+                'deliveryOption' => $row['deliveryOption'],
+                'customerName' => $row['customerName'],
+                'customerSurname' => $row['customerSurname'],
+                'items' => []
+            ];
+        }
+        $allOrders[$orderID]['items'][] = [
+            'itemName' => $row['itemName'],
+            'quantity' => $row['quantity'],
+            'itemPrice' => $row['itemPrice']
+        ];
+    }
+    return $allOrders;
+}
+
+
 ?>
