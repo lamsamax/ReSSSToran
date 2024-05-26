@@ -3,8 +3,8 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-include('../mysqli_connect.php');
-session_start();
+include('../../authorization.php');
+checkUserRole('customer');
 
 if (!isset($_SESSION['order'])) {
     $_SESSION['order'] = [];
@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_to_bag'])) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['remove_item'])) {
     $itemIndex = $_POST['item_index'];
     unset($_SESSION['order'][$itemIndex]);
-    $_SESSION['order'] = array_values($_SESSION['order']); // Re-index the array
+    $_SESSION['order'] = array_values($_SESSION['order']);
 }
 
 function calculateTotal() {
@@ -47,7 +47,7 @@ function calculateTotal() {
     <title>Menu</title>
 </head>
 <body>
-<button onclick="window.location.href='home.html'" class="home-button">
+<button onclick="window.location.href='../../user-view-tmp/html-php/index.php'" class="home-button">
     <i class="fas fa-home"></i>
 </button>
 

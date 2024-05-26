@@ -1,6 +1,6 @@
 <?php
-include '../mysqli_connect.php';
-session_start();
+include ('../../authorization.php');
+checkUserRole('customer');
 
 if (!isset($_SESSION['order']) || empty($_SESSION['order'])) {
     echo "No items in your cart.";
@@ -43,11 +43,11 @@ function calculateTotal() {
 <body>
 <nav>
     <ul>
-        <li><a href="customerhome.php">Home</a></li>
+        <li><a href="../../user-view-tmp/html-php/index.php">Home</a></li>
         <li><a href="menu.php">Menu</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="profile.html">Profile</a></li>
+        <li><a href="../../user-view-tmp/html-php/gallery.php">Gallery</a></li>
+        <li><a href="../../user-view-tmp/html-php/contact.php">Contact</a></li>
+        <li><a href="../../user-view-tmp/html-php/profile.php">Profile</a></li>
     </ul>
 </nav>
 

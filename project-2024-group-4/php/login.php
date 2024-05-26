@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($customer['isAdmin'] == 1) {
             header('Location: ../../user-view-tmp/html-php/homeadmin.php');
         } else {
-            header('Location: ../../user-view-tmp/html-php/index.html');
+            header('Location: ../../user-view-tmp/html-php/index.php');
         }
         exit();
     } else {

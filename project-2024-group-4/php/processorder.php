@@ -1,6 +1,6 @@
 <?php
-include '../mysqli_connect.php';
-session_start();
+include ('../../authorization.php');
+checkUserRole('customer');
 
 global $dbc;
 
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['place_order'])) {
         die("Error: No items in your cart.");
     }
 
-    $customerID = 3;
+    $customerID = $_SESSION['user_id'];
     $staffID = 1;
     $orderDate = date('Y-m-d H:i:s');
 
