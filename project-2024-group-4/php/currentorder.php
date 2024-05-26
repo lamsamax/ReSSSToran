@@ -40,6 +40,9 @@ function getStatusText($status) {
                 dataType: 'json',
                 success: function(data) {
                     $('#order-status').text(data.statusText);
+                    if (data.statusText === 'Delivered') { // If the order is delivered
+                        window.location.href = 'review.php';
+                    }
                 }
             });
         }
