@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 include "../authorization.php" ;
 checkUserRole('staff');
 global $dbc;
