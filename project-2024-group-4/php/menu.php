@@ -79,7 +79,7 @@ while ($category = mysqli_fetch_assoc($categories_result)) {
         die("Error: 'categoryID' key not found in category array.");
     }
 
-    $items_result = mysqli_query($dbc, "SELECT * FROM ITEM WHERE categoryID=" . $category['categoryID']);
+    $items_result = mysqli_query($dbc, "SELECT itemID, name, description, price, imageUrl, avgGrade FROM ITEM WHERE categoryID=" . $category['categoryID']);
     if (!$items_result) {
         die('Query failed: ' . mysqli_error($dbc));
     }
@@ -90,6 +90,9 @@ while ($category = mysqli_fetch_assoc($categories_result)) {
         echo "<div class='item-details'>";
         echo "<p>" . $item['name'] . " - " . $item['price'] . "KM</p>";
         echo "<p class='item-description'>" . $item['description'] . "</p>";
+        if ($item['avgGrade'] >= 3.0) {
+            echo "<p class='item-grade'>Average Grade: " . $item['avgGrade'] . "</p>";
+        }
         echo "<div class='item-buttons'>"; // Container for buttons
         echo "<form method='POST'>";
         echo "<input type='hidden' name='item_id' value='" . $item['itemID'] . "'>";
@@ -105,8 +108,6 @@ while ($category = mysqli_fetch_assoc($categories_result)) {
         echo "</div>"; // Close item-details
         echo "</div>"; // Close item
     }
-
-
 
     echo "</section>";
 }
@@ -133,4 +134,3 @@ while ($category = mysqli_fetch_assoc($categories_result)) {
 </footer>
 </body>
 </html>
-
