@@ -1,7 +1,3 @@
-/*html{
-    scroll-behavior: smooth;
-}
-*/
 body, html {
     margin: 0;
     padding: 0;
@@ -88,7 +84,6 @@ section {
     border-radius: 10px;
 }
 
-
 footer {
     text-align: center;
     padding: 10px 0;
@@ -109,6 +104,7 @@ footer p {
     margin-bottom: 20px;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
 .item-image {
@@ -153,7 +149,6 @@ footer p {
     background-color: #ff1a1a;
 }
 
-
 button {
     padding: 5px 10px;
     background-color: #5e1898;
@@ -163,14 +158,6 @@ button {
     align-self: flex-end;
 }
 
-.item-details button:not(.checkout) {
-    position: absolute;
-    right: 15px;
-    bottom: 25px;
-    margin: 0;
-}
-
-
 .checkout {
     align-self: center;
 }
@@ -178,7 +165,37 @@ button {
 button:hover {
     background-color: #fc4424;
 }
- @media screen and (max-width: 768px) {
+
+.item-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px; /* Ensure there is space between the buttons */
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+.item-buttons form {
+    display: inline;
+}
+
+.item-buttons button {
+    width: auto; /* Allow buttons to take space based on content */
+    height: 30px; /* Ensure consistent height */
+    padding: 10px;
+    background-color: #5e1898;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.item-buttons button:hover {
+    background-color: #fc4424;
+}
+
+@media screen and (max-width: 768px) {
     .order-summary {
         position: static;
         width: auto;
@@ -195,8 +212,9 @@ button:hover {
         max-width: 70%;
     }
 }
+
 @media screen and (max-width: 600px) {
-    body{
+    body {
         font-size: 70%;
     }
 }

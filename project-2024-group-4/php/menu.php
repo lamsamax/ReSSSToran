@@ -83,20 +83,30 @@ while ($category = mysqli_fetch_assoc($categories_result)) {
     if (!$items_result) {
         die('Query failed: ' . mysqli_error($dbc));
     }
+
     while ($item = mysqli_fetch_assoc($items_result)) {
         echo "<div class='item'>";
         echo "<img src='../" . $item['imageUrl'] . "' alt='" . $item['name'] . "' class='item-image'>";
         echo "<div class='item-details'>";
         echo "<p>" . $item['name'] . " - " . $item['price'] . "KM</p>";
         echo "<p class='item-description'>" . $item['description'] . "</p>";
+        echo "<div class='item-buttons'>"; // Container for buttons
         echo "<form method='POST'>";
         echo "<input type='hidden' name='item_id' value='" . $item['itemID'] . "'>";
         echo "<input type='hidden' name='item_name' value='" . $item['name'] . "'>";
         echo "<input type='hidden' name='item_price' value='" . $item['price'] . "'>";
         echo "<button type='submit' name='add_to_bag'>Add to bag</button>";
         echo "</form>";
-        echo "</div></div>";
+        echo "<form method='GET' action='itemreview.php'>";
+        echo "<input type='hidden' name='item_id' value='" . $item['itemID'] . "'>";
+        echo "<button type='submit'>Review</button>";
+        echo "</form>";
+        echo "</div>"; // Close item-buttons
+        echo "</div>"; // Close item-details
+        echo "</div>"; // Close item
     }
+
+
 
     echo "</section>";
 }
