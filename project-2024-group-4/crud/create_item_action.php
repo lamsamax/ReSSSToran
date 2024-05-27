@@ -8,19 +8,20 @@ $price = $_POST['price'];
 $imageUrl = $_POST['imageUrl'];
 $categoryID = $_POST['categoryID'];
 $available = isset($_POST['available']) ? 1 : 0;
+$averageGrade = 0.0;
 
 echo '<pre>';
 print_r($_POST);
 echo '</pre>';
 
-$sql = "INSERT INTO ITEM (name, description, price, imageUrl, categoryID, available) VALUES (?, ?, ?, ?, ?, ?)";
+$sql = "INSERT INTO ITEM (name, description, price, imageUrl, categoryID, available, avgGrade) VALUES (?, ?, ?, ?, ?, ?, ?)";
 $stmt = $dbc->prepare($sql);
 
 if (!$stmt) {
     die("Error preparing statement: " . $dbc->error);
 }
 
-$stmt->bind_param("ssdsii", $name, $description, $price, $imageUrl, $categoryID, $available);
+$stmt->bind_param("ssdsiid", $name, $description, $price, $imageUrl, $categoryID, $available, $averageGrade);
 
 if ($stmt->execute() === TRUE) {
     echo "Menu item created successfully";
