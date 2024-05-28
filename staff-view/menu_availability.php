@@ -9,26 +9,7 @@ checkUserRole('staff');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Staff Menu Management</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .available {
-            color: green;
-        }
-        .unavailable {
-            color: red;
-        }
-    </style>
+    <link rel="stylesheet" href="menu_availability.css">
 </head>
 <body>
 <h1>Staff Menu Management</h1>

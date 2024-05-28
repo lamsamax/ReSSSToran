@@ -11,7 +11,8 @@ function getOrders($status) {
     JOIN CUSTOMER c ON o.customer = c.customerID
     JOIN DELIVERY_ROOM dr ON o.orderID = dr.orderID
     JOIN ROOM r ON dr.roomID = r.roomID
-    WHERE o.status = ?";
+    WHERE o.status = ?
+    AND o.orderdate >= NOW() - INTERVAL 1 DAY";
     $stmt = $dbc->prepare($sql);
     $stmt->bind_param("i", $status);
     $stmt->execute();
@@ -72,6 +73,15 @@ function updateOrderStatus($orderId, $newStatus, $staffID = null) {
     }
     $stmt->execute();
     $stmt->close();
+
+if ($newStatus == 5 || $newStatus == 6) {
+    $actualTime = date('Y-m-d H:i:s'); // Current timestamp
+    $sql = "UPDATE DELIVERY_ROOM SET actualTime = ? WHERE orderID = ?";
+    $stmt = $dbc->prepare($sql);
+    $stmt->bind_param("si", $actualTime, $orderId);
+    $stmt->execute();
+    $stmt->close();
+}
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
