@@ -35,7 +35,7 @@ function calculateTotal() {
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            toggleRoomSelection(); // Initial call to set the correct state
+            toggleRoomSelection();
             document.getElementById('delivery-option').addEventListener('change', toggleRoomSelection);
         });
     </script>
@@ -79,7 +79,7 @@ function calculateTotal() {
                 <select id="room-id" name="room_id">
                     <?php
                     global $dbc;
-                    $result = mysqli_query($dbc, "SELECT roomID, roomNumber FROM ROOM");
+                    $result = mysqli_query($dbc, "SELECT roomID, roomNumber FROM ROOM WHERE roomNumber != 400");
                     while ($row = mysqli_fetch_assoc($result)) {
                         echo '<option value="' . $row['roomID'] . '">' . $row['roomNumber'] . '</option>';
                     }
