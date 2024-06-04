@@ -90,7 +90,7 @@ exit();
     </div>
     <div class="buttons">
         <button onclick="window.location.href='../../staff-view/menu_availability.php'">Check available</button>
-        <button onclick="window.location.href=''">Order history</button>
+        <button onclick="window.location.href='../../staff-view/staff_order_history.php'">Order history</button>
         <button onclick="window.location.href='../../staff-view/orderqueue.php'">Current orders</button>
     </div>
     <div class="image">

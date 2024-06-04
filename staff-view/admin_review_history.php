@@ -10,6 +10,7 @@ function getAllItemReviews() {
             FROM ITEMREVIEW ir
             JOIN ITEM i ON ir.itemID = i.itemID
             JOIN CUSTOMER c ON ir.customerID = c.customerID
+            WHERE ir.grade <> 0
             ORDER BY ir.reviewDate DESC";
     $result = $dbc->query($sql);
     $reviews = [];
@@ -24,6 +25,7 @@ function getAllOrderReviews() {
     $sql = "SELECT o.orderID, o.review as description, o.grade, o.orderDate as reviewDate, c.name as customerName, c.surname as customerSurname
             FROM ORDERS o
             JOIN CUSTOMER c ON o.customer = c.customerID
+            WHERE o.grade <> 0
             ORDER BY o.orderdate DESC";
     $result = $dbc->query($sql);
     $reviews = [];

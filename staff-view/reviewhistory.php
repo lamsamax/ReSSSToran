@@ -81,7 +81,7 @@ $orderReviews = getUserOrderReviews($user_id);
 
     <h2>My Order Review History</h2>
     <table>
-        <tr><th>Order ID</th><th>Description</th><th>Grade</th><th>Actual Time</th></tr>
+        <tr><th>Order ID</th><th>Description</th><th>Grade</th><th>Review Date</th></tr>
         <?php foreach ($orderReviews as $review): ?>
             <tr>
                 <td><?php echo htmlspecialchars($review['orderID']); ?></td>

@@ -79,7 +79,7 @@ exit();
         <button onclick="window.location.href='../../project-2024-group-4/crud/item_list.php'">Items</button>
         <button onclick="window.location.href='stats.php'">Statistics</button>
         <button onclick="window.location.href='../../staff-view/admin_order_history.php'">Order history</button>
-        <button onclick="window.location.href=''">Reviews</button>
+        <button onclick="window.location.href='../../staff-view/admin_review_history.php'">Reviews</button>
     </div>
 </div>
     <div class="image">
