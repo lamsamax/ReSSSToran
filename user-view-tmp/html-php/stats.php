@@ -321,6 +321,46 @@ switch ($filter) {
             ?>
         </div>
     </div>
+    <div class="stats-section">
+        <button onclick="toggleVisibility('fiveTimesOrdered')">Items Ordered More Than Five Times</button>
+        <div id="fiveTimesOrdered" style="display: none;">
+        <?php
+        $order_threshold = 5;
+
+        $query = "SELECT i.name, COUNT(oi.itemID) AS order_count
+                  FROM ORDER_ITEM oi
+                  JOIN ITEM i ON oi.itemID = i.itemID
+                  GROUP BY i.itemID
+                  HAVING order_count > $order_threshold";
+
+        $result = fetchStats($dbc, $query);
+        echo "<p>Items ordered more than $order_threshold times:</p>";
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo "<p>Item: " . htmlspecialchars($row['name']) . " - Orders: " . $row['order_count'] . "</p>";
+        }
+        ?>
+        </div>
+    </div>
+    <div class="stats-section">
+        <button onclick="toggleVisibility('distinctPrices')">Item Price History</button>
+        <div id="distinctPrices" style="display: none;">
+            <?php
+            $itemID = 1;
+            $query = "SELECT DISTINCT oi.price
+            FROM ORDER_ITEM oi
+            WHERE oi.itemID = $itemID";
+
+            $result = fetchStats($dbc, $query);
+            if (mysqli_num_rows($result) > 0) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    echo "<p>Price: $" . htmlspecialchars($row['price']) . "</p>";
+                }
+            } else {
+                echo "<p>No distinct prices found for item ID $itemID.</p>";
+            }
+            ?>
+        </div>
+    </div>
 </div>
 </body>
 </html>
