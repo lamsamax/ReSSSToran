@@ -26,6 +26,7 @@ $name = htmlspecialchars($user['name']);
 $surname = htmlspecialchars($user['surname']);
 $dob = htmlspecialchars($user['dob']);
 $mail = htmlspecialchars($user['mail']);
+    $dobFormatted = (new DateTime($dob))->format('d/m/Y');
 } else {
 echo "No user found with this ID.";
 exit();
@@ -54,7 +55,7 @@ exit();
                 <div id="profile-info" class="profile-info">
                     <p><strong>Name:</strong> <?php echo $name; ?></p>
                     <p><strong>Surname:</strong> <?php echo $surname; ?></p>
-                    <p><strong>Date of Birth:</strong> <?php echo $dob; ?></p>
+                    <p><strong>Date of Birth:</strong> <?php echo $dobFormatted; ?></p>
                     <p><strong>Email:</strong> <?php echo $mail; ?></p>
                     <button type="button" id="editProfileBtn" class="edit-btn">Edit Profile</button>
                     <button type="button" id="changePasswordBtn" class="edit-btn">Change Password</button>
