@@ -361,6 +361,27 @@ switch ($filter) {
             ?>
         </div>
     </div>
+    <div class="stats-section">
+        <button onclick="toggleVisibility('similarReviews')">Item Reviews Containing Word "Good"</button>
+        <div id="similarReviews" style="display: none;">
+            <?php
+            $searchString = 'good';
+            $query = "SELECT r.description
+                  FROM ITEMREVIEW r
+                  WHERE LOWER(r.description) LIKE LOWER('%$searchString%')";
+
+            $result = fetchStats($dbc, $query);
+            echo "<p>Item reviews containing the string '$searchString':</p>";
+            if (mysqli_num_rows($result) > 0) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    echo "<p>Review: " . htmlspecialchars($row['description']) . "</p>";
+                }
+            } else {
+                echo "<p>No item reviews found containing the string '$searchString'.</p>";
+            }
+            ?>
+        </div>
+    </div>
 </div>
 </body>
 </html>
