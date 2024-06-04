@@ -16,21 +16,23 @@ $user_id = $_SESSION['user_id'];
 $sql = "SELECT * FROM CUSTOMER WHERE customerID = ?";
 $stmt = $dbc->prepare($sql);
 if ($stmt) {
-$stmt->bind_param("i", $user_id);
-$stmt->execute();
-$result = $stmt->get_result();
-if ($result->num_rows > 0) {
-$user = $result->fetch_assoc();
-$name = htmlspecialchars($user['name']);
-$surname = htmlspecialchars($user['surname']);
-$dob = htmlspecialchars($user['dob']);
-$role = htmlspecialchars($user['role']);
-$mail = htmlspecialchars($user['mail']);
-} else {
-echo "No user found with this ID.";
-exit();
-}
-$stmt->close();
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result->num_rows > 0) {
+        $user = $result->fetch_assoc();
+        $name = htmlspecialchars($user['name']);
+        $surname = htmlspecialchars($user['surname']);
+        $dob = htmlspecialchars($user['dob']);
+        $role = htmlspecialchars($user['role']);
+        $mail = htmlspecialchars($user['mail']);
+
+        $dobFormatted = (new DateTime($dob))->format('d/m/Y');
+    } else {
+        echo "No user found with this ID.";
+        exit();
+    }
+    $stmt->close();
 } else {
 echo "Error preparing statement: " . $dbc->error;
 exit();
@@ -54,7 +56,7 @@ exit();
             <div id="profile-info" class="profile-info">
                 <p><strong>Name:</strong> <?php echo $name; ?></p>
                 <p><strong>Surname:</strong> <?php echo $surname; ?></p>
-                <p><strong>Date of Birth:</strong> <?php echo $dob; ?></p>
+                <p><strong>Date of Birth:</strong> <?php echo $dobFormatted; ?></p>
                 <p><strong>Role:</strong> <?php echo $role; ?></p>
                 <p><strong>Email:</strong> <?php echo $mail; ?></p>
                 <button type="button" id="editProfileBtn" class="edit-btn">Edit Profile</button>

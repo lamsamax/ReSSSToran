@@ -26,6 +26,9 @@ if ($stmt) {
         $dob = htmlspecialchars($user['dob']);
         $role = htmlspecialchars($user['role']);
         $mail = htmlspecialchars($user['mail']);
+
+        // Format the date of birth to European format
+        $dobFormatted = (new DateTime($dob))->format('d/m/Y');
     } else {
         echo "No user found with this ID.";
         exit();
@@ -56,7 +59,7 @@ if ($stmt) {
         <div id="profile-info" class="profile-info">
             <p><strong>Name:</strong> <?php echo $name; ?></p>
             <p><strong>Surname:</strong> <?php echo $surname; ?></p>
-            <p><strong>Date of Birth:</strong> <?php echo $dob; ?></p>
+            <p><strong>Date of Birth:</strong> <?php echo $dobFormatted; ?></p>
             <p><strong>Role:</strong> <?php echo $role; ?></p>
             <p><strong>Email:</strong> <?php echo $mail; ?></p>
             <button type="button" id="editProfileBtn" class="edit-btn">Edit Profile</button>
@@ -66,7 +69,7 @@ if ($stmt) {
         <form id="profile-form" class="profile-form" action="update_profile.php" method="post" style="display:none;">
             <div class="form-field">
                 <label for="dob">Date of Birth</label>
-                <input type="date" id="dob" name="dob" value="<?php echo $dob; ?>" required>
+                <input type="date" id="dob" name="dob" value="<?php echo (new DateTime($dob))->format('Y-m-d'); ?>" required>
             </div>
             <button type="submit" class="edit-btn">Save Changes</button>
             <button type="button" id="cancelEditBtn" class="edit-btn">Cancel</button>

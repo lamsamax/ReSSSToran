@@ -18,7 +18,7 @@ body {
     border-radius: 10px;
     padding: 20px;
     text-align: center;
-    overflow: scroll;
+    overflow-y: scroll;
 }
 
 h1 {
@@ -32,9 +32,25 @@ h1 {
     border-bottom: 1px solid #dddddd;
 }
 
-.stats-section h2 {
-    color: #555555;
-    margin-bottom: 10px;
+.stats-section button {
+    background-color: #4B0082;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.stats-section button:hover {
+    background-color: #8B0000;
+}
+
+.stats-section div {
+    margin-top: 10px;
+    display: none;
 }
 
 .stats-section p {
