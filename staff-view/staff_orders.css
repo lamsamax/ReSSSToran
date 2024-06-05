@@ -47,7 +47,7 @@ h2 {
     background-color: #8B0000;
 }
 
-/* Table Styles */
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -84,7 +84,7 @@ tr:hover {
     display: none;
 }
 
-/* Responsive Styles */
+
 @media (max-width: 600px) {
     .container {
         padding: 10px;

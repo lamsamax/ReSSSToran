@@ -64,7 +64,7 @@ a:hover{
 }
 
 .edit-btn {
-    background-color: #28a745; /* Green */
+    background-color: #28a745;
 }
 
 .edit-btn:hover {
@@ -72,7 +72,7 @@ a:hover{
 }
 
 .delete-btn {
-    background-color: #dc3545; /* Red */
+    background-color: #dc3545;
 }
 
 .delete-btn:hover {
@@ -108,10 +108,10 @@ tr:nth-child(even) {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px; /* Adds space between buttons */
+    gap: 10px;
 }
 
-/* Responsive Styles */
+
 @media (max-width: 600px) {
     .container {
 
@@ -125,13 +125,13 @@ tr:nth-child(even) {
 
     table {
         width: 100%;
-        table-layout: fixed; /* Ensures columns don't exceed screen width */
+        table-layout: fixed;
     }
 
     th, td {
         padding: 8px;
-        white-space: normal; /* Allows text to wrap */
-        word-wrap: break-word; /* Ensures long words break */
+        white-space: normal;
+        word-wrap: break-word;
         text-align: left;
         display: flow;
         width: 100%;
@@ -149,7 +149,7 @@ tr:nth-child(even) {
 
     .actions {
         flex-direction: column;
-        gap: 5px; /* Reduces space between buttons */
+        gap: 5px;
     }
 }
 

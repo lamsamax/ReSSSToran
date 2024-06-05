@@ -1,4 +1,4 @@
-/* General Styles */
+
 body {
     font-family: Arial, sans-serif;
     background: linear-gradient(to bottom right, #4B0082 0%, #8B0000 50%, #FF0000 100%);
@@ -23,7 +23,7 @@ h2 {
     text-align: center;
 }
 
-/* Table Styles */
+
 table {
     width: 100%;
     border-collapse: collapse;
