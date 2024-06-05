@@ -321,6 +321,7 @@ switch ($filter) {
             ?>
         </div>
     </div>
+
     <div class="stats-section">
         <button onclick="toggleVisibility('fiveTimesOrdered')">Items Ordered More Than Five Times</button>
         <div id="fiveTimesOrdered" style="display: none;">
@@ -341,40 +342,66 @@ switch ($filter) {
         ?>
         </div>
     </div>
+
     <div class="stats-section">
         <button onclick="toggleVisibility('distinctPrices')">Item Price History</button>
         <div id="distinctPrices" style="display: none;">
-            <?php
-            $itemID = 1;
-            $query = "SELECT DISTINCT oi.price
-            FROM ORDER_ITEM oi
-            WHERE oi.itemID = $itemID";
+            <form method="POST">
+                <label for="item_name">Enter Item Name:</label>
+                <input type="text" id="item_name" name="item_name" required>
+                <button type="submit" name="fetch_prices">Fetch Prices</button>
+            </form>
 
-            $result = fetchStats($dbc, $query);
-            if (mysqli_num_rows($result) > 0) {
-                while ($row = mysqli_fetch_assoc($result)) {
-                    echo "<p>Price: $" . htmlspecialchars($row['price']) . "</p>";
+            <?php
+            if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['fetch_prices'])) {
+                $itemName = mysqli_real_escape_string($dbc, $_POST['item_name']);
+
+                // Fetch the item ID based on the item name
+                $itemQuery = "SELECT itemID FROM ITEM WHERE name = '$itemName'";
+                $itemResult = fetchStats($dbc, $itemQuery);
+
+                if (mysqli_num_rows($itemResult) > 0) {
+                    $itemRow = mysqli_fetch_assoc($itemResult);
+                    $itemID = $itemRow['itemID'];
+
+                    // Fetch distinct prices for the item
+                    $priceQuery = "SELECT DISTINCT oi.price
+                                   FROM ORDER_ITEM oi
+                                   WHERE oi.itemID = $itemID";
+
+                    $priceResult = fetchStats($dbc, $priceQuery);
+
+                    if (mysqli_num_rows($priceResult) > 0) {
+                        echo "<p>Distinct prices for item: " . htmlspecialchars($itemName) . ":</p>";
+                        while ($row = mysqli_fetch_assoc($priceResult)) {
+                            echo "<p>Price: $" . htmlspecialchars($row['price']) . "</p>";
+                        }
+                    } else {
+                        echo "<p>No distinct prices found for item: " . htmlspecialchars($itemName) . ".</p>";
+                    }
+                } else {
+                    echo "<p>No item found with the name: " . htmlspecialchars($itemName) . ".</p>";
                 }
-            } else {
-                echo "<p>No distinct prices found for item ID $itemID.</p>";
             }
             ?>
         </div>
     </div>
+
     <div class="stats-section">
         <button onclick="toggleVisibility('similarReviews')">Item Reviews Containing Word "Good"</button>
         <div id="similarReviews" style="display: none;">
             <?php
             $searchString = 'good';
-            $query = "SELECT r.description
+            $query = "SELECT r.description, i.name AS item_name
                   FROM ITEMREVIEW r
+                  JOIN ITEM i ON r.itemID = i.itemID
                   WHERE LOWER(r.description) LIKE LOWER('%$searchString%')";
 
             $result = fetchStats($dbc, $query);
             echo "<p>Item reviews containing the string '$searchString':</p>";
             if (mysqli_num_rows($result) > 0) {
                 while ($row = mysqli_fetch_assoc($result)) {
-                    echo "<p>Review: " . htmlspecialchars($row['description']) . "</p>";
+                    echo "<p>Item: " . htmlspecialchars($row['item_name']) . " - Review: " . htmlspecialchars($row['description']) . "</p>";
                 }
             } else {
                 echo "<p>No item reviews found containing the string '$searchString'.</p>";
@@ -382,6 +409,7 @@ switch ($filter) {
             ?>
         </div>
     </div>
+
 </div>
 </body>
 </html>
