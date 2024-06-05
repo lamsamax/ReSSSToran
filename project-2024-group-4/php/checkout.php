@@ -10,7 +10,7 @@ if (!isset($_SESSION['order']) || empty($_SESSION['order'])) {
 function calculateTotal() {
     $total = 0;
     foreach ($_SESSION['order'] as $item) {
-        $total += $item['price'];
+        $total += $item['price'] * $item['quantity'];
     }
     return $total;
 }
@@ -57,11 +57,7 @@ function calculateTotal() {
         <h2>YOUR ORDER</h2>
         <?php
         foreach ($_SESSION['order'] as $index => $item) {
-            echo "<p>" . $item['name'] . " - " . $item['price'] . "KM";
-            echo "<form method='POST' style='display:inline;'>";
-            echo "<input type='hidden' name='item_index' value='" . $index . "'>";
-            echo "<button type='submit' name='remove_item' class='delete-btn'>Delete</button>";
-            echo "</form>";
+            echo "<p>" . $item['name'] . " - " . $item['price'] . "KM (Quantity: " . $item['quantity'] . ")";
             echo "</p>";
         }
         ?>
