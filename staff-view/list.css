@@ -110,3 +110,46 @@ tr:nth-child(even) {
     align-items: center;
     gap: 10px; /* Adds space between buttons */
 }
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+    .container {
+
+        padding: 10px;
+        overflow-x: auto;
+    }
+
+    body{
+        height: 100%;
+    }
+
+    table {
+        width: 100%;
+        table-layout: fixed; /* Ensures columns don't exceed screen width */
+    }
+
+    th, td {
+        padding: 8px;
+        white-space: normal; /* Allows text to wrap */
+        word-wrap: break-word; /* Ensures long words break */
+        text-align: left;
+        display: flow;
+        width: 100%;
+    }
+
+    th {
+        background-color: #4459de;
+        color: #ffffff;
+        text-align: center;
+    }
+
+    tr:nth-child(even) {
+        background-color: transparent;
+    }
+
+    .actions {
+        flex-direction: column;
+        gap: 5px; /* Reduces space between buttons */
+    }
+}
+

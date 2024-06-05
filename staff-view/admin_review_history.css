@@ -78,3 +78,33 @@ button:hover {
         font-size: 14px;
     }
 }
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+    }
+
+    table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch; /* Enable momentum scrolling on iOS */
+    }
+
+    th, td {
+        padding: 8px;
+        white-space: normal; /* Allow text wrapping */
+        word-wrap: break-word; /* Break long words */
+        text-align: left; /* Align text to the left */
+        display: compact;
+        width: 100%;
+        box-sizing: border-box; /* Ensure padding is included in width */
+    }
+
+    button {
+        font-size: 14px;
+        margin-top: 10px;
+    }
+}
+

@@ -83,3 +83,57 @@ tr:hover {
 .orders-table {
     display: none;
 }
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+        height: 90vh; /* Adjust height for small screens */
+    }
+
+    table {
+        width: 100%;
+        table-layout: fixed; /* Ensures columns don't exceed screen width */
+    }
+
+    th, td {
+        padding: 8px;
+        white-space: normal; /* Allows text to wrap */
+        word-wrap: break-word; /* Ensures long words break */
+        text-align: left;
+    }
+
+    th, td {
+        display: block;
+        width: 100%;
+        box-sizing: border-box; /* Includes padding in width */
+    }
+
+    th {
+        background-color: #f4f4f4;
+        color: #333;
+        text-align: center;
+    }
+
+    tr {
+        display: flex;
+        flex-direction: column; /* Stacks table rows */
+        margin-bottom: 10px;
+        border-bottom: 2px solid #ddd;
+    }
+
+    tr:nth-child(even) {
+        background-color: transparent; /* Remove alternate row color */
+    }
+
+    .buttons button {
+        font-size: 14px;
+        padding: 8px 16px;
+        margin: 5px 10px; /* Adjust button spacing */
+    }
+
+    .details {
+        display: block;
+    }
+
+}

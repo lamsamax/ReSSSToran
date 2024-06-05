@@ -130,3 +130,57 @@ button.mark-done {
 button.mark-done:hover {
     background-color: #FFA000;
 }
+
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+        height: auto; /* Adjust height for small screens */
+    }
+
+    table {
+        width: 100%;
+        table-layout: fixed; /* Ensures columns don't exceed screen width */
+    }
+
+    th, td {
+        padding: 8px;
+        background-color: rgba(255, 255, 255, 1);
+        white-space: normal;
+        word-wrap: break-word;
+        text-align: left;
+    }
+
+    th, td {
+        display: block;
+        width: 100%;
+        box-sizing: border-box; /* Includes padding in width */
+    }
+
+    th {
+        background-color: rgba(0, 0, 0, 0.20);
+        color: white;
+        text-align: center;
+        display: compact;
+    }
+
+    tr {
+        display: flex;
+        flex-direction: column; /* Stacks table rows */
+        margin-bottom: 20px;
+        border-bottom: 2px solid #ddd;
+    }
+
+    tr:nth-child(even) {
+        background-color: transparent; /* Remove alternate row color */
+    }
+
+    .buttons button {
+        font-size: 14px;
+        padding: 8px 16px;
+        margin: 5px 0; /* Adjust button spacing */
+    }
+
+    .details {
+        display: block;
+    }
+}
