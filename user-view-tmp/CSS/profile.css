@@ -250,13 +250,13 @@ input[type="date"] {
 
 @media only screen and (max-width: 600px) {
     body {
-        overflow: auto; /* Ensure scrolling on mobile */
+        overflow: auto;
     }
 
     #grad {
-        position: relative; /* Make background relative to the viewport */
-        height: auto; /* Adjust height for content */
-        overflow: visible; /* Ensure no hidden overflow */
+        position: relative;
+        height: auto;
+        overflow: visible;
     }
 
     .header h1, .header h2 {
@@ -318,9 +318,10 @@ input[type="date"] {
     .action-buttons {
         flex-direction: column;
         gap: 10px;
-        position: static; /* Change to static for better mobile layout */
+        position: static;
+        left: 30%;
         width: 100%;
-        margin: 20px auto 0; /* Add margin to separate from main buttons */
+        margin: 20px auto 0;
         text-align: center;
     }
 
@@ -328,9 +329,8 @@ input[type="date"] {
         width: 100%;
         margin: 5px 0;
     }
-
-    .image img {
-        max-width: 90%;
+    .image{
+        display: none;
     }
 }
 

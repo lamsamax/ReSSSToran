@@ -159,13 +159,13 @@ body {
 
 @media only screen and (max-width: 600px) {
     body {
-        overflow: auto; /* Ensure scrolling on the body */
+        overflow: auto;
     }
 
     #grad {
-        position: relative; /* Make the gradient background relative */
-        height: auto; /* Allow it to expand based on content */
-        overflow: visible; /* Ensure no hidden overflow */
+        position: relative;
+        height: auto;
+        overflow: visible;
     }
 
     .header h1, .header h2 {
@@ -195,8 +195,8 @@ body {
     }
 
     .buttons {
-        position: static; /* Make buttons stack properly */
-        margin-top: 10px; /* Add margin to separate from content */
+        position: static;
+        margin-top: 10px;
         width: 100%;
         text-align: center;
     }
@@ -206,17 +206,21 @@ body {
         margin: 5px auto;
     }
 
+    .buttons button:hover {
+        background-color: indianred;
+    }
+
     .wrapper {
-        display: none; /* Hide the form by default on small screens */
+        display: none;
     }
 
     .sendMessageBtn {
-        display: block; /* Show the send message button on small screens */
+        display: block;
         margin: 20px auto;
         width: 90%;
         text-align: center;
         z-index: 2;
-        padding: 10px 0; /* Ensure it's more visible */
-        font-size: 18px; /* Increase font size for better visibility */
+        padding: 10px 0;
+        font-size: 18px;
     }
 }
