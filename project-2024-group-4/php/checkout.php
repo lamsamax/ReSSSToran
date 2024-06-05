@@ -7,6 +7,18 @@ if (!isset($_SESSION['order']) || empty($_SESSION['order'])) {
     exit;
 }
 
+$customerID = $_SESSION['user_id'];
+
+global $dbc;
+
+$query = "SELECT role FROM CUSTOMER WHERE customerID = $customerID";
+$result = mysqli_query($dbc, $query);
+$userRole = 'guest';
+
+if ($result && $row = mysqli_fetch_assoc($result)) {
+    $userRole = $row['role'];
+}
+
 function calculateTotal() {
     $total = 0;
     foreach ($_SESSION['order'] as $item) {
@@ -66,15 +78,18 @@ function calculateTotal() {
             <div>
                 <label for="delivery-option">Choose delivery or takeout:</label>
                 <select id="delivery-option" name="delivery_option">
-                    <option value="delivery">Delivery</option>
-                    <option value="takeout">Takeout</option>
+                    <?php if ($userRole == 'student') { ?>
+                        <option value="takeout">Takeout</option>
+                    <?php } else { ?>
+                        <option value="delivery">Delivery</option>
+                        <option value="takeout">Takeout</option>
+                    <?php } ?>
                 </select>
             </div>
             <div id="room-selection">
                 <label for="room-id">Select Room:</label>
                 <select id="room-id" name="room_id">
                     <?php
-                    global $dbc;
                     $result = mysqli_query($dbc, "SELECT roomID, roomNumber FROM ROOM WHERE roomNumber != 400");
                     while ($row = mysqli_fetch_assoc($result)) {
                         echo '<option value="' . $row['roomID'] . '">' . $row['roomNumber'] . '</option>';
