@@ -87,70 +87,75 @@ function calculateTotal() {
 </button>
 
 <nav>
-    <ul>
-        <?php
-        global $dbc;
-        $result = mysqli_query($dbc, "SELECT * FROM CATEGORY");
-        if (!$result) {
-            die('Query failed: ' . mysqli_error($dbc));
-        }
-        while ($row = mysqli_fetch_assoc($result)) {
-            echo "<li><a href='#" . strtolower(str_replace(' ', '-', $row['name'])) . "'>" . $row['name'] . "</a></li>";
-        }
-        ?>
-    </ul>
+    <div class="nav-container">
+        <span class="categories-title" onclick="toggleMenu()">Categories</span>
+        <ul>
+            <?php
+            global $dbc;
+            $result = mysqli_query($dbc, "SELECT * FROM CATEGORY");
+            if (!$result) {
+                die('Query failed: ' . mysqli_error($dbc));
+            }
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo "<li><a href='#" . strtolower(str_replace(' ', '-', $row['name'])) . "'>" . $row['name'] . "</a></li>";
+            }
+            ?>
+        </ul>
+    </div>
 </nav>
 
-<?php
-$categories_result = mysqli_query($dbc, "SELECT * FROM CATEGORY");
-if (!$categories_result) {
-    die('Query failed: ' . mysqli_error($dbc));
-}
-while ($category = mysqli_fetch_assoc($categories_result)) {
-    echo "<section id='" . strtolower(str_replace(' ', '-', $category['name'])) . "'>";
-    echo "<h1>" . $category['name'] . "</h1>";
-
-    if (!isset($category['categoryID'])) {
-        die("Error: 'categoryID' key not found in category array.");
-    }
-
-    $items_result = mysqli_query($dbc, "SELECT itemID, name, description, price, imageUrl, avgGrade FROM ITEM WHERE categoryID=" . $category['categoryID']);
-    if (!$items_result) {
+<div class="items">
+    <?php
+    $categories_result = mysqli_query($dbc, "SELECT * FROM CATEGORY");
+    if (!$categories_result) {
         die('Query failed: ' . mysqli_error($dbc));
     }
+    while ($category = mysqli_fetch_assoc($categories_result)) {
+        echo "<section id='" . strtolower(str_replace(' ', '-', $category['name'])) . "'>";
+        echo "<h1>" . $category['name'] . "</h1>";
 
-    while ($item = mysqli_fetch_assoc($items_result)) {
-        echo "<div class='item'>";
-        echo "<img src='../" . $item['imageUrl'] . "' alt='" . $item['name'] . "' class='item-image'>";
-        echo "<div class='item-details'>";
-        echo "<p>" . $item['name'] . " - " . $item['price'] . "KM</p>";
-        echo "<p class='item-description'>" . $item['description'] . "</p>";
-        if ($item['avgGrade'] >= 3.0) {
-            echo "<p class='item-grade'>Average Grade: " . $item['avgGrade'] . "</p>";
+        if (!isset($category['categoryID'])) {
+            die("Error: 'categoryID' key not found in category array.");
         }
-        echo "<div class='item-buttons'>"; // Container for buttons
-        echo "<form method='POST'>";
-        echo "<input type='hidden' name='item_id' value='" . $item['itemID'] . "'>";
-        echo "<input type='hidden' name='item_name' value='" . $item['name'] . "'>";
-        echo "<input type='hidden' name='item_price' value='" . $item['price'] . "'>";
-        echo "<input type='hidden' name='action' value='add'>";
-        echo "<button type='submit' name='add_to_bag'>Add to bag</button>";
-        echo "</form>";
-        echo "<form method='GET' action='itemreview.php'>";
-        echo "<input type='hidden' name='item_id' value='" . $item['itemID'] . "'>";
-        echo "<button type='submit'>Review</button>";
-        echo "</form>";
-        echo "</div>";
-        echo "</div>";
-        echo "</div>";
-    }
 
-    echo "</section>";
-}
-?>
+        $items_result = mysqli_query($dbc, "SELECT itemID, name, description, price, imageUrl, avgGrade FROM ITEM WHERE categoryID=" . $category['categoryID']);
+        if (!$items_result) {
+            die('Query failed: ' . mysqli_error($dbc));
+        }
+
+        while ($item = mysqli_fetch_assoc($items_result)) {
+            echo "<div class='item'>";
+            echo "<img src='../" . $item['imageUrl'] . "' alt='" . $item['name'] . "' class='item-image'>";
+            echo "<div class='item-details'>";
+            echo "<p>" . $item['name'] . " - " . $item['price'] . "KM</p>";
+            echo "<p class='item-description'>" . $item['description'] . "</p>";
+            if ($item['avgGrade'] >= 3.0) {
+                echo "<p class='item-grade'>Average Grade: " . $item['avgGrade'] . "</p>";
+            }
+            echo "<div class='item-buttons'>"; // Container for buttons
+            echo "<form method='POST'>";
+            echo "<input type='hidden' name='item_id' value='" . $item['itemID'] . "'>";
+            echo "<input type='hidden' name='item_name' value='" . $item['name'] . "'>";
+            echo "<input type='hidden' name='item_price' value='" . $item['price'] . "'>";
+            echo "<input type='hidden' name='action' value='add'>";
+            echo "<button type='submit' name='add_to_bag'>Add to bag</button>";
+            echo "</form>";
+            echo "<form method='GET' action='itemreview.php'>";
+            echo "<input type='hidden' name='item_id' value='" . $item['itemID'] . "'>";
+            echo "<button type='submit'>Review</button>";
+            echo "</form>";
+            echo "</div>";
+            echo "</div>";
+            echo "</div>";
+        }
+
+        echo "</section>";
+    }
+    ?>
+</div>
 
 <div class="order-summary">
-    <h1>YOUR ORDER</h1>
+    <h1 class="checkoutheader">YOUR ORDER</h1>
     <?php
     foreach ($_SESSION['order'] as $index => $item) {
         echo "<p>" . $item['name'] . " - " . $item['price'] . "KM (Quantity: " . $item['quantity'] . ")";
@@ -173,9 +178,14 @@ while ($category = mysqli_fetch_assoc($categories_result)) {
     <button class="checkout" onclick="location.href='checkout.php'">Go to Checkout</button>
 </div>
 
-
 <footer>
     <p>© 2024 ReSSSTaurant. All rights reserved.</p>
 </footer>
+
+<script>
+    function toggleMenu() {
+        document.querySelector('.nav-container').classList.toggle('active');
+    }
+</script>
 </body>
 </html>
