@@ -195,6 +195,31 @@ button:hover {
     background-color: #fc4424;
 }
 
+/* New CSS for the + and - buttons */
+.order-summary .quantity-buttons {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
+
+.order-summary .quantity-buttons button {
+    width: 30px;
+    height: 30px;
+    background-color: #5e1898;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.order-summary .quantity-buttons button:hover {
+    background-color: #fc4424;
+}
+
 @media screen and (max-width: 768px) {
     .order-summary {
         position: static;

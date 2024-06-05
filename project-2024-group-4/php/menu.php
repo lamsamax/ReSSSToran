@@ -10,32 +10,67 @@ if (!isset($_SESSION['order'])) {
     $_SESSION['order'] = [];
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_to_bag'])) {
-    $itemID = $_POST['item_id'];
-    $itemName = $_POST['item_name'];
-    $itemPrice = $_POST['item_price'];
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $itemID = $_POST['item_id'] ?? null;
+    $itemName = $_POST['item_name'] ?? null;
+    $itemPrice = $_POST['item_price'] ?? null;
+    $action = $_POST['action'] ?? null;
 
+    if ($action === 'add') {
+        addItemToOrder($itemID, $itemName, $itemPrice);
+    } elseif ($action === 'increase') {
+        increaseItemQuantity($itemID);
+    } elseif ($action === 'decrease') {
+        decreaseItemQuantity($itemID);
+    }
+}
+
+function addItemToOrder($itemID, $itemName, $itemPrice) {
+    foreach ($_SESSION['order'] as &$item) {
+        if ($item['itemID'] == $itemID) {
+            $item['quantity']++;
+            return;
+        }
+    }
     $_SESSION['order'][] = [
         'itemID' => $itemID,
         'name' => $itemName,
         'price' => $itemPrice,
+        'quantity' => 1,
     ];
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['remove_item'])) {
-    $itemIndex = $_POST['item_index'];
-    unset($_SESSION['order'][$itemIndex]);
-    $_SESSION['order'] = array_values($_SESSION['order']);
+function increaseItemQuantity($itemID) {
+    foreach ($_SESSION['order'] as &$item) {
+        if ($item['itemID'] == $itemID) {
+            $item['quantity']++;
+            return;
+        }
+    }
+}
+
+function decreaseItemQuantity($itemID) {
+    foreach ($_SESSION['order'] as $key => &$item) {
+        if ($item['itemID'] == $itemID) {
+            $item['quantity']--;
+            if ($item['quantity'] <= 0) {
+                unset($_SESSION['order'][$key]);
+                $_SESSION['order'] = array_values($_SESSION['order']);
+            }
+            return;
+        }
+    }
 }
 
 function calculateTotal() {
     $total = 0;
     foreach ($_SESSION['order'] as $item) {
-        $total += $item['price'];
+        $total += $item['price'] * $item['quantity'];
     }
     return $total;
 }
 ?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -98,15 +133,16 @@ while ($category = mysqli_fetch_assoc($categories_result)) {
         echo "<input type='hidden' name='item_id' value='" . $item['itemID'] . "'>";
         echo "<input type='hidden' name='item_name' value='" . $item['name'] . "'>";
         echo "<input type='hidden' name='item_price' value='" . $item['price'] . "'>";
+        echo "<input type='hidden' name='action' value='add'>";
         echo "<button type='submit' name='add_to_bag'>Add to bag</button>";
         echo "</form>";
         echo "<form method='GET' action='itemreview.php'>";
         echo "<input type='hidden' name='item_id' value='" . $item['itemID'] . "'>";
         echo "<button type='submit'>Review</button>";
         echo "</form>";
-        echo "</div>"; // Close item-buttons
-        echo "</div>"; // Close item-details
-        echo "</div>"; // Close item
+        echo "</div>";
+        echo "</div>";
+        echo "</div>";
     }
 
     echo "</section>";
@@ -117,17 +153,26 @@ while ($category = mysqli_fetch_assoc($categories_result)) {
     <h1>YOUR ORDER</h1>
     <?php
     foreach ($_SESSION['order'] as $index => $item) {
-        echo "<p>" . $item['name'] . " - " . $item['price'] . "KM";
+        echo "<p>" . $item['name'] . " - " . $item['price'] . "KM (Quantity: " . $item['quantity'] . ")";
+        echo "<div class='quantity-buttons'>";
         echo "<form method='POST' style='display:inline;'>";
-        echo "<input type='hidden' name='item_index' value='" . $index . "'>";
-        echo "<button type='submit' name='remove_item' class='delete-btn'>Delete</button>";
+        echo "<input type='hidden' name='item_id' value='" . $item['itemID'] . "'>";
+        echo "<input type='hidden' name='action' value='increase'>";
+        echo "<button type='submit' class='increase-btn'>+</button>";
         echo "</form>";
+        echo "<form method='POST' style='display:inline;'>";
+        echo "<input type='hidden' name='item_id' value='" . $item['itemID'] . "'>";
+        echo "<input type='hidden' name='action' value='decrease'>";
+        echo "<button type='submit' class='decrease-btn'>-</button>";
+        echo "</form>";
+        echo "</div>";
         echo "</p>";
     }
     ?>
     <p class="total"><strong>TOTAL - <?php echo calculateTotal(); ?>KM</strong></p>
     <button class="checkout" onclick="location.href='checkout.php'">Go to Checkout</button>
 </div>
+
 
 <footer>
     <p>© 2024 ReSSSTaurant. All rights reserved.</p>
