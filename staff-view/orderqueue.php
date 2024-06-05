@@ -74,14 +74,14 @@ function updateOrderStatus($orderId, $newStatus, $staffID = null) {
     $stmt->execute();
     $stmt->close();
 
-if ($newStatus == 5 || $newStatus == 6) {
-    $actualTime = date('Y-m-d H:i:s'); // Current timestamp
-    $sql = "UPDATE DELIVERY_ROOM SET actualTime = ? WHERE orderID = ?";
-    $stmt = $dbc->prepare($sql);
-    $stmt->bind_param("si", $actualTime, $orderId);
-    $stmt->execute();
-    $stmt->close();
-}
+    if ($newStatus == 5 || $newStatus == 6) {
+        $actualTime = date('Y-m-d H:i:s'); // Current timestamp
+        $sql = "UPDATE DELIVERY_ROOM SET actualTime = ? WHERE orderID = ?";
+        $stmt = $dbc->prepare($sql);
+        $stmt->bind_param("si", $actualTime, $orderId);
+        $stmt->execute();
+        $stmt->close();
+    }
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     updateOrderStatus($_POST['order_id'], $_POST['status'], $staffID);
     $_SESSION['current_order_id'] = $_POST['order_id']; // Set the current order ID in session
-    header('Location: ' . $_SERVER['PHP_SELF']);
+    echo 'success'; // Send a response back
     exit;
 }
 
@@ -117,21 +117,21 @@ function displayOrders($orders, $status) {
         $html .= '<td>' . htmlspecialchars(getStatusText($order['status'])) . '</td>';
         $html .= '<td>';
         if ($status == 0) {
-            $html .= '<form method="post"><input type="hidden" name="order_id" value="' . $order['orderID'] . '"><input type="hidden" name="status" value="1">';
+            $html .= '<form method="post" target="hidden_iframe"><input type="hidden" name="order_id" value="' . $order['orderID'] . '"><input type="hidden" name="status" value="1">';
             $html .= '<select name="stakeID">';
             foreach ($staffMembers as $staff) {
                 $html .= '<option value="' . $staff['staffID'] . '">' . $staff['name'] . '</option>';
             }
             $html .= '</select>';
             $html .= '<button type="submit" class="accept">Accept</button></form>';
-            $html .= '<form method="post"><input type="hidden" name="order_id" value="' . $order['orderID'] . '"><input type="hidden" name="status" value="6"><button type="submit" class="decline">Decline</button></form>';
+            $html .= '<form method="post" target="hidden_iframe"><input type="hidden" name="order_id" value="' . $order['orderID'] . '"><input type="hidden" name="status" value="6"><button type="submit" class="decline">Decline</button></form>';
         } elseif ($status == 1) {
-            $html .= '<form method="post"><input type="hidden" name="order_id" value="' . $order['orderID'] . '"><input type="hidden" name="status" value="2"><button type="submit" class="in-making">In the Making</button></form>';
+            $html .= '<form method="post" target="hidden_iframe"><input type="hidden" name="order_id" value="' . $order['orderID'] . '"><input type="hidden" name="status" value="2"><button type="submit" class="in-making">In the Making</button></form>';
         } elseif ($status == 2) {
-            $html .= '<form method="post"><input type="hidden" name="order_id" value="' . $order['orderID'] . '"><input type="hidden" name="status" value="3"><button type="submit" class="made">Made</button></form>';
+            $html .= '<form method="post" target="hidden_iframe"><input type="hidden" name="order_id" value="' . $order['orderID'] . '"><input type="hidden" name="status" value="3"><button type="submit" class="made">Made</button></form>';
         } elseif ($status == 3) {
             if ($order['deliveryOption'] == 1) { // 0 for takeout 1 for delivery
-                $html .= '<form method="post"><input type="hidden" name="order_id" value="' . $order['orderID'] . '"><input type="hidden" name="status" value="4">';
+                $html .= '<form method="post" target="hidden_iframe"><input type="hidden" name="order_id" value="' . $order['orderID'] . '"><input type="hidden" name="status" value="4">';
                 $html .= '<select name="sdeliverID">';
                 foreach ($staffMembers as $staff) {
                     $html .= '<option value="' . $staff['staffID'] . '">' . $staff['name'] . '</option>';
@@ -139,10 +139,10 @@ function displayOrders($orders, $status) {
                 $html .= '</select>';
                 $html .= '<button type="submit" class="delivery">Delivering</button></form>';
             } else {
-                $html .= '<form method="post"><input type="hidden" name="order_id" value="' . $order['orderID'] . '"><input type="hidden" name="status" value="5"><button type="submit" class="ready-takeout">Ready for Takeout</button></form>';
+                $html .= '<form method="post" target="hidden_iframe"><input type="hidden" name="order_id" value="' . $order['orderID'] . '"><input type="hidden" name="status" value="5"><button type="submit" class="ready-takeout">Ready for Takeout</button></form>';
             }
         } elseif ($status == 4) {
-            $html .= '<form method="post"><input type="hidden" name="order_id" value="' . $order['orderID'] . '"><input type="hidden" name="status" value="5"><button type="submit" class="delivered">Delivered</button></form>';
+            $html .= '<form method="post" target="hidden_iframe"><input type="hidden" name="order_id" value="' . $order['orderID'] . '"><input type="hidden" name="status" value="5"><button type="submit" class="delivered">Delivered</button></form>';
         }
         $html .= '</td>';
         $html .= '</tr>';
@@ -197,6 +197,7 @@ $declinedOrders = getOrders(6);
 <body>
 <div class="background-gradient"></div>
 <div class="content">
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display: none;"></iframe>
     <?php echo displayOrders($newOrders, 0); ?>
     <?php echo displayOrders($acceptedOrders, 1); ?>
     <?php echo displayOrders($inMakingOrders, 2); ?>
@@ -204,7 +205,12 @@ $declinedOrders = getOrders(6);
     <?php echo displayOrders($deliveringOrders, 4); ?>
     <?php echo displayOrders($doneOrders, 5); ?>
     <?php echo displayOrders($declinedOrders, 6); ?>
-
 </div>
+
+<script>
+    document.getElementById('hidden_iframe').onload = function() {
+        location.reload();
+    };
+</script>
 </body>
 </html>
