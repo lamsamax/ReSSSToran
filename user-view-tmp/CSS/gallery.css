@@ -14,7 +14,6 @@ body {
     margin: 0;
     padding: 0;
     z-index: -1;
-    overflow: scroll;
 }
 
 .sidebar {
@@ -36,12 +35,14 @@ body {
     color: whitesmoke;
     text-align: center;
 }
+
 .header h2 {
     font-family: "Rage Italic", cursive;
     margin-top: 50px;
     color: whitesmoke;
     text-align: center;
 }
+
 .sidebar-content {
     margin-top: 20px;
     display: flex;
@@ -84,7 +85,8 @@ body {
     width: 90%;
     position: absolute;
     top: 30%;
-    left: 50%;
+    left: 80%;
+    transform: translateX(-50%);
     margin: 0;
     height: auto;
     z-index: 2;
@@ -131,41 +133,75 @@ body {
 }
 
 @media only screen and (max-width: 600px) {
+    body {
+        overflow: auto; /* Ensure scrolling on the body */
+    }
+
+    #grad {
+        position: relative; /* Make the gradient background relative */
+        height: auto; /* Allow it to expand based on content */
+        overflow: visible; /* Ensure no hidden overflow */
+    }
+
     .header h1, .header h2 {
         font-size: 30px;
     }
 
     .sidebar {
+        position: relative; /* Change to relative for better stacking */
         left: 0;
         width: 100vw;
+        height: auto; /* Allow height to expand based on content */
         background-color: rgba(115, 74, 101, 0.9);
+        padding-bottom: 20px; /* Add padding to bottom */
+        overflow: scroll;
     }
 
     .sidebar-content {
-        display: none;
+        display: none; /* Hide sidebar content on small screens */
     }
 
     .buttons {
-        top: auto;
-        bottom: 10px;
-        left: 50%;
-        transform: translateX(-50%);
+        position: static; /* Make buttons stack properly */
+        margin-top: 10px; /* Add margin to separate from content */
         width: 100%;
+        text-align: center;
     }
 
     .buttons button {
-        width: 100%;
-        margin: 5px 0;
+        width: 90%;
+        margin: 5px auto;
     }
 
     .slideshow-container {
-        top: 30%;
-        left: 50%;
+        position: fixed; /* Adjust position for better stacking */
         align-content: center;
-        max-width: 600px;
+        top: auto;
+        left: auto;
+        transform: none;
+        margin: 20px auto;
+        max-width: 100%;
+        width: 90%;
+        height: auto;
     }
 
     .mySlides img {
         width: 100%;
+        height: auto;
+    }
+
+    .prev, .next {
+        top: 90%;
+        left: auto;
+        right: auto;
+        transform: translateY(-50%);
+    }
+
+    .prev {
+        left: 10px;
+    }
+
+    .next {
+        right: 10px;
     }
 }

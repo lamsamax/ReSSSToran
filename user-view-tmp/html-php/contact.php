@@ -29,16 +29,15 @@ checkUserRole('customer');
                 <strong>Email:</strong> resturant@ssst.edu.ba
             </p>
         </div>
-    </div>
 
-    <div class="buttons">
-        <button onclick="window.location.href='index.php'">Home</button>
-        <button onclick="window.location.href='../../project-2024-group-4/php/menu.php'">Menu</button>
-        <button onclick="window.location.href='gallery.php'">Gallery</button>
-        <button onclick="window.location.href='contact.php'">Contact</button>
-        <button onclick="window.location.href='profile.php'">Profile</button>
+        <div class="buttons">
+            <button onclick="window.location.href='index.php'">Home</button>
+            <button onclick="window.location.href='../../project-2024-group-4/php/menu.php'">Menu</button>
+            <button onclick="window.location.href='gallery.php'">Gallery</button>
+            <button onclick="window.location.href='contact.php'">Contact</button>
+            <button onclick="window.location.href='profile.php'">Profile</button>
+        </div>
     </div>
-
 
     <div class="wrapper" id="contactFormWrapper">
         <form class="form" action="contact.php" method="post">
@@ -53,6 +52,8 @@ checkUserRole('customer');
             <p><?= htmlspecialchars($msg) ?></p>
         <?php endif; ?>
     </div>
+
+    <button class="sendMessageBtn" onclick="toggleContactForm()">Send Message</button>
 </div>
 
 <script>

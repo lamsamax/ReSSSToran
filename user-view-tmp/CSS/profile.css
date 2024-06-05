@@ -249,6 +249,16 @@ input[type="date"] {
 }
 
 @media only screen and (max-width: 600px) {
+    body {
+        overflow: auto; /* Ensure scrolling on mobile */
+    }
+
+    #grad {
+        position: relative; /* Make background relative to the viewport */
+        height: auto; /* Adjust height for content */
+        overflow: visible; /* Ensure no hidden overflow */
+    }
+
     .header h1, .header h2 {
         font-size: 30px;
     }
@@ -274,11 +284,14 @@ input[type="date"] {
     }
 
     .buttons {
+        position: static; /* Change to static for better mobile layout */
         top: auto;
         bottom: 10px;
         left: 50%;
         transform: translateX(-50%);
         width: 100%;
+        text-align: center;
+        margin-top: 20px; /* Add margin to separate from profile section */
     }
 
     .buttons button {
@@ -287,19 +300,38 @@ input[type="date"] {
     }
 
     .main-content {
-        top: 30%;
-        left: 50%;
-        transform: translate(-50%, -30%);
+        position: static; /* Change to static for better mobile layout */
+        top: auto;
+        left: auto;
+        transform: none;
         width: 90%;
+        margin: 0 auto;
     }
 
     .profile-info {
         margin-bottom: 20px;
-        font-size: 20px;
+        font-size: 18px;
+        width: 90%;
+        margin: 0 auto;
     }
 
     .action-buttons {
         flex-direction: column;
         gap: 10px;
+        position: static; /* Change to static for better mobile layout */
+        width: 100%;
+        margin: 20px auto 0; /* Add margin to separate from main buttons */
+        text-align: center;
+    }
+
+    .action-btn {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    .image img {
+        max-width: 90%;
     }
 }
+
+

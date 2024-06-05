@@ -99,7 +99,7 @@ body {
     border-top: 10px solid #734A65;
     width: calc(100% - 40px);
     box-sizing: border-box;
-    z-index: 1; /* Ensure the form is above other content */
+    z-index: 1;
 }
 
 .formEntry {
@@ -142,15 +142,38 @@ body {
     background-color: #fc4424;
 }
 
-/* Media Queries */
+.sendMessageBtn {
+    display: none;
+    background-color: #734A65;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    margin: 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
-/* Mobile devices (max-width: 600px) */
+.sendMessageBtn:hover {
+    background-color: indianred;
+}
+
 @media only screen and (max-width: 600px) {
+    body {
+        overflow: auto; /* Ensure scrolling on the body */
+    }
+
+    #grad {
+        position: relative; /* Make the gradient background relative */
+        height: auto; /* Allow it to expand based on content */
+        overflow: visible; /* Ensure no hidden overflow */
+    }
+
     .header h1, .header h2 {
         font-size: 30px;
     }
 
     .sidebar {
+        position: relative; /* Change to relative for better stacking */
         left: 0;
         width: 100vw;
         background-color: rgba(115, 74, 101, 0.9);
@@ -165,44 +188,35 @@ body {
     }
 
     .sidebar-content p {
+        margin-top: 0;
         max-width: 100%;
         text-align: center;
         padding: 5px;
     }
 
     .buttons {
-        top: auto;
-        bottom: 10px;
-        left: 50%;
-        transform: translateX(-50%);
+        position: static; /* Make buttons stack properly */
+        margin-top: 10px; /* Add margin to separate from content */
         width: 100%;
+        text-align: center;
     }
 
     .buttons button {
-        width: 100%;
-        margin: 5px 0;
+        width: 90%;
+        margin: 5px auto;
     }
 
     .wrapper {
         display: none; /* Hide the form by default on small screens */
     }
 
-    .form {
-        position: relative;
-        top: 0;
-        left: auto;
-        right: auto;
-        max-width: 90%;
+    .sendMessageBtn {
+        display: block; /* Show the send message button on small screens */
         margin: 20px auto;
-        padding: 10px;
-        z-index: 1; /* Ensure the form is above other content */
-    }
-
-    .formEntry {
-        width: calc(100% - 30px);
-    }
-
-    .submit {
-        width: calc(100% - 30px);
+        width: 90%;
+        text-align: center;
+        z-index: 2;
+        padding: 10px 0; /* Ensure it's more visible */
+        font-size: 18px; /* Increase font size for better visibility */
     }
 }

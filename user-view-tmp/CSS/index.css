@@ -103,7 +103,7 @@ body {
 
     .sidebar {
         left: 0;
-        width: 100vw;
+        width: 100%;
         background-color: rgba(115, 74, 101, 0.9);
     }
 
@@ -119,6 +119,7 @@ body {
         max-width: 100%;
         text-align: center;
         padding: 5px;
+        overflow: scroll;
     }
 
     .buttons {
@@ -134,11 +135,6 @@ body {
         margin: 5px 0;
     }
     .image {
-        margin-top: 0;
+        display: none;
     }
-
-    .image img {
-        max-width: 100%;
-    }
-
 }
