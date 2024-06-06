@@ -10,29 +10,30 @@ function fetchStats($dbc, $query) {
     return $result;
 }
 
-$filter = isset($_GET['filter']) ? $_GET['filter'] : 'last_week';
-
-switch ($filter) {
-    case 'today':
-        $dateCondition = "DATE(o.orderDate) = CURDATE()";
-        break;
-    case 'yesterday':
-        $dateCondition = "DATE(o.orderDate) = CURDATE() - INTERVAL 1 DAY";
-        break;
-    case 'last_week':
-        $dateCondition = "DATE(o.orderDate) >= CURDATE() - INTERVAL 7 DAY";
-        break;
-    case 'last_month':
-        $dateCondition = "DATE(o.orderDate) >= CURDATE() - INTERVAL 1 MONTH";
-        break;
-    case 'last_year':
-        $dateCondition = "DATE(o.orderDate) >= CURDATE() - INTERVAL 1 YEAR";
-        break;
-    default:
-        $dateCondition = "DATE(o.orderDate) >= CURDATE() - INTERVAL 5 DAY"; // Default to last 5 days
-        break;
+// Convert date from d/m/Y to Y-m-d
+function convertToYmd($date) {
+    $dateObject = DateTime::createFromFormat('d/m/Y', $date);
+    return $dateObject ? $dateObject->format('Y-m-d') : null;
 }
+
+// Convert date from Y-m-d to d/m/Y
+function convertToDmy($date) {
+    $dateObject = DateTime::createFromFormat('Y-m-d', $date);
+    return $dateObject ? $dateObject->format('d/m/Y') : null;
+}
+
+$startDate = isset($_GET['startDate']) ? convertToYmd($_GET['startDate']) : date('Y-m-d', strtotime('-7 days'));
+$endDate = isset($_GET['endDate']) ? convertToYmd($_GET['endDate']) : date('Y-m-d');
+
+$dateCondition = "DATE(o.orderDate) BETWEEN '$startDate' AND '$endDate'";
+
+$query = "SELECT * FROM ORDERS o WHERE $dateCondition";
+$result = fetchStats($dbc, $query);
+
+$displayStartDate = isset($_GET['startDate']) ? $_GET['startDate'] : convertToDmy(date('Y-m-d', strtotime('-7 days')));
+$displayEndDate = isset($_GET['endDate']) ? $_GET['endDate'] : convertToDmy(date('Y-m-d'));
 ?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -42,6 +43,12 @@ switch ($filter) {
     <title>Statistics Dashboard</title>
     <link rel="stylesheet" href="../CSS/stats.css">
     <script>
+        function updateFilter() {
+            var startDate = document.getElementById('startDate').value;
+            var endDate = document.getElementById('endDate').value;
+            window.location.href = "?startDate=" + startDate + "&endDate=" + endDate;
+        }
+
         function toggleVisibility(sectionId) {
             var content = document.getElementById(sectionId);
             if (content.style.display === "none" || content.style.display === "") {
@@ -50,11 +57,6 @@ switch ($filter) {
                 content.style.display = "none";
             }
         }
-
-        function updateFilter() {
-            var filter = document.getElementById('filter').value;
-            window.location.href = "?filter=" + filter;
-        }
     </script>
 </head>
 <body>
@@ -62,16 +64,53 @@ switch ($filter) {
     <h1>Statistics Dashboard</h1>
 
     <div class="filter-section">
-        <label for="filter">Select Time Range:</label>
-        <select id="filter" onchange="updateFilter()">
-            <option value="today" <?php if ($filter == 'today') echo 'selected'; ?>>Today</option>
-            <option value="yesterday" <?php if ($filter == 'yesterday') echo 'selected'; ?>>Yesterday</option>
-            <option value="last_week" <?php if ($filter == 'last_week') echo 'selected'; ?>>Last Week</option>
-            <option value="last_month" <?php if ($filter == 'last_month') echo 'selected'; ?>>Last Month</option>
-            <option value="last_year" <?php if ($filter == 'last_year') echo 'selected'; ?>>Last Year</option>
-        </select>
+        <label for="startDate">Start Date:</label>
+        <input type="text" id="startDate" name="startDate" value="<?php echo $displayStartDate; ?>" required pattern="\d{2}/\d{2}/\d{4}" placeholder="dd/mm/yyyy">
+
+        <label for="endDate">End Date:</label>
+        <input type="text" id="endDate" name="endDate" value="<?php echo $displayEndDate; ?>" required pattern="\d{2}/\d{2}/\d{4}" placeholder="dd/mm/yyyy">
+
+        <button onclick="updateFilter()">Apply</button>
     </div>
 
+    <div class="stats-section">
+        <button onclick="toggleVisibility('mostBoughtItem')">Most Bought Item</button>
+        <div id="mostBoughtItem" style="display: none;">
+            <?php
+            $query = "SELECT i.name, COUNT(oi.itemID) AS item_count
+                      FROM ORDER_ITEM oi
+                      JOIN ITEM i ON oi.itemID = i.itemID
+                      JOIN ORDERS o ON oi.orderID = o.orderID
+                      WHERE $dateCondition
+                      GROUP BY oi.itemID, i.name
+                      ORDER BY item_count DESC
+                      LIMIT 1";
+            $result = fetchStats($dbc, $query);
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo "<p>Item: " . htmlspecialchars($row['name']) . " - Bought: " . $row['item_count'] . " times</p>";
+            }
+            ?>
+        </div>
+    </div>
+
+    <div class="stats-section">
+        <button onclick="toggleVisibility('topCustomerByOrders')">Top Customer by Orders</button>
+        <div id="topCustomerByOrders" style="display: none;">
+            <?php
+            $query = "SELECT u.name, COUNT(o.orderID) AS order_count
+                      FROM ORDERS o
+                      JOIN CUSTOMER u ON o.customer = u.customerID
+                      WHERE $dateCondition
+                      GROUP BY o.customer, u.name
+                      ORDER BY order_count DESC
+                      LIMIT 1";
+            $result = fetchStats($dbc, $query);
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo "<p>Customer: " . htmlspecialchars($row['name']) . " - Orders: " . $row['order_count'] . "</p>";
+            }
+            ?>
+        </div>
+    </div>
     <div class="stats-section">
         <button onclick="toggleVisibility('mostBoughtItem')">Most Bought Item</button>
         <div id="mostBoughtItem" style="display: none;">
@@ -125,7 +164,7 @@ switch ($filter) {
                       ORDER BY total_sales DESC";
             $result = fetchStats($dbc, $query);
             while ($row = mysqli_fetch_assoc($result)) {
-                echo "<p>Category: " . htmlspecialchars($row['categoryName']) . " - Total Sales: BAM" . $row['total_sales'] . "</p>";
+                echo "<p>Category: " . htmlspecialchars($row['categoryName']) . " - Total Sales: BAM " . $row['total_sales'] . "</p>";
             }
             ?>
         </div>
@@ -144,7 +183,7 @@ switch ($filter) {
                       ORDER BY order_date";
             $result = fetchStats($dbc, $query);
             while ($row = mysqli_fetch_assoc($result)) {
-                echo "<p>Date: " . htmlspecialchars($row['order_date']) . " - Daily Sales: BAM" . $row['daily_sales'] . "</p>";
+                echo "<p>Date: " . htmlspecialchars($row['order_date']) . " - Daily Sales: BAM " . $row['daily_sales'] . "</p>";
             }
             ?>
         </div>
@@ -165,7 +204,7 @@ switch ($filter) {
                       ) AS order_totals";
             $result = fetchStats($dbc, $query);
             while ($row = mysqli_fetch_assoc($result)) {
-                echo "<p>Average Order Value: BAM" . $row['average_order_value'] . "</p>";
+                echo "<p>Average Order Value: BAM " . $row['average_order_value'] . "</p>";
             }
             ?>
         </div>
@@ -207,7 +246,7 @@ switch ($filter) {
                       LIMIT 10";
             $result = fetchStats($dbc, $query);
             while ($row = mysqli_fetch_assoc($result)) {
-                echo "<p>Customer: " . htmlspecialchars($row['name']) . " - Total Spent: BAM" . $row['total_spent'] . "</p>";
+                echo "<p>Customer: " . htmlspecialchars($row['name']) . " - Total Spent: BAM " . $row['total_spent'] . "</p>";
             }
             ?>
         </div>
@@ -226,7 +265,7 @@ switch ($filter) {
                       ORDER BY order_month";
             $result = fetchStats($dbc, $query);
             while ($row = mysqli_fetch_assoc($result)) {
-                echo "<p>Month: " . htmlspecialchars($row['order_month']) . " - Monthly Sales: BAM" . $row['monthly_sales'] . "</p>";
+                echo "<p>Month: " . htmlspecialchars($row['order_month']) . " - Monthly Sales:  BAM " . $row['monthly_sales'] . "</p>";
             }
             ?>
         </div>
@@ -262,7 +301,7 @@ switch ($filter) {
                       ORDER BY total_sales DESC";
             $result = fetchStats($dbc, $query);
             while ($row = mysqli_fetch_assoc($result)) {
-                echo "<p>Payment Method: " . htmlspecialchars($row['paymentMethod']) . " - Total Sales: BAM" . $row['total_sales'] . "</p>";
+                echo "<p>Payment Method: " . htmlspecialchars($row['paymentMethod']) . " - Total Sales:  BAM " . $row['total_sales'] . "</p>";
             }
             ?>
         </div>
@@ -299,7 +338,7 @@ switch ($filter) {
                       ORDER BY total_revenue DESC";
             $result = fetchStats($dbc, $query);
             while ($row = mysqli_fetch_assoc($result)) {
-                echo "<p>Delivery Type: " . htmlspecialchars($row['deliveryOption']) . " - Total Revenue: $" . $row['total_revenue'] . "</p>";
+                echo "<p>Delivery Type: " . htmlspecialchars($row['deliveryOption']) . " - Total Revenue: BAM " . $row['total_revenue'] . "</p>";
             }
             ?>
         </div>
@@ -325,21 +364,21 @@ switch ($filter) {
     <div class="stats-section">
         <button onclick="toggleVisibility('fiveTimesOrdered')">Items Ordered More Than Five Times</button>
         <div id="fiveTimesOrdered" style="display: none;">
-        <?php
-        $order_threshold = 5;
+            <?php
+            $order_threshold = 5;
 
-        $query = "SELECT i.name, COUNT(oi.itemID) AS order_count
+            $query = "SELECT i.name, COUNT(oi.itemID) AS order_count
                   FROM ORDER_ITEM oi
                   JOIN ITEM i ON oi.itemID = i.itemID
                   GROUP BY i.itemID
                   HAVING order_count > $order_threshold";
 
-        $result = fetchStats($dbc, $query);
-        echo "<p>Items ordered more than $order_threshold times:</p>";
-        while ($row = mysqli_fetch_assoc($result)) {
-            echo "<p>Item: " . htmlspecialchars($row['name']) . " - Orders: " . $row['order_count'] . "</p>";
-        }
-        ?>
+            $result = fetchStats($dbc, $query);
+            echo "<p>Items ordered more than $order_threshold times:</p>";
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo "<p>Item: " . htmlspecialchars($row['name']) . " - Orders: " . $row['order_count'] . "</p>";
+            }
+            ?>
         </div>
     </div>
 
@@ -374,7 +413,7 @@ switch ($filter) {
                     if (mysqli_num_rows($priceResult) > 0) {
                         echo "<p>Distinct prices for item: " . htmlspecialchars($itemName) . ":</p>";
                         while ($row = mysqli_fetch_assoc($priceResult)) {
-                            echo "<p>Price: BAM" . htmlspecialchars($row['price']) . "</p>";
+                            echo "<p>Price: BAM " . htmlspecialchars($row['price']) . "</p>";
                         }
                     } else {
                         echo "<p>No distinct prices found for item: " . htmlspecialchars($itemName) . ".</p>";
