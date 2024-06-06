@@ -157,70 +157,71 @@ body {
     background-color: indianred;
 }
 
-@media only screen and (max-width: 600px) {
+@media (max-width: 768px) {
     body {
         overflow: auto;
     }
 
-    #grad {
-        position: relative;
-        height: auto;
-        overflow: visible;
+    .sidebar {
+        width: 100%;
+        left: 0;
+        overflow: auto;
     }
 
     .header h1, .header h2 {
-        font-size: 30px;
+        font-size: 2rem;
+        margin-top: 10px;
     }
 
-    .sidebar {
-        position: relative; /* Change to relative for better stacking */
-        left: 0;
-        width: 100vw;
-        background-color: rgba(115, 74, 101, 0.9);
-    }
-
-    .sidebar-content {
-        flex-direction: column;
-        height: auto;
-        justify-content: center;
-        align-items: center;
-        font-size: 14px;
-    }
-
-    .sidebar-content p {
-        margin-top: 0;
-        max-width: 100%;
-        text-align: center;
-        padding: 5px;
+    .profile-info p, .profile-form .form-field label, .profile-form .edit-btn {
+        font-size: 1rem;
     }
 
     .buttons {
-        position: static;
-        margin-top: 10px;
-        width: 100%;
+        position: relative;
+        top: auto;
+        bottom: auto;
+        left: auto;
+        transform: none;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 5px;
+        width: 90%;
+        justify-items: center;
         text-align: center;
+        margin-bottom: 20%;
     }
 
     .buttons button {
+        padding: 5px 10px;
+        font-size: 0.8rem;
+        width: 100%; /* Make buttons take full width within their grid cells */
+    }
+
+    .main-content {
+        position: static;
         width: 90%;
-        margin: 5px auto;
+        margin: 10px auto;
     }
 
-    .buttons button:hover {
-        background-color: indianred;
+    .action-buttons {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 20px;
+        margin-bottom: 20px;
     }
 
-    .wrapper {
+    .action-btn {
+        padding: 10px 20px;
+        width: auto;
+    }
+    .wrapper{
         display: none;
-    }
-
-    .sendMessageBtn {
-        display: block;
-        margin: 20px auto;
-        width: 90%;
-        text-align: center;
-        z-index: 2;
-        padding: 10px 0;
-        font-size: 18px;
     }
 }
