@@ -30,8 +30,8 @@ $dateCondition = "DATE(o.orderDate) BETWEEN '$startDate' AND '$endDate'";
 $query = "SELECT * FROM ORDERS o WHERE $dateCondition";
 $result = fetchStats($dbc, $query);
 
-$displayStartDate = isset($_GET['startDate']) ? $_GET['startDate'] : convertToDmy(date('Y-m-d', strtotime('-7 days')));
-$displayEndDate = isset($_GET['endDate']) ? $_GET['endDate'] : convertToDmy(date('Y-m-d'));
+$displayStartDate = $_GET['startDate'] ?? convertToDmy(date('Y-m-d', strtotime('-7 days')));
+$displayEndDate = $_GET['endDate'] ?? convertToDmy(date('Y-m-d'));
 ?>
 
 <!doctype html>
