@@ -16,7 +16,6 @@ $user_id = $_SESSION['user_id'];
 $sql = "SELECT * FROM CUSTOMER WHERE customerID = ?";
 $stmt = $dbc->prepare($sql);
 if ($stmt) {
-    echo "Statement prepared successfully<br>"; // Debugging statement
 
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
@@ -83,6 +82,7 @@ if ($stmt) {
             <button onclick="window.location.href='stats.php'">Statistics</button>
             <button onclick="window.location.href='../../staff-view/admin_order_history.php'">Order history</button>
             <button onclick="window.location.href='../../staff-view/admin_review_history.php'">Reviews</button>
+            <button onclick="window.location.href='../roomCRUD/room_list.php'">Rooms</button>
         </div>
     <div id="changePasswordModal" class="modal">
         <div class="modal-content">
