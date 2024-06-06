@@ -47,7 +47,7 @@ if ($stmt) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ReSSSToran</title>
-    <link rel="stylesheet" href="../CSS/profile.css">
+    <link rel="stylesheet" href="../CSS/adminstaffhome.css">
 </head>
 <body>
 <div id="grad">
@@ -79,10 +79,10 @@ if ($stmt) {
             <button onclick="window.location.href='../../staff-view/staff_list.php'">Staff</button>
             <button onclick="window.location.href='../../project-2024-group-4/crud/category_list.php'">Categories</button>
             <button onclick="window.location.href='../../project-2024-group-4/crud/item_list.php'">Items</button>
+            <button onclick="window.location.href='../roomCRUD/room_list.php'">Rooms</button>
             <button onclick="window.location.href='stats.php'">Statistics</button>
             <button onclick="window.location.href='../../staff-view/admin_order_history.php'">Order history</button>
             <button onclick="window.location.href='../../staff-view/admin_review_history.php'">Reviews</button>
-            <button onclick="window.location.href='../roomCRUD/room_list.php'">Rooms</button>
         </div>
     <div id="changePasswordModal" class="modal">
         <div class="modal-content">

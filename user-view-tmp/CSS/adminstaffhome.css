@@ -1,0 +1,322 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #734A65;
+}
+
+#grad {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-image: linear-gradient(to bottom right, darkblue, red);
+    margin: 0;
+    padding: 0;
+    z-index: -1;
+    overflow: auto;
+}
+
+.sidebar {
+    position: relative;
+    top: 0;
+    left: 19%;
+    height: auto;
+    min-height: 100vh;
+    width: 320px;
+    background-color: rgba(115, 74, 101, 0.8);
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: auto;
+}
+
+.header h1 {
+    font-family: 'Amatic SC', cursive;
+    font-size: 65px;
+    font-weight: bold;
+    margin-top: 30px;
+    color: whitesmoke;
+    text-align: center;
+}
+
+.header h2 {
+    font-family: "Rage Italic", cursive;
+    margin-top: 50px;
+    color: whitesmoke;
+    text-align: center;
+}
+
+.sidebar-content {
+    margin-top: 20px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+}
+
+.sidebar-content p {
+    color: white;
+    padding: 10px;
+    text-align: center;
+    max-width: 90%;
+    overflow: scroll;
+}
+
+.buttons {
+    position: fixed;
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, auto)); /* Adjust the minimum and maximum width */
+    gap: 15px;
+    justify-items: center; /* Center the buttons within their grid cells */
+    text-align: center;
+}
+
+.buttons button {
+    background-color: #734A65;
+    color: white;
+    padding: 8px 16px; /* Reduced padding to make buttons tighter */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 200px; /* Fixed width for the buttons */
+}
+
+.buttons button:hover {
+    background-color: indianred;
+}
+
+.main-content {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -20%);
+    width: 60%;
+    text-align: center;
+}
+
+.profile-info {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    color: #fff;
+    word-wrap: break-word;
+}
+
+.profile-info p {
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-size: 18px;
+    margin-bottom: 5px;
+    color: #fff;
+}
+
+input[type="date"] {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+}
+
+.edit-btn {
+    background-color: rebeccapurple;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: fixed;
+    top: 30%;
+    left: 50%;
+}
+
+.action-btn {
+    background-color: #734A65;
+    color: white;
+    padding: 15px 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 400px;
+}
+
+.action-btn:hover {
+    background-color: indianred;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column; /* Changed to column layout */
+    align-items: center;
+    justify-content: center;
+    background-color: #734A65;
+    margin: 5% auto;
+    padding: 20px;
+    width: 50%;
+    border-radius: 10px; /* Added for better appearance */
+}
+
+.close {
+    align-self: flex-end;
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+
+.modal-content form label {
+    align-self: flex-start;
+    color: white;
+    margin-top: 10px;
+}
+
+.modal-content form input {
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    width: 100%;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+}
+
+.modal-content form button {
+    align-self: center;
+    background-color: rebeccapurple;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.modal-content form button:hover {
+    background-color: indianred;
+}
+
+.close:hover, .close:focus {
+    color: rebeccapurple;
+    text-decoration: none;
+}
+
+.image {
+    margin-top: 60px;
+    text-align: center;
+}
+
+.image img {
+    max-width: 70%;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+    body {
+        overflow: auto;
+    }
+
+    .sidebar {
+        width: 100%;
+        left: 0;
+        overflow: auto;
+    }
+
+    .header h1, .header h2 {
+        font-size: 2rem;
+        margin-top: 10px;
+    }
+
+    .profile-info p, .profile-form .form-field label, .profile-form .edit-btn {
+        font-size: 1rem;
+    }
+
+    .buttons {
+        position: relative;
+        top: auto;
+        bottom: auto;
+        left: auto;
+        transform: none;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 5px; /* Reduced gap to make buttons tighter */
+        width: 90%; /* Make buttons container fit the screen width */
+        justify-items: center; /* Center the buttons within their grid cells */
+        text-align: center;
+        margin: 10px auto; /* Add margin for spacing */
+    }
+
+    .buttons button {
+        padding: 5px 10px;
+        font-size: 0.8rem;
+        width: 100%; /* Make buttons take full width within their grid cells */
+    }
+
+    .main-content {
+        position: static;
+        width: 90%;
+        margin: 10px auto;
+    }
+
+    .action-buttons {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 20px;
+        margin-bottom: 20px; /* Added to ensure space above home menu buttons */
+    }
+
+    .action-btn {
+        padding: 10px 20px;
+        width: auto;
+    }
+}
