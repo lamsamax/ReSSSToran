@@ -32,35 +32,28 @@ body {
     font-size: 65px;
     font-weight: bold;
     margin-top: 30px;
-    color: #FFFFFF;
+    color: whitesmoke;
     text-align: center;
 }
-
 .header h2 {
     font-family: "Rage Italic", cursive;
     margin-top: 50px;
-    color: #FFFFFF;
+    color: whitesmoke;
     text-align: center;
 }
-
 .sidebar-content {
     margin-top: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 50vh;
-    background-color: rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    padding: 20px;
 }
 
 .sidebar-content p {
-    color: #FFFFFF;
+    color: white;
     padding: 10px;
     text-align: center;
     max-width: 90%;
-    font-size: 1.2em;
-    line-height: 1.5;
 }
 
 .buttons {
@@ -73,7 +66,7 @@ body {
 
 .buttons button {
     background-color: #734A65;
-    color: #FFFFFF;
+    color: white;
     padding: 10px 20px;
     margin: 5px;
     border: none;
@@ -157,71 +150,56 @@ body {
     background-color: indianred;
 }
 
-@media (max-width: 768px) {
-    body {
-        overflow: auto;
-    }
-
-    .sidebar {
-        width: 100%;
+@media only screen and (max-width: 600px) {
+    .image img {
+        position: fixed;
+        top: 0;
         left: 0;
-        overflow: auto;
+        width: 100vw;
+        height: 100vh;
+        z-index: -2;
     }
 
     .header h1, .header h2 {
-        font-size: 2rem;
-        margin-top: 10px;
+        font-size: 30px;
     }
 
-    .profile-info p, .profile-form .form-field label, .profile-form .edit-btn {
-        font-size: 1rem;
+    .sidebar {
+        left: 0;
+        width: 100%;
+        background-color: rgba(115, 74, 101, 0.9);
+    }
+
+    .sidebar-content {
+        flex-direction: column;
+        height: auto;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+    }
+
+    .sidebar-content p {
+        max-width: 100%;
+        text-align: center;
+        padding: 5px;
+        overflow: scroll;
     }
 
     .buttons {
-        position: relative;
         top: auto;
-        bottom: auto;
+        bottom: 10px;
         left: 50%;
         transform: translateX(-50%);
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 3px;
         width: 100%;
-        justify-items: center;
-        text-align: center;
-        margin-bottom: 20%;
     }
 
     .buttons button {
-        padding: 5px 10px;
-        font-size: 0.8rem;
-        width: 100%; /* Make buttons take full width within their grid cells */
+        width: 100%;
+        margin: 5px 0;
     }
 
-    .main-content {
-        position: static;
-        width: 90%;
-        margin: 10px auto;
-    }
-
-    .action-buttons {
-        position: relative;
-        top: auto;
-        left: auto;
-        transform: none;
-        flex-direction: column;
-        flex-wrap: nowrap;
-        justify-content: center;
-        gap: 10px;
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
-
-    .action-btn {
-        padding: 10px 20px;
-        width: auto;
-    }
-    .wrapper{
+    .form{
         display: none;
     }
 }
+
