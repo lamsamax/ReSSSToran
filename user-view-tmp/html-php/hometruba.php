@@ -93,9 +93,6 @@ exit();
         <button onclick="window.location.href='../../staff-view/staff_orders.php'">Order history</button>
         <button onclick="window.location.href='../../staff-view/orderqueue.php'">Current orders</button>
     </div>
-    <div class="image">
-        <img src="../pics/16558127774-ssst-kampus.jpg" alt="Image Description">
-    </div>
 </div>
 <script>
     const profileInfo = document.getElementById("profile-info");

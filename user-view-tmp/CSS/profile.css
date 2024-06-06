@@ -146,10 +146,9 @@ input[type="date"] {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    position: absolute;
-    top: 50%;
-    left: 60%;
-    transform: translate(-50%, -50%);
+    position: fixed;
+    top: 30%;
+    left: 50%;
 }
 
 .action-btn {
@@ -179,6 +178,7 @@ input[type="date"] {
     background-color: rgb(0,0,0);
     background-color: rgba(0,0,0,0.4);
 }
+
 .modal-content {
     display: flex;
     flex-direction: column; /* Changed to column layout */
@@ -239,6 +239,7 @@ input[type="date"] {
     color: rebeccapurple;
     text-decoration: none;
 }
+
 .image {
     margin-top: 60px;
     text-align: center;
@@ -248,90 +249,56 @@ input[type="date"] {
     max-width: 70%;
 }
 
-@media only screen and (max-width: 600px) {
-    body {
-        overflow: auto;
-    }
-
-    #grad {
-        position: relative;
-        height: auto;
-        overflow: visible;
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        left: 0;
     }
 
     .header h1, .header h2 {
-        font-size: 30px;
+        font-size: 2rem;
+        margin-top: 10px;
     }
 
-    .sidebar {
-        left: 0;
-        width: 100vw;
-        background-color: rgba(115, 74, 101, 0.9);
-    }
-
-    .sidebar-content {
-        flex-direction: column;
-        height: auto;
-        justify-content: center;
-        align-items: center;
-        font-size: 14px;
-    }
-
-    .sidebar-content p {
-        max-width: 100%;
-        text-align: center;
-        padding: 5px;
+    .profile-info p, .profile-form .form-field label, .profile-form .edit-btn {
+        font-size: 1rem;
     }
 
     .buttons {
-        position: static; /* Change to static for better mobile layout */
         top: auto;
         bottom: 10px;
         left: 50%;
         transform: translateX(-50%);
-        width: 100%;
-        text-align: center;
-        margin-top: 20px; /* Add margin to separate from profile section */
     }
 
     .buttons button {
-        width: 100%;
-        margin: 5px 0;
+        padding: 5px 10px;
+        margin: 3px;
+        font-size: 0.8rem;
     }
 
     .main-content {
-        position: static; /* Change to static for better mobile layout */
-        top: auto;
-        left: auto;
-        transform: none;
+        position: static;
         width: 90%;
-        margin: 0 auto;
-    }
-
-    .profile-info {
-        margin-bottom: 20px;
-        font-size: 18px;
-        width: 90%;
-        margin: 0 auto;
+        margin: 10px auto;
     }
 
     .action-buttons {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
         flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: center;
         gap: 10px;
-        position: static;
-        left: 30%;
-        width: 100%;
-        margin: 20px auto 0;
-        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px; /* Added to ensure space above home menu buttons */
     }
 
     .action-btn {
-        width: 100%;
-        margin: 5px 0;
-    }
-    .image{
-        display: none;
+        padding: 10px 20px;
+        width: auto;
     }
 }
-
-

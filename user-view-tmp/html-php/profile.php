@@ -74,6 +74,11 @@ if ($stmt) {
             <button type="submit" class="edit-btn">Save Changes</button>
             <button type="button" id="cancelEditBtn" class="edit-btn">Cancel</button>
         </form>
+        <div class="action-buttons">
+            <button type="button" class="action-btn" onclick="location.href='history1.php';">Active Orders</button>
+            <button type="button" class="action-btn" onclick="location.href='../../staff-view/order_history.php';">Previous Orders</button>
+            <button type="button" class="action-btn" onclick="location.href='../../staff-view/reviewhistory.php';">My Reviews</button>
+        </div>
     </div>
     <div class="buttons">
         <button onclick="window.location.href='index.php'">Home</button>
@@ -82,30 +87,22 @@ if ($stmt) {
         <button onclick="window.location.href='contact.php'">Contact</button>
         <button onclick="window.location.href='profile.php'">Profile</button>
     </div>
-    <div class="action-buttons">
-        <button type="button" class="action-btn" onclick="location.href='history1.php';">Active Orders</button>
-        <button type="button" class="action-btn" onclick="location.href='../../staff-view/order_history.php';">Previous Orders</button>
-        <button type="button" class="action-btn" onclick="location.href='../../staff-view/reviewhistory.php';">My Reviews</button>
-    </div>
     <div id="changePasswordModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
             <form action="change_password.php" method="post">
                 <label for="current_password">Current Password:</label>
                 <input type="password" id="current_password" name="current_password" required>
-
                 <label for="new_password">New Password:</label>
                 <input type="password" id="new_password" name="new_password" required>
-
                 <label for="confirm_password">Confirm Password:</label>
                 <input type="password" id="confirm_password" name="confirm_password" required>
-
                 <button type="submit">Save Changes</button>
             </form>
         </div>
     </div>
-
 </div>
+
 
 <script>
     const profileInfo = document.getElementById("profile-info");
