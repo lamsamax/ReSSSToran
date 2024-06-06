@@ -125,7 +125,7 @@ switch ($filter) {
                       ORDER BY total_sales DESC";
             $result = fetchStats($dbc, $query);
             while ($row = mysqli_fetch_assoc($result)) {
-                echo "<p>Category: " . htmlspecialchars($row['categoryName']) . " - Total Sales: $" . $row['total_sales'] . "</p>";
+                echo "<p>Category: " . htmlspecialchars($row['categoryName']) . " - Total Sales: BAM" . $row['total_sales'] . "</p>";
             }
             ?>
         </div>
@@ -144,7 +144,7 @@ switch ($filter) {
                       ORDER BY order_date";
             $result = fetchStats($dbc, $query);
             while ($row = mysqli_fetch_assoc($result)) {
-                echo "<p>Date: " . htmlspecialchars($row['order_date']) . " - Daily Sales: $" . $row['daily_sales'] . "</p>";
+                echo "<p>Date: " . htmlspecialchars($row['order_date']) . " - Daily Sales: BAM" . $row['daily_sales'] . "</p>";
             }
             ?>
         </div>
@@ -165,7 +165,7 @@ switch ($filter) {
                       ) AS order_totals";
             $result = fetchStats($dbc, $query);
             while ($row = mysqli_fetch_assoc($result)) {
-                echo "<p>Average Order Value: $" . $row['average_order_value'] . "</p>";
+                echo "<p>Average Order Value: BAM" . $row['average_order_value'] . "</p>";
             }
             ?>
         </div>
@@ -207,7 +207,7 @@ switch ($filter) {
                       LIMIT 10";
             $result = fetchStats($dbc, $query);
             while ($row = mysqli_fetch_assoc($result)) {
-                echo "<p>Customer: " . htmlspecialchars($row['name']) . " - Total Spent: $" . $row['total_spent'] . "</p>";
+                echo "<p>Customer: " . htmlspecialchars($row['name']) . " - Total Spent: BAM" . $row['total_spent'] . "</p>";
             }
             ?>
         </div>
@@ -226,7 +226,7 @@ switch ($filter) {
                       ORDER BY order_month";
             $result = fetchStats($dbc, $query);
             while ($row = mysqli_fetch_assoc($result)) {
-                echo "<p>Month: " . htmlspecialchars($row['order_month']) . " - Monthly Sales: $" . $row['monthly_sales'] . "</p>";
+                echo "<p>Month: " . htmlspecialchars($row['order_month']) . " - Monthly Sales: BAM" . $row['monthly_sales'] . "</p>";
             }
             ?>
         </div>
@@ -262,7 +262,7 @@ switch ($filter) {
                       ORDER BY total_sales DESC";
             $result = fetchStats($dbc, $query);
             while ($row = mysqli_fetch_assoc($result)) {
-                echo "<p>Payment Method: " . htmlspecialchars($row['paymentMethod']) . " - Total Sales: $" . $row['total_sales'] . "</p>";
+                echo "<p>Payment Method: " . htmlspecialchars($row['paymentMethod']) . " - Total Sales: BAM" . $row['total_sales'] . "</p>";
             }
             ?>
         </div>
@@ -374,7 +374,7 @@ switch ($filter) {
                     if (mysqli_num_rows($priceResult) > 0) {
                         echo "<p>Distinct prices for item: " . htmlspecialchars($itemName) . ":</p>";
                         while ($row = mysqli_fetch_assoc($priceResult)) {
-                            echo "<p>Price: $" . htmlspecialchars($row['price']) . "</p>";
+                            echo "<p>Price: BAM" . htmlspecialchars($row['price']) . "</p>";
                         }
                     } else {
                         echo "<p>No distinct prices found for item: " . htmlspecialchars($itemName) . ".</p>";
