@@ -69,7 +69,7 @@ if ($stmt) {
         <form id="profile-form" class="profile-form" action="update_profile.php" method="post" style="display:none;">
             <div class="form-field">
                 <label for="dob">Date of Birth</label>
-                <input type="date" id="dob" name="dob" value="<?php echo (new DateTime($dob))->format('Y-m-d'); ?>" required>
+                <input type="date" id="dob" name="dob" value="<?php echo (new DateTime($dob))->format('d-m-Y'); ?>" required>
             </div>
             <button type="submit" class="edit-btn">Save Changes</button>
             <button type="button" id="cancelEditBtn" class="edit-btn">Cancel</button>
