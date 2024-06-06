@@ -66,7 +66,7 @@ body {
 .buttons {
     position: fixed;
     top: 50%;
-    left: 75%;
+    left: 65%;
     transform: translate(-50%, -50%);
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, auto)); /* Adjust the minimum and maximum width */
@@ -78,11 +78,13 @@ body {
 .buttons button {
     background-color: #734A65;
     color: white;
-    padding: 8px 16px; /* Reduced padding to make buttons tighter */
-    border: none;
-    border-radius: 5px;
+    border: none;;
     cursor: pointer;
-    width: 200px; /* Fixed width for the buttons */
+    padding: 10px;
+    font-size: 18px;;
+    border-radius: 4px;
+    margin-top: 10px;
+    width: 300px; /* Fixed width for the buttons */
 }
 
 .buttons button:hover {
@@ -283,11 +285,11 @@ input[type="date"] {
         transform: none;
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 5px; /* Reduced gap to make buttons tighter */
-        width: 90%; /* Make buttons container fit the screen width */
-        justify-items: center; /* Center the buttons within their grid cells */
+        gap: 5px;
+        width: 90%;
+        justify-items: center;
         text-align: center;
-        margin: 10px auto; /* Add margin for spacing */
+        margin-bottom: 20%;
     }
 
     .buttons button {
@@ -312,7 +314,7 @@ input[type="date"] {
         justify-content: center;
         gap: 10px;
         margin-top: 20px;
-        margin-bottom: 20px; /* Added to ensure space above home menu buttons */
+        margin-bottom: 20px;
     }
 
     .action-btn {
