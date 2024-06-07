@@ -281,7 +281,7 @@ input[type="date"] {
         position: relative;
         top: auto;
         bottom: 10px;
-        left: auto;
+        left: 50%;
         transform: translate(-50%);
         width: 100%;
         justify-items: center;
