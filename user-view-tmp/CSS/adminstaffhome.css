@@ -53,6 +53,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 50vh;
+    overflow: scroll;
 }
 
 .sidebar-content p {

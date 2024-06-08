@@ -112,45 +112,6 @@ $displayEndDate = $_GET['endDate'] ?? convertToDmy(date('Y-m-d'));
         </div>
     </div>
     <div class="stats-section">
-        <button onclick="toggleVisibility('mostBoughtItem')">Most Bought Item</button>
-        <div id="mostBoughtItem" style="display: none;">
-            <?php
-            $query = "SELECT i.name, COUNT(oi.itemID) AS item_count
-                      FROM ORDER_ITEM oi
-                      JOIN ITEM i ON oi.itemID = i.itemID
-                      JOIN ORDERS o ON oi.orderID = o.orderID
-                      WHERE $dateCondition
-                      GROUP BY oi.itemID, i.name
-                      ORDER BY item_count DESC
-                      LIMIT 1";
-            $result = fetchStats($dbc, $query);
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo "<p>Item: " . htmlspecialchars($row['name']) . " - Bought: " . $row['item_count'] . " times</p>";
-            }
-            ?>
-        </div>
-    </div>
-
-    <div class="stats-section">
-        <button onclick="toggleVisibility('topCustomerByOrders')">Top Customer by Orders</button>
-        <div id="topCustomerByOrders" style="display: none;">
-            <?php
-            $query = "SELECT u.name, COUNT(o.orderID) AS order_count
-                      FROM ORDERS o
-                      JOIN CUSTOMER u ON o.customer = u.customerID
-                      WHERE $dateCondition
-                      GROUP BY o.customer, u.name
-                      ORDER BY order_count DESC
-                      LIMIT 1";
-            $result = fetchStats($dbc, $query);
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo "<p>Customer: " . htmlspecialchars($row['name']) . " - Orders: " . $row['order_count'] . "</p>";
-            }
-            ?>
-        </div>
-    </div>
-
-    <div class="stats-section">
         <button onclick="toggleVisibility('totalSalesPerCategory')">Total Sales Per Category</button>
         <div id="totalSalesPerCategory" style="display: none;">
             <?php
