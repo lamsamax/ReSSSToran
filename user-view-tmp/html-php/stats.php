@@ -2,10 +2,17 @@
 global $dbc;
 include '../../authorization.php';
 
-function fetchStats($dbc, $query) {
+function fetchStats($dbc, $query, $returnArray = false) {
     $result = mysqli_query($dbc, $query);
     if (!$result) {
         die('Query failed: ' . mysqli_error($dbc));
+    }
+    if ($returnArray) {
+        $data = [];
+        while ($row = mysqli_fetch_assoc($result)) {
+            $data[] = $row;
+        }
+        return $data;
     }
     return $result;
 }
@@ -27,8 +34,19 @@ $endDate = isset($_GET['endDate']) ? convertToYmd($_GET['endDate']) : date('Y-m-
 
 $dateCondition = "DATE(o.orderDate) BETWEEN '$startDate' AND '$endDate'";
 
-$query = "SELECT * FROM ORDERS o WHERE $dateCondition";
-$result = fetchStats($dbc, $query);
+// Query to get daily sales data
+$query = "SELECT DATE(o.orderDate) AS order_date, SUM(oi.quantity * i.price) AS daily_sales
+          FROM ORDERS o
+          JOIN ORDER_ITEM oi ON o.orderID = oi.orderID
+          JOIN ITEM i ON oi.itemID = i.itemID
+          WHERE $dateCondition
+          GROUP BY DATE(o.orderDate)
+          ORDER BY order_date";
+$data = fetchStats($dbc, $query, true);
+
+// Log data for debugging
+echo '<script>console.log(' . json_encode($data) . ');</script>';
+echo '<script>console.log("Query:", ' . json_encode($query) . ');</script>';
 
 $displayStartDate = $_GET['startDate'] ?? convertToDmy(date('Y-m-d', strtotime('-7 days')));
 $displayEndDate = $_GET['endDate'] ?? convertToDmy(date('Y-m-d'));
@@ -42,6 +60,8 @@ $displayEndDate = $_GET['endDate'] ?? convertToDmy(date('Y-m-d'));
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Statistics Dashboard</title>
     <link rel="stylesheet" href="../CSS/stats.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
     <script>
         function updateFilter() {
             var startDate = document.getElementById('startDate').value;
@@ -71,6 +91,13 @@ $displayEndDate = $_GET['endDate'] ?? convertToDmy(date('Y-m-d'));
         <input type="text" id="endDate" name="endDate" value="<?php echo $displayEndDate; ?>" required pattern="\d{2}/\d{2}/\d{4}" placeholder="dd/mm/yyyy">
 
         <button onclick="updateFilter()">Apply</button>
+    </div>
+
+    <div class="stats-section">
+        <button onclick="toggleVisibility('dailySales')">Daily Sales</button>
+        <div id="dailySales" style="display: none;">
+            <canvas id="dailySalesChart" width="300px" height="300px"></canvas>
+        </div>
     </div>
 
     <div class="stats-section">
@@ -126,25 +153,6 @@ $displayEndDate = $_GET['endDate'] ?? convertToDmy(date('Y-m-d'));
             $result = fetchStats($dbc, $query);
             while ($row = mysqli_fetch_assoc($result)) {
                 echo "<p>Category: " . htmlspecialchars($row['categoryName']) . " - Total Sales: BAM " . $row['total_sales'] . "</p>";
-            }
-            ?>
-        </div>
-    </div>
-
-    <div class="stats-section">
-        <button onclick="toggleVisibility('dailySales')">Daily Sales</button>
-        <div id="dailySales" style="display: none;">
-            <?php
-            $query = "SELECT DATE(o.orderDate) AS order_date, SUM(oi.quantity * i.price) AS daily_sales
-                      FROM ORDERS o
-                      JOIN ORDER_ITEM oi ON o.orderID = oi.orderID
-                      JOIN ITEM i ON oi.itemID = i.itemID
-                      WHERE $dateCondition
-                      GROUP BY DATE(o.orderDate)
-                      ORDER BY order_date";
-            $result = fetchStats($dbc, $query);
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo "<p>Date: " . htmlspecialchars($row['order_date']) . " - Daily Sales: BAM " . $row['daily_sales'] . "</p>";
             }
             ?>
         </div>
@@ -411,6 +419,52 @@ $displayEndDate = $_GET['endDate'] ?? convertToDmy(date('Y-m-d'));
     </div>
 
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const ctx = document.getElementById('dailySalesChart').getContext('2d');
+        const data = <?php echo json_encode($data); ?>;
+
+        console.log('Chart data:', data);  // Log the data to the console
+        if (!Array.isArray(data) || data.length === 0) {
+            console.error('Data is not an array or is empty');
+            return;
+        }
+
+        const labels = data.map(item => item.order_date);
+        const sales = data.map(item => item.daily_sales);
+
+        console.log('Labels:', labels);  // Log labels for debugging
+        console.log('Sales:', sales);    // Log sales for debugging
+
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Daily Sales',
+                    data: sales,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        type: 'time',
+                        time: {
+                            unit: 'day'
+                        }
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    });
+</script>
 </body>
 </html>
 <?php
