@@ -69,11 +69,11 @@ function calculateTotal() {
         <h2>YOUR ORDER</h2>
         <?php
         foreach ($_SESSION['order'] as $index => $item) {
-            echo "<p>" . $item['name'] . " - " . $item['price'] . "KM (Quantity: " . $item['quantity'] . ")";
+            echo "<p>" . $item['name'] . " - " . $item['price'] . "BAM (Quantity: " . $item['quantity'] . ")";
             echo "</p>";
         }
         ?>
-        <p class="total"><strong>TOTAL - <?php echo calculateTotal(); ?>KM</strong></p>
+        <p class="total"><strong>TOTAL - <?php echo calculateTotal(); ?>BAM</strong></p>
         <form method="POST" action="processorder.php">
             <div>
                 <label for="delivery-option">Choose delivery or takeout:</label>
